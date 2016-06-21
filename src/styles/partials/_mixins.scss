@@ -1,0 +1,24 @@
+@mixin text-content(){
+    @include make-lg-column(8);
+    @include make-lg-column-offset(2);
+    .container {
+    	margin:$grid-gutter-width $grid-gutter-width/2*-1;
+		@media(min-width:$screen-lg){
+			margin-left: -25%;
+			margin-right: 0;
+			padding:0;
+		}
+	}
+}
+
+@mixin cover-background(){
+	background: no-repeat center center; 
+	background-size: cover;
+}
+
+@mixin centered-heading(){
+	text-transform: uppercase;
+	background: $site-secondary;
+	text-align: center;
+	padding: $grid-gutter-width/2;
+}

@@ -1,0 +1,10 @@
+.DS_Store
+dest
+node_modules
+bower_components
+.cache-require-paths.json
+.env
+.cache
+.icon_cache
+src/metalsmith/styles/*
+src/metalsmith/scripts/*

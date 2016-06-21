@@ -1,0 +1,15 @@
+header#header
+	.container-fluid
+		if breadcrumb_path.length>0
+			.row
+				.col-xs-12
+					ol.breadcrumb
+						each breadcrumb in breadcrumb_path
+							if path!==breadcrumb.path
+								li
+									a(href=breadcrumb.path)!= breadcrumb.file.title
+							else
+								li!= breadcrumb.file.title
+		.row
+			.col-xs-12
+				h2#page-title!= title

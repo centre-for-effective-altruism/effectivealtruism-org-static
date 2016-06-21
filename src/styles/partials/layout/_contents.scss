@@ -1,0 +1,10 @@
+#contents {
+	padding-top: $navbar-height + $grid-gutter-width;
+	@media(min-width:$screen-md){
+		padding-top: 105px + $grid-gutter-width;
+	}
+	@media(min-width:$screen-lg){
+		padding-top: 128px + $grid-gutter-width;
+	}
+	background:#FFF;
+}

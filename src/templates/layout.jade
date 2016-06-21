@@ -1,0 +1,61 @@
+doctype html
+html.no-js
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        title!= title
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        -var canonicalURL = site.url + path;
+        link(rel='canonical', href=canonicalURL)
+        -var description = description || excerpt || site.description;
+        meta(name='description', content=description)
+        link(rel='stylesheet', type='text/css', href='/styles/app.min.css')
+        link(href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css", rel="stylesheet", integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1", crossorigin="anonymous")
+        include ./partials/favicons
+        //- |   {% include './partials/og-images.swig' %}
+        //- |   {% include './partials/json-schema.swig' %}
+        script.
+            // fast pre-rendering check for javascript capability without requiring Modernizr in the head
+            document.documentElement.className = document.documentElement.className.replace('no-js','js');
+            // hide text while webfonts load, but unhide after three seconds if they haven't loaded yet
+            document.documentElement.className += " wf-loading";
+            window.wfl = setTimeout(function(){document.documentElement.className += ' wf-inactive';},3000)
+            // defer execution of jquery-dependent scripts defined before jQuery loads
+            window.q=[];window.$=function(f){q.push(f)}
+            // enqueue scripts at the end of the page from before the closing body tag
+            window.d=[];window.loadScript=function(path){d.push(path)}
+        block head
+
+        - var collectionSlug = collections[collection] && collections[collection].metadata && collections[collection].metadata.singular ? collections[collection]['metadata']['singular'] : "";
+    body(class=[slug==="/" ? 'home' : slug,collectionSlug])
+        include ./partials/navbar
+        .container
+            section#contents
+                .row
+                    //if lt IE 10
+                      .col-xs-12
+                        .alert.alert-warning
+                          p.browsehappy
+                            i.fa.fa-warning
+                            |  You are using an 
+                            strong outdated
+                            |  browser. Some elements of this website may display incorrectly or not work as intended.
+                          p
+                            | Please 
+                            a(href='http://browsehappy.com/') upgrade your browser
+                            |  to improve your experience.
+                .row.noscript
+                    .col-xs-12
+                        .alert.alert-warning
+                            p
+                                i.fa.fa-warning
+                                |  You do not have Javascript enabled. Some elements of this website may not work correctly.
+                .row
+                    .col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2
+                        block header
+                            include ./partials/header
+                        block content
+    footer.footer
+        block footer
+            include ./partials/footer
+    include ./partials/scripts 

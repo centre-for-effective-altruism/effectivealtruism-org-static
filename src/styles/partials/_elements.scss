@@ -1,0 +1,63 @@
+html,body {
+    height:100%;
+}
+body {
+	background-color: $site-darker;
+}
+h1,h2,h3,h4,h5,h6 {
+	color: $site-primary;
+}
+// don't line-wrap code blocks
+pre {
+    overflow-x: auto;
+}
+pre code {
+    word-wrap: normal;
+    white-space: pre;
+}
+// don't use a spinner for number inputs 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+figure {
+	margin: $grid-gutter-width/2 0;
+	@media(max-width:$screen-xs-max){
+		overflow-x: scroll;
+	}
+	.img-responsive {
+		margin-left: auto;
+	}
+	figcaption {
+		text-align: right;
+		font-weight: 200;
+		font-style: italic;
+		border-bottom: 2px dashed $site-secondary-darker;
+		padding: 5px 0;
+	}
+}
+table {
+	thead {
+		tr {
+			th {
+				background-color: $site-primary;
+				color: #FFF;
+			}
+		}
+	}
+	tbody {
+		tr {
+			th {
+				background-color: $site-secondary;
+			}
+		}
+	}
+	.border-right {
+		border-right: 1px solid #DDD;
+	}
+	&.table-striped>tbody>tr:nth-of-type(odd)>th{
+		background-color: darken($site-secondary,2%);
+	}
+}

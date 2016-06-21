@@ -1,0 +1,87 @@
+script(src='/scripts/LAB.min.js')
+script.
+    window.$LAB = window.$LAB || undefined;
+    (function($LAB){
+        if(!$LAB) return;
+        // labjs script loader
+        $LAB
+        .queueScript("https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js")
+        .queueScript("https://cdn.optimizely.com/js/3479250027.js")
+        .queueWait(function(){
+            // kill optimizely if it hasn't loaded within a few seconds
+            function optimizelyTimeout() {
+                window.optimizely = window.optimizely|| [];
+                if (!window.optimizely.data) {
+                    window.optimizely.push("timeout");
+                }
+            }
+            setTimeout(optimizelyTimeout, 2000);
+        })
+        .queueScript("https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js")
+        .queueWait(function(){
+            function webfontStatus(status){
+                (function($){
+                    if (status){
+                        $(function(){
+                            $(document).trigger('WebFont',status)
+                        })
+                    }
+                })(jQuery)
+            }
+            WebFont.load({
+                google: {
+                    families: [
+                        'Raleway:400,400italic,700,700italic:latin',
+                        'Merriweather:400,400italic,700,700italic:latin',
+                    ]
+                },
+                loading: function(){
+                    clearTimeout(window.wfl);
+                    webfontStatus('loading');
+                },
+                active: function() {
+                    webfontStatus('active');
+                },
+                inactive: function() {
+                    webfontStatus('inactive');
+                }
+            });
+        })
+        .queueScript('/scripts/app.min.js')
+        .queueScript('https://cdn.segment.com/analytics.js/v1/VtTlzxOC5QJ1H0zermvo84cAbReTofDU/analytics.min.js')
+        .queueWait(function(){
+            // Segment actions
+            // Segment actions reliant on jQuery
+            (function($){
+                $("#mailchimp-signup-form").on('newsletter_signup',function(event,data){
+                    analytics.identify({
+                        email: data.email,
+                        firstName: data.firstName,
+                        lastName: data.lastName
+                    });
+                    if(data.status==="success"){
+                        analytics.track("Signed up to Newsletter");
+                    }
+                });
+                $('.mailchimp-signup-modal').on('newsletter_modal_shown',function(event,data){
+                    analytics.track("Saw Newsletter popup")
+                })
+            })(jQuery);
+        })
+        // enqueue anything that's been requested with loadScript() elsewhere in the body
+        var s;
+        for (var i = 0; i < d.length; i++) {
+            if(typeof d[i] === 'function'){
+                $LAB.queueWait(d[i])
+            } else {
+                s = d[i].substr(d[i].length-4) === '.js' || d[i].substr(0,4) === "http" ? d[i] : '/scripts/includes/'+d[i]+'.min.js';
+                $LAB.queueScript(s)
+            }
+        };
+        $LAB.queueWait(function(){
+            (function($){
+                $(document).trigger('jsready');
+            })(jQuery);
+        })
+        $LAB.runQueue();
+    })(window.$LAB);
