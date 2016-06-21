@@ -1,4 +1,4 @@
-# Giving What We Can static
+# EffectiveAltruism.org
 
 A simple statically-generated site, implemented in [Metalsmith](http://www.metalsmith.io/).
 
