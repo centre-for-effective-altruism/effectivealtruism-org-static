@@ -1,0 +1,27 @@
+head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    title!= title
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    -var canonicalURL = site.url + canonical;
+    link(rel='canonical', href=canonicalURL)
+    -var description = description || excerpt || site.description;
+    meta(name='description', content=description)
+    link(rel='stylesheet', type='text/css', href='/styles/app.min.css')
+    link(href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css", rel="stylesheet", integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1", crossorigin="anonymous")
+    include ./favicons
+    //- |   {% include './layout/og-images.swig' %}
+    //- |   {% include './layout/json-schema.swig' %}
+    script.
+        // fast pre-rendering check for javascript capability without requiring Modernizr in the head
+        document.documentElement.className = document.documentElement.className.replace('no-js','js');
+        // hide text while webfonts load, but unhide after three seconds if they haven't loaded yet
+        document.documentElement.className += " wf-loading";
+        window.wfl = setTimeout(function(){document.documentElement.className += ' wf-inactive';},3000)
+        // defer execution of jquery-dependent scripts defined before jQuery loads
+        window.q=[];window.$=function(f){q.push(f)}
+        // enqueue scripts at the end of the page from before the closing body tag
+        window.d=[];window.loadScript=function(path){d.push(path)}
+    block head
+
+    - var collectionSlug = collections[collection] && collections[collection].metadata && collections[collection].metadata.singular ? collections[collection]['metadata']['singular'] : "";

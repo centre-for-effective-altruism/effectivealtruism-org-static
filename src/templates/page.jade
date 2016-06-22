@@ -1,7 +1,11 @@
 extends ./layout
 
+block header
+	.row
+		.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2
+			include ./layout/header
 block content
-	.container-fluid
-		.row
-			.col-xs-12
-				!= contents
+	.row
+		.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2
+			!= contents
+			block postContents

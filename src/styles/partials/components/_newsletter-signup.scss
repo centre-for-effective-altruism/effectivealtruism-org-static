@@ -1,6 +1,25 @@
+.newsletter-signup-small {
+	@include clearfix();
+}
+
+.newsletter-signup-small-call-to-action {
+	margin:0;
+}
+
+
 #navbar-main {
+	.newsletter-signup-small {
+		// background-color: #EEE;
+	}
+	.newsletter-signup-small-call-to-action {
+		color: #AAA;
+	}
 	.newsletter-signup-small-form {
-		margin-bottom: $grid-gutter-width/2;
+		font-family: $font-family-sans-serif;
+		margin: 7px 0;
+		.form-control {
+			border: 1px solid $site-dark;
+		}
 		@media(min-width: $screen-md){
 			.form-control {
 				height: 36px;
@@ -26,9 +45,12 @@
     }
 	.newsletter-signup-small-form-wrapper {
     	@include make-md-column(9);
+    	margin-bottom: 5px;
     }
 
 }
+
+
 #footer {
 	.newsletter-signup-small, .newsletter-signup-small-form .btn {
 		text-transform: uppercase;

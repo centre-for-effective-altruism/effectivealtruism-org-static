@@ -1,0 +1,11 @@
+header#header
+	if breadcrumb_path.length>1
+		ol.breadcrumb
+			each breadcrumb in breadcrumb_path
+				if path!==breadcrumb.path
+					li
+						a(href=breadcrumb.path)!= breadcrumb.file.title
+				else
+					li!= breadcrumb.file.title
+
+	h2.page-title#page-title!= title

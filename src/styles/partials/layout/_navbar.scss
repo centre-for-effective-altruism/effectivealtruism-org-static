@@ -54,7 +54,10 @@
 			color: #333;
 			padding: 8px;
 			@media(min-width:$screen-md){	
-				padding:0;
+				padding:10px 0;
+			}
+			&:focus, &:hover{
+				color: $site-primary;
 			}
 		}
 	}
@@ -86,7 +89,7 @@
 $navbar-font-size-md: 11px;
 $navbar-font-size-lg: 14px;
 .navbar-header-brand-description {
-
+	font-weight: 700;
 	@media(max-width: $screen-sm-max ){
 		display: none;
 	}
@@ -94,7 +97,7 @@ $navbar-font-size-lg: 14px;
 
 .navbar-header-brand-description,#navbar-main .newsletter-signup-small-call-to-action {
 	font-size: $navbar-font-size-md;
-	margin:0 0 10px;
+	margin:0;
 	@media(min-width: $screen-md){
 		font-size: $navbar-font-size-md;
 	}

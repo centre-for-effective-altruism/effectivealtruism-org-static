@@ -1,1 +1,60 @@
 extends ./page
+
+block header
+
+block content
+	.home-content
+		.row
+			.col-md-3
+				aside.home-aside
+					p What is EA?
+					p
+						a(href='articles/introduction-to-effective-altruism') Read More
+			.col-md-9
+				section.home-section
+					h1#page-title.page-title-home What kind of impact do you want to have on the world?
+					!= contents
+					a(href="articles/introduction-to-effective-altruism") Continue reading
+		.row
+			.col-md-3
+				aside.home-aside
+					p Featured EAs
+					p
+						a Read More
+			.col-md-9
+				section.home-section
+					.row
+						.col-md-3
+							a(href="#") 
+								img.img-responsive(src="http://placehold.it/350x350")
+								| Peter Singer
+						.col-md-3
+							a(href="#") 
+								img.img-responsive(src="http://placehold.it/350x350")
+								| Eva Vivalt
+						.col-md-3
+							a(href="#") 
+								img.img-responsive(src="http://placehold.it/350x350")
+								| Jann Tallinn
+						.col-md-3
+							a(href="#") 
+								img.img-responsive(src="http://placehold.it/350x350")
+								| Nick Bostrom
+		.row
+			.col-md-3
+				aside.home-aside
+					p Featured Ideas
+					p
+						a Read More
+			.col-md-9
+				section.home-section
+					ul.list-inline
+						li
+							a(href="#") Counterfactual reasoning
+							p Author Name
+						li
+							a(href="#") Thinking on the Margin
+							p Author Name
+						li
+							a(href="#") Epistemic Humility
+							p Author Name

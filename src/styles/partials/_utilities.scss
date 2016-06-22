@@ -63,6 +63,8 @@ p,h1,h2,h3,h4,h5,.navbar a,li {
 }
 
 .build-info {
-	margin-top: $grid-gutter-width;
+	text-align: center;
+	background: #333;
+	font-size: 14px;
 	color: #999;
 }

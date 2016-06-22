@@ -1,0 +1,9 @@
+extends ./page
+	
+block postContents
+	ul
+		each child in breadcrumb_path[0].children
+			li
+				h3
+					a(href=child.file.canonical)!= child.file.title
+				p!= child.file.excerpt

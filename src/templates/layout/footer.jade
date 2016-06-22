@@ -1,12 +1,17 @@
 footer#footer.container
 		.row
-			.col-sm-6.footer-left
+			.col-md-6.footer-right
+				.row
+					.col-md-8.col-md-offset-2
+						include ../components/newsletter-signup-small
+						include ../components/social-icons
+			.col-md-6.footer-left
 				.row
 					.col-xs-12
 						.footer-menu
 							.row
-								.col-md-4
-									ul.nav.footer-nav
+								.col-sm-4
+									ul.nav.footer-nav.footer-nav-main
 										li
 											a(href="#") About
 										li
@@ -15,24 +20,22 @@ footer#footer.container
 											a(href="#") Network
 										li
 											a(href="#") Get Involved
-								.col-md-4
+								.col-sm-4
 									ul.nav.footer-nav
-										li
-											a(href="#") What is Effective Altruism?
+										li.nav-title What is EA?
 										li
 											a(href="#") Key Concepts
 										li
-											a(href="#") Featured Effective Altruists
+											a(href="#") Featured EAs
 										li
 											a(href="#") In the News
-								.col-md-4
+								.col-sm-4
 									ul.nav.footer-nav
+										li.nav-title Related Sites
 										li
-											a(href="#") Related Sites
+											a(href="#") EA Forum
 										li
-											a(href="#") Effective Altruism Forum
-										li
-											a(href="#") Effective Altruism Global
+											a(href="#") EA Global
 										li
 											a(href="#") The Centre for Effective Altruism
 				.row
@@ -41,16 +44,3 @@ footer#footer.container
 							hr
 							p EffectiveAltruism.org is a project of The Centre for Effective Altruism, a registered charity in England and Wales (Charity Number 1149828).
 							p All content © Centre For Effective Altruism or its authors #{moment().utc().format('YYYY')}, unless otherwise noted.
-
-			.col-sm-6.footer-right
-				.row
-					.col-xs-12
-						include ./newsletter-signup-small
-				if environment !=='production'
-					.row
-						.col-xs-12
-							.build-info
-								p Build environment: 
-									em #{environment}
-								p Built at: 
-									em #{moment().utc().format('YYYY-M-D HH:mm')} (UTC)
