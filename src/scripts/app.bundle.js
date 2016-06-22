@@ -35,8 +35,8 @@ require('lazysizesBGSet')
 require('bootstrapDropdown')
 require('bootstrapCollapse')
 require('bootstrapTransition')
-require('bootstrapModal')
-require('bootstrapTooltip')
+// require('bootstrapModal')
+// require('bootstrapTooltip')
 // third party bootstrap plugins
 // inject breakpoints into the global scope so we can use them elsewhere
 global.breakpoints = {
@@ -46,18 +46,18 @@ global.breakpoints = {
     lg:1200
 }
 
-// GreenSock Animation Plugin
-require('gsap-tweenlite');
-require('gsap-timelinelite');
-require('GSAPEasing');
-require('GSAPCSSPlugin');
-require('GSAPAttrPlugin');
-require('GSAPScrollToPlugin');
+// // GreenSock Animation Plugin
+// require('gsap-tweenlite');
+// require('gsap-timelinelite');
+// require('GSAPEasing');
+// require('GSAPCSSPlugin');
+// require('GSAPAttrPlugin');
+// require('GSAPScrollToPlugin');
 
-// ScrollMagic
-global.ScrollMagic = require('scrollmagic')
-require('scrollmagicJQuery')
-require('scrollmagicAnimationGSAP')
+// // ScrollMagic
+// global.ScrollMagic = require('scrollmagic')
+// require('scrollmagicJQuery')
+// require('scrollmagicAnimationGSAP')
 
 // jQuery Plugins
 require('jqueryThrottleDebounce');
