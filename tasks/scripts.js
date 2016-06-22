@@ -11,7 +11,7 @@ fs.existsAsync = Promise.promisify (function exists(path, cb) {
 
 var path = require('path')
 var rm = require('rimraf');
-// var cp = require('ncp').ncp);
+var cp = require('ncp');
 var recursiveReaddir = require('recursive-readdir');
 
 var Browserify = require('browserify')
@@ -104,16 +104,18 @@ new Promise(function(resolve,reject){
 		console.log(chalk.green.bold('✓ All files written!'))
 	})
 })
-.then(function(){
+.then(function(cleaned){
 	return fs.existsAsync(builtPath)
-	.then(function(exists){
-		if(exists){
-			console.log(chalk.dim('Copying scripts to build directory...'))
-			return cp(destPath,builtPath).
-			then(function(){
-				console.log(chalk.green('✓ Scripts copied to build directory'))
-			});
-		}
+	.then(function(){
+		return new Promise(function(resolve,reject){
+			cp(destPath,builtPath,function(err){
+				if(err) reject(err);
+				resolve();
+			})
+		})
+	})
+	.then(function(){
+		console.log(chalk.green.bold('✓ Files copied to build directory!'));
 	})
 })
 .catch(function(err){

@@ -9,12 +9,6 @@ var NODE_ENV = process.env.NODE_ENV || 'development';
 var CONTENTFUL_ACCESS_TOKEN = process.env.CONTENTFUL_ACCESS_TOKEN
 var CONTENTFUL_SPACE = process.env.CONTENTFUL_SPACE
 
-if(NODE_ENV==='development'){
-    // time requires
-    // require("time-require");
-    // cache require paths for faster builds
-    // require('cache-require-paths');
-}
 
 // Start the build!
 var chalk = require('chalk');
@@ -50,13 +44,11 @@ var concat = require('metalsmith-concat');
 var feed = require('metalsmith-feed');
 var headingsIdentifier = require('metalsmith-headings-identifier');
 var headings = require('metalsmith-headings');
-var sanitiseSwigTags = require('../lib/sanitiseSwigTags').sanitise
 // only require in production
 if(process.env.NODE_ENV==='production'){
     var htmlMinifier = require("metalsmith-html-minifier");
-    var autoprefixer = require("metalsmith-autoprefixer");
-    var cleanCSS = require("metalsmith-clean-css");
-    // var uncss = require('metalsmith-uncss');
+    var uncss = require('metalsmith-uncss');
+    var cleanCSS = require('metalsmith-clean-css');
     var sitemap = require("metalsmith-sitemap");
     // var subset = require('metalsmith-subsetfonts')
 }
@@ -69,8 +61,13 @@ var each = require('async').each;
 var merge = require('merge');
 var NotificationCenter = require('node-notifier').NotificationCenter;
 var notifier = new NotificationCenter;
+// utility global var to hold 'site' info from our settings file, for reuse in other plugins
+var site = JSON.parse(fs.readFileSync(path.join(__dirname,'../src/metalsmith/settings/site.json' )).toString());
+site.url = site.protocol + site.domain;
 message('Loaded utilities...');
 message('All dependencies loaded!',chalk.cyan);
+
+
 
 // call the master build function
 build(1);
@@ -359,6 +356,7 @@ function build(buildCount){
         // add paths to HTML files
         Object.keys(files).filter(minimatch.filter('**/index.html')).forEach(function(file){
             files[file].path = file!=='index.html' ? file.replace('/index.html','') : '/';
+            files[file].canonical = files[file].path + (file!=='index.html' ? '/' : '');
         })
         done();
     })
@@ -471,7 +469,8 @@ function build(buildCount){
         directory: '../src/templates',
         moment: moment,
         collectionSlugs: collectionSlugs,
-        collectionInfo: collectionInfo
+        collectionInfo: collectionInfo,
+        environment: process.env.NODE_ENV
     }))
     .use(logMessage('Built HTML files from templates'))
     // .use(icons({
@@ -520,15 +519,15 @@ function build(buildCount){
     if(process.env.NODE_ENV==='production'){
         colophonemes
         .use(logMessage('Minifying HTML',chalk.dim))
-        .use(htmlMinifier({
+        .use(htmlMinifier('**/*.html',{
             minifyJS: true
         }))
         .use(logMessage('Minified HTML'))
         .use(logMessage('Cleaning CSS files',chalk.dim))
         .use(uncss({
             basepath: 'styles',
-            css: ['app.css','icons.css'],
-            output: 'app.min.css',
+            css: ['app.min.css'],
+            output: 'app.min.uncss.css',
             removeOriginal: true,
             uncss: {
                 ignore: [
@@ -539,29 +538,34 @@ function build(buildCount){
                     /.fade/,
                     /.in/,
                     /.open/,
-                    /ct-/,
-                    /slider/,
-                    '.loader',
                     '.transparent',
-                    '.content-block-wrapper .scroll-down-chevron',
-                    /slabtext/,
                     /lazyload/,
                     /tooltip/,
                     /alert/,
-                    /sb-/,
                     /highlighted/,
-                    /report-contents/,
                 ],
                 media: ['(min-width: 480px)','(min-width: 768px)','(min-width: 992px)','(min-width: 1200px)']
             }
         }))
-        .use(autoprefixer())
-        .use(cleanCSS)
+        .use(function(files,metalsmith,done){
+            files['styles/app.min.css'] = files['styles/app.min.uncss.css'];
+            delete files['styles/app.min.uncss.css'];
+            done();
+        })
+        .use(cleanCSS())
+        .use(function(files,metalsmith,done){
+            // delete sourcemaps from production builds
+            // delete settings folder
+            Object.keys(files).filter(minimatch.filter('{**/*.map,settings/**,fonts/glyphs.json}')).forEach(function(file){
+                delete files[file];
+            });
+
+            done();
+        })
         .use(sitemap({
-            hostname: 'https://www.givingwhatwecan.org',
+            hostname: site.url,
             omitIndex: true,
             modified: 'data.sys.updatedAt',
-            urlProperty: 'path'
         }))
         .use(logMessage('Built sitemap'))
         ;
@@ -664,5 +668,4 @@ function formatBuildTimeDiff(){
     buildTimeDiff = process.hrtime();
     return formatBuildTime(t);
 }
-
 
