@@ -2,7 +2,9 @@ html,body {
     height:100%;
 }
 body {
-	background-color: $site-darker;
+	@media(min-width:$screen-md){
+		background-color: $site-darker;
+	}
 }
 h1,h2,h3,h4,h5,h6 {
 	color: $site-primary;

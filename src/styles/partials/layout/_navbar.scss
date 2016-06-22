@@ -11,123 +11,113 @@
 // 		}
 // 	}
 // }
+#navbar-main>.container{
+	@media(max-width:$screen-sm-max){
+		width:100%;
+	}
+}
 .navbar {
 	transition: opacity .25s ease-in-out;
 	transition: background-color .25s ease-in-out;
 	background-color: transparent;
-	box-shadow: 0px 0px 15px $site-darker;
-	font-weight: 200;
 }
 .navbar-inner {
+	box-shadow: 0 9px 15px -8px $site-darker;
 	background-color: #FFF;
-	// right:auto;
-	// left:auto;
 	margin: auto;
-}
-// .navbar-header {
-// 	.navbar-brand {
-// 		padding-top:10px;
-// 		background-color: $site-primary;
-// 		@media(max-width:$screen-xs-max){
-// 			// padding-top:5px;
-// 		}
-// 	 	&:hover, &:focus {
-// 	 		background-color: transparent;
-// 	 	}
-// 	}
-// 	button {
-// 		color: #FFF;
-// 	}
-// 	.link-collapsed {
-// 		color: #333;
-// 		margin-top: 0;
-// 		margin-bottom: 0;
-// 		font-size: 30px;
-// 		position: relative;
-// 		float: right;
-// 		margin-right: 15px;
-// 		padding: 9px 10px;
-// 		background-color: $site-secondary;
-// 		@media(min-width: $screen-md ){
-// 			display: none;
-// 		}
-// 	}
-
-// }
-
-
-.navbar-header-brand-logo {
-	margin: 10px auto;
-	@media(max-width: $screen-sm-max ){
-		max-height: $navbar-height - 2;
+	@media(min-width:$screen-md){
+		margin: 0 15px
 	}
+	@include clearfix();
 }
-.navbar-header-brand-logo-text {
-		margin: 22px auto 5px 0;
-		width: 90%;
-}
-.navbar-header-brand-description {
-	margin:0 0 10px;
-	@media(max-width: $screen-sm-max ){
-		display: none;
-	}
-	@media(min-width: $screen-md){
-		font-size: 11px;
-	}
-	@media(min-width: $screen-lg){
-		font-size: 14px;
-	}
-}
+.navbar-main-menu{
+	ul.navbar-nav {
 
-// .navbar-toggle {
-// 	margin-top:0;
-// 	margin-bottom:0;
-// 	font-size: 30px;
-// 	padding: 5px 10px;
-// }
-// .navbar-primary {
-// 	border: none;
-// 	.navbar-nav {
-// 		> li > a {
-// 			color: #FFF;
-// 			&:hover, &:focus {
-// 				background-color: $site-dark;
-// 				color: #FFF;
-// 			}
-// 		}
-// 		> .active > a, > .open > a {
-// 			background-color: $site-dark;
-// 			color: #FFF;
-// 			&:hover, &:focus {
-// 				background-color: $site-dark;
-// 				color: #FFF;
-// 			}
-// 		}
-// 		> .nav.donate,.nav.my-giving,.nav.fundraising {
-// 			font-weight: 700;
-// 			background-color: $site-secondary;
-// 			a {
-// 				color: #333;
-// 				&:hover, &:focus {
-// 					color: #FFF;
-// 				}
-// 			}
-// 		}
-// 	}
-// }
-
-.dropdown-menu{
-	&>li>a {
-
-		&:hover, &:focus {
-			background-color: $site-primary;
-			color: #FFF;
-		}
 		@media(max-width:$screen-sm-max){
-			color: #FFF;
-			&:hover, &:focus {
-				background-color: $site-lolight;
+			text-align: center;
+			padding: 0 $grid-gutter-width/2;
+		}	
+		@media(min-width:$screen-md){	
+			display:flex;
+			padding: 0;
+			justify-content: space-between;
+			align-items: center;
+			float: none;
+			height: $navbar-height;
+		}
+	}
+	li.nav{
+		padding:8px;
+		@media(min-width:$screen-md){	
+			padding:0;
+		}
+		&>a{
+			font-family: $font-family-sans-serif;
+			font-weight:700;
+			color: #333;
+			padding: 8px;
+			@media(min-width:$screen-md){	
+				padding:0;
 			}
 		}
 	}
 }
+.navbar-toggle {
+	padding: 0;
+}
+.navbar-header-brand-logo-wrapper {
+	padding: 0 0 0 15px;
+}
+.navbar-header-brand-logo-wrapper,.navbar-header-brand-logo-text-wrapper {
+	height: $navbar-height;
+	display:flex;
+	justify-content: space-between;
+	align-items: center;
+
+}
+.navbar-header-brand-logo {
+	max-height: $navbar-height *2/3;
+}
+.navbar-header-brand-logo-text {
+	width: 90%;
+	@media(min-width: $screen-lg){
+		width: 80%;
+	}
+	max-height: $navbar-height *2/3;
+}
+
+$navbar-font-size-md: 11px;
+$navbar-font-size-lg: 14px;
+.navbar-header-brand-description {
+
+	@media(max-width: $screen-sm-max ){
+		display: none;
+	}
+}
+.navbar-header-brand-description,.navbar-newsletter-signup-call-to-action {
+	font-size: $navbar-font-size-md;
+	margin:0 0 10px;
+	@media(min-width: $screen-md){
+		font-size: $navbar-font-size-md;
+	}
+	@media(min-width: $screen-lg){
+		font-size: $navbar-font-size-lg;
+	}
+}
+.navbar-newsletter-signup-form {
+	margin-bottom: $grid-gutter-width/2;
+	@media(min-width: $screen-md){
+		.form-control {
+			height: 36px;
+		    padding: 5px 10px;
+		    font-size: 16px;
+		    line-height: 1.5;
+		}
+		.btn {
+			padding: 5px 10px;
+			font-size: 16px;
+		    line-height: 1.5;
+		}
+	}
+}
+

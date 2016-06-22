@@ -1,23 +1,43 @@
 nav#navbar-main.navbar.navbar-primary.navbar-fixed-top
     .container
-        .navbar-inner
-            .row
-                .col-xs-11.col-md-6
+        .row
+            .navbar-inner
+                button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar-main-collapse')
+                    span.sr-only Toggle navigation
+                    i.fa.fa-bars
+                .col-xs-10.col-md-6
                     include ./navbar-header-brand
-                .col-xs-1
-                    button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar-main-collapse')
-                        span.sr-only Toggle navigation
-                        i.fa.fa-bars
                 .col-xs-12.col-md-6
-                    #navbar-main-collapse.collapse.navbar-collapse
-                        ul.nav.navbar-nav
-                            li.nav
-                                a(href="/") Home
-                            li.nav.dropdown
-                                a.dropdown-toggle(href='#', data-toggle='dropdown', data-hover='dropdown', role='button', aria-haspopup='true', aria-expanded='false') Articles
-                                ul.dropdown-menu
-                                    li
-                                        a(href="/") Test Link
+                    #navbar-main-collapse.navbar-main-menu.collapse.navbar-collapse
+                        .row
+                            .col-xs-12
+                                ul.navbar-nav
+                                    li.nav
+                                        a(href="/") Home
+                                    li.nav
+                                        a(href="/articles/") Articles
+                                    li.nav
+                                        a(href="/network/") Network
+                                    li.nav
+                                        a(href="/get-involved") Get Involved
+                        .row
+                            .col-xs-12
+                                .row
+                                    .navbar-newsletter-signup
+                                        .col-sm-8.col-sm-offset-2.col-md-3.col-md-offset-0
+                                            p.navbar-newsletter-signup-call-to-action For news and opportunities:
+                                        .col-sm-8.col-sm-offset-2.col-md-9.col-md-offset-0
+                                            form.form.navbar-newsletter-signup-form
+                                                .input-group
+                                                    input.form-control(placeholder='Email address')
+                                                    span.input-group-btn
+                                                        button.btn.btn-primary Subscribe
+
+
+
+
+
+
                 //- | {% set menu = menu || 'main' %}
                 //- | {% for parent in menus[menu] %}
                 //- | {% if parent._menu %}

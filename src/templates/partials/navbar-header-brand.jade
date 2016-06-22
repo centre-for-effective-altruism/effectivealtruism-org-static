@@ -1,13 +1,13 @@
 .navbar-header-brand
-	.container-fluid
 		.row
 			.col-xs-2
-				img.navbar-header-brand-logo.img-responsive(src='/images/logos/ea-logo-nav.png')
+				.navbar-header-brand-logo-wrapper
+					img.navbar-header-brand-logo.img-responsive(src='/images/logos/ea-logo-nav.png')
 			.col-xs-10
-				.container-fluid
 					.row
 						.col-xs-12
-							img.navbar-header-brand-logo-text(src='/images/logos/ea-logo-text.svg')
+							.navbar-header-brand-logo-text-wrapper
+								img.navbar-header-brand-logo-text(src='/images/logos/ea-logo-text.svg')
 					.row
 						.col-xs-12
 							p.navbar-header-brand-description!= site.description
