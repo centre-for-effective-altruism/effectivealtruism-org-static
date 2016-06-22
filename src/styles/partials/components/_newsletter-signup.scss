@@ -1,0 +1,39 @@
+#navbar-main {
+	.newsletter-signup-small-form {
+		margin-bottom: $grid-gutter-width/2;
+		@media(min-width: $screen-md){
+			.form-control {
+				height: 36px;
+			    padding: 5px 10px;
+			    font-size: 16px;
+			    line-height: 1.5;
+			}
+			.btn {
+				padding: 5px 10px;
+				font-size: 16px;
+			    line-height: 1.5;
+			}
+		}
+	}
+	.newsletter-signup-small-call-to-action-wrapper,
+	.newsletter-signup-small-form-wrapper {
+		@include make-sm-column(8);
+    	@include make-sm-column-offset(2);
+    	@include make-md-column-offset(0);
+	}
+	.newsletter-signup-small-call-to-action-wrapper{
+    	@include make-md-column(3);
+    }
+	.newsletter-signup-small-form-wrapper {
+    	@include make-md-column(9);
+    }
+
+}
+#footer {
+	.newsletter-signup-small, .newsletter-signup-small-form .btn {
+		text-transform: uppercase;
+	}
+	.newsletter-signup-small-call-to-action {
+		font-weight: 700;
+	}
+}

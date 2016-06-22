@@ -1,7 +1,56 @@
-footer#footer
-	.container
+footer#footer.container
 		.row
-			.col-sm-6
-				p Footer Left
-			.col-sm-6
-				p Footer Right
+			.col-sm-6.footer-left
+				.row
+					.col-xs-12
+						.footer-menu
+							.row
+								.col-md-4
+									ul.nav.footer-nav
+										li
+											a(href="#") About
+										li
+											a(href="#") Ideas
+										li
+											a(href="#") Network
+										li
+											a(href="#") Get Involved
+								.col-md-4
+									ul.nav.footer-nav
+										li
+											a(href="#") What is Effective Altruism?
+										li
+											a(href="#") Key Concepts
+										li
+											a(href="#") Featured Effective Altruists
+										li
+											a(href="#") In the News
+								.col-md-4
+									ul.nav.footer-nav
+										li
+											a(href="#") Related Sites
+										li
+											a(href="#") Effective Altruism Forum
+										li
+											a(href="#") Effective Altruism Global
+										li
+											a(href="#") The Centre for Effective Altruism
+				.row
+					.col-xs-12
+						.footer-legal
+							hr
+							p EffectiveAltruism.org is a project of The Centre for Effective Altruism, a registered charity in England and Wales (Charity Number 1149828).
+							p All content © Centre For Effective Altruism or its authors #{moment().utc().format('YYYY')}, unless otherwise noted.
+
+			.col-sm-6.footer-right
+				.row
+					.col-xs-12
+						include ./newsletter-signup-small
+				if environment !=='production'
+					.row
+						.col-xs-12
+							.build-info
+								p Build environment: 
+									em #{environment}
+								p Built at: 
+									em #{moment().utc().format('YYYY-M-D HH:mm')} (UTC)

@@ -11,7 +11,7 @@
 // 		}
 // 	}
 // }
-#navbar-main>.container{
+#navbar-main{
 	@media(max-width:$screen-sm-max){
 		width:100%;
 	}
@@ -25,9 +25,6 @@
 	box-shadow: 0 9px 15px -8px $site-darker;
 	background-color: #FFF;
 	margin: auto;
-	@media(min-width:$screen-md){
-		margin: 0 15px
-	}
 	@include clearfix();
 }
 .navbar-main-menu{
@@ -94,7 +91,8 @@ $navbar-font-size-lg: 14px;
 		display: none;
 	}
 }
-.navbar-header-brand-description,.navbar-newsletter-signup-call-to-action {
+
+.navbar-header-brand-description,#navbar-main .newsletter-signup-small-call-to-action {
 	font-size: $navbar-font-size-md;
 	margin:0 0 10px;
 	@media(min-width: $screen-md){
@@ -104,20 +102,3 @@ $navbar-font-size-lg: 14px;
 		font-size: $navbar-font-size-lg;
 	}
 }
-.navbar-newsletter-signup-form {
-	margin-bottom: $grid-gutter-width/2;
-	@media(min-width: $screen-md){
-		.form-control {
-			height: 36px;
-		    padding: 5px 10px;
-		    font-size: 16px;
-		    line-height: 1.5;
-		}
-		.btn {
-			padding: 5px 10px;
-			font-size: 16px;
-		    line-height: 1.5;
-		}
-	}
-}
-
