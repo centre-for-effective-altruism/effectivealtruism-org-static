@@ -324,21 +324,60 @@ function build(buildCount){
         done();
     })
     .use(logMessage('Calculated redirects'))   
+    // parse series to use build objects
+    .use(function (files, metalsmith, done) {
+        var defaultItem = {
+            file: {},
+            type: '',
+            children: []
+        }
+        // create a lookup table of contentful data IDs and metalsmith files
+        var fileIDLookup = {};
+        Object.keys(files).filter(minimatch.filter('**/*.html')).forEach(function(file){
+            fileIDLookup[files[file].data.sys.id] = files[file];
+        })
+        var series = {};
+        // build a hierarchy of item IDs
+        Object.keys(files).filter(minimatch.filter('series/**/*.html')).forEach(function(file){
+            series[files[file].slug] = getChildren(files[file].data)
+        })
+        metalsmith.metadata().series = series;
+        console.log(metalsmith.metadata().series);
+        done();
+
+        // recursive function to traverse series
+        function getChildren(data){
+            var item = Object.assign({},defaultItem);
+            item.file = fileIDLookup[data.sys.id];
+            item.type = data.sys.contentType.sys.id;
+            // if we've got a series as a child, add its children
+            if(item.type === 'series' && data.fields.items && data.fields.items.length>0){
+                data.fields.items.forEach(function(child){
+                    var childItem = Object.assign({},defaultItem);
+                    childItem.file = fileIDLookup[child.sys.id];
+                    childItem.type = childItem.file.data.sys.contentType.sys.id;
+                    childItem.children = getChildren(child);
+                    item.children.push(childItem);
+                })
+            }
+            return item;
+        }
+    })
     // parse shortcodes
     .use(function (files, metalsmith, done) {
         console.log('Input')
         console.log(files['articles/index.html'].contents.toString())
         console.log('');
-        done();
+        // done();
     })
     .use(shortcodes({
         'directory': path.normalize(__dirname+'/../src/templates/shortcodes'),
         'pattern': '**/*.html'
     }))
-    .use(function (files, metalsmith, done) {
-        console.log('Shortcoded')
-        console.log(files['articles/index.html'].contents.toString())
-    })
+    // .use(function (files, metalsmith, done) {
+    //     console.log('Shortcoded')
+    //     console.log(files['articles/index.html'].contents.toString())
+    // })
     .use(logMessage('Converted Shortcodes'))
     // Build HTML files
     .use(function (files, metalsmith, done) {

@@ -1,9 +1,24 @@
-each s in collections['series']
-	if s.slug===seriesSlug
-		pre!= JSON.stringify(Object.keys(s), null, 4)
-		each item in s.items
-			h3!= item.fields.title
-			|  
-			| #{item.fields.body}
-			|  
-			pre!= JSON.stringify(item, null, 4)
+if seriesSlug
+	each child in series[seriesSlug].children
+		case child.type
+			when 'series'
+				h3!= child.title
+				!= child.contents
+				- var seriesSlug = item.fields.slug
+				include ./series
+			when 'article'
+				a(href=child.)
+					h3!= item.fields.title
+				|  
+				-var excerpt = item.fields.excerpt || item.fields.body
+					| #{excerpt}
+				|  
+			when 'page'
+				a(href="/"+item.fields.slug+"/")
+					h3!= item.fields.title
+				|  
+				-var excerpt = item.fields.excerpt || item.fields.body
+					| #{excerpt}
+				|  
+else 
+	// A series was called via a shortcode, but required var seriesSlug was not set
