@@ -1,0 +1,9 @@
+each s in collections['series']
+	if s.slug===seriesSlug
+		pre!= JSON.stringify(Object.keys(s), null, 4)
+		each item in s.items
+			h3!= item.fields.title
+			|  
+			| #{item.fields.body}
+			|  
+			pre!= JSON.stringify(item, null, 4)
