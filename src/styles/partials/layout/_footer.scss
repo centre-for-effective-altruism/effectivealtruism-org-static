@@ -33,6 +33,9 @@ footer#footer {
 }
 
 .footer-nav{
+	@media(max-width:$screen-sm-max){
+		text-align: center;
+	}
 	&>li>a{
 		color: #FFF;
 		&:hover, &:focus {

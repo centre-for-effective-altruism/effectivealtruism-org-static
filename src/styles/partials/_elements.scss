@@ -5,9 +5,10 @@ body {
 	@media(min-width:$screen-md){
 		background-color: #333;
 	}
+	font-weight: 300;
 }
 h1,h2,h3,h4,h5,h6 {
-	color: $site-primary;
+	// color: $site-primary;
 }
 // don't line-wrap code blocks
 pre {

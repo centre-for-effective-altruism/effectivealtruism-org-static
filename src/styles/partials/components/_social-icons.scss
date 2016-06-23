@@ -10,12 +10,18 @@
 	.social-icons-header,a {
 		color: #FFF;
 	}
+	.social-icons-header, .social-icons-list {
+		@media(max-width: $screen-sm-max){
+			text-align: center;
+		}
+	}
 	.social-icons-header {
 		text-transform: uppercase;
 		font-weight: 700;
 		margin:0;
 	}
 	.social-icons-list {
+
 		@extend .list-inline;
 		li {
 			font-size: 40px;
