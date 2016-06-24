@@ -6,7 +6,7 @@ header#header
 					if breadcrumb.file
 						if path!==breadcrumb.path
 							li
-								a(href=breadcrumb.path)!= breadcrumb.file.title
+								a(href=breadcrumb.file.canonical)!= breadcrumb.file.title
 						else
 							li!= breadcrumb.file.title
 

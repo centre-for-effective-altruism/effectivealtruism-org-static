@@ -86,7 +86,7 @@
 }
 .navbar-header-brand-logo {
 	max-height: $navbar-height *2/3;
-	@media(min-width:$screen-md){
+	/* @media(min-width:$screen-md){
 		max-height: 84px;
 	    margin-top: 26px;
 	    // max-width: none;
@@ -95,7 +95,7 @@
 		max-height: 104px;
 	    margin-top: 53px;
 	    // max-width: none;
-	}
+	} */
 }
 .navbar-header-brand-logo-text {
 	width: 90%;

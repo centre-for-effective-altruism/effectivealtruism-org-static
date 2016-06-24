@@ -1,5 +1,7 @@
 if seriesSlug
 		!= series[seriesSlug].file.contents
+		if useTOC
+			include ./table-of-contents
 		each child,index in series[seriesSlug].children
 			case child.type
 				when 'series'

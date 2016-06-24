@@ -369,12 +369,18 @@ function build(buildCount){
     .use(function (files, metalsmith, done) {
         // parse HTML files
         Object.keys(files).filter(minimatch.filter('**/*.html')).forEach(function(file){
-            files[file].contents = parseHTML(files[file].contents.toString(),files[file],metalsmith.metadata().redirects)
+            files[file].contents = parseHTML(files[file].contents.toString(),files[file],{
+                redirects: metalsmith.metadata().redirects,
+                firstPars: true
+            })
+            files[file].excerpt = files[file].excerpt ? parseHTML(files[file].excerpt.toString(),files[file],{
+                redirects: metalsmith.metadata().redirects
+            }) : '';
         })
         done();
     })
-    .use(logMessage('Converted Markdown to HTML'))
     .use(excerpts())
+    .use(logMessage('Converted Markdown to HTML'))
     .use(relative())
     .use(shortcodes({
         'directory': path.normalize(__dirname+'/../src/templates/shortcodes'),
@@ -552,8 +558,7 @@ function build(buildCount){
     colophonemes.use(logMessage('Finalising build')).build(function(err,files){
         var t = formatBuildTime(buildTime);
         if(err){
-            console.log('Build Failed!','(Build time: ' + t + ')');
-            console.log('Errors:');
+            message('Build failed!',chalk.red.bold)
             console.trace(err);
             if(process.env.NODE_ENV==='development'){
                 notifier.notify({
@@ -567,8 +572,7 @@ function build(buildCount){
             }
         }
         if(files){
-            
-            console.log('Build OK!','(Build time: ' + t + ')');
+            message('✓ Build OK!',chalk.green.bold);
             if(process.env.NODE_ENV==='development'){
                 notifier.notify({
                     title: 'Website built!',
