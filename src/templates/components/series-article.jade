@@ -1,0 +1,7 @@
+if file
+	article.series-article
+		h4.series-article-title
+			a(href=file.canonical) #{index+1}. #{file.title}
+		p.series-article-excerpt!= file.excerpt
+			|  
+			a(href=file.canonical) Read More
