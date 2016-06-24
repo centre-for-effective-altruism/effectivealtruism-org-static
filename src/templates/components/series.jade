@@ -1,0 +1,25 @@
+if seriesSlug
+		!= series[seriesSlug].file.contents
+		each child,index in series[seriesSlug].children
+			case child.type
+				when 'series'
+					section.series(id='series-'+child.file.slug)
+						h3.series-title!= child.file.title
+						.series-description
+							!= child.file.contents
+						each seriesChild,index in child.children
+							case seriesChild.type
+								when 'article'
+									-var file = seriesChild.file
+									include ./series-article
+								when 'page'
+									-var file = seriesChild.file
+									include ./series-article
+				when 'article'
+					-var file = child.file
+					include ./series-article
+				when 'page'
+					-var file = child.file
+					include ./series-article
+else 
+	// A series was called via a shortcode, but required var seriesSlug was not set

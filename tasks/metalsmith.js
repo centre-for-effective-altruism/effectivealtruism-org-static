@@ -5,14 +5,11 @@ var buildTimeDiff = buildTime;
 require('dotenv').load({silent: true});
 
 // process.env.NODE_ENV VARS - default to development
-var NODE_ENV = process.env.NODE_ENV || 'development';
-var CONTENTFUL_ACCESS_TOKEN = process.env.CONTENTFUL_ACCESS_TOKEN
-var CONTENTFUL_SPACE = process.env.CONTENTFUL_SPACE
-
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 // Start the build!
 var chalk = require('chalk');
-message('Generating EffectiveAltruism.com!',chalk.cyan.inverse,true);
+message('Generating EffectiveAltruism.org!',chalk.cyan.inverse,true);
 message('Initialising new build...',chalk.dim,true);
 // Metalsmith
 var Metalsmith = require('metalsmith');
@@ -26,6 +23,7 @@ var contentful = require('contentful-metalsmith');
 var slug = require('slug'); slug.defaults.mode = 'rfc3986';
 var copy = require('metalsmith-copy');
 var templates  = require('metalsmith-templates');
+var inPlace  = require('metalsmith-in-place');
 message('Loaded templating');
 var lazysizes = require('metalsmith-lazysizes');
 // metadata and structure
@@ -39,6 +37,7 @@ var navigation = require('metalsmith-navigation');
 message('Loaded metadata');
 // static file compilation
 var parseHTML = require('../lib/parseHTML').parse;
+var shortcodes = require('metalsmith-shortcodes');
 var concat = require('metalsmith-concat');
 // var icons = require('metalsmith-icons');
 var feed = require('metalsmith-feed');
@@ -57,7 +56,6 @@ message('Loaded static file compilation');
 var fs = require('fs');
 var path = require('path');
 var extend = require('util')._extend;
-var each = require('async').each;
 var merge = require('merge');
 var NotificationCenter = require('node-notifier').NotificationCenter;
 var notifier = new NotificationCenter;
@@ -90,7 +88,7 @@ function build(buildCount){
             // sortBy: 'date',
             // reverse: false,
             perPage: 10
-        }
+        },
     }
     var collectionData = {};
     collectionOptions = {};
@@ -149,30 +147,29 @@ function build(buildCount){
     })
     .use(function (files,metalsmith,done){
         // add defaults to all our contentful source files
-        var options = {
-            space_id: CONTENTFUL_SPACE,
+        var defaults = {
+            space_id: process.env.CONTENTFUL_SPACE,
             limit: 2000,
             permalink_style: true
         }
-        each(Object.keys(files), apply , done)
-
-        function apply (file, cb) {
-            var meta = files[file];
-            if(!meta.contentful) {cb(); return;}
-            meta.contentful = merge(true,options,meta.contentful)
-            cb();
-        }
+        Object.keys(files).filter(minimatch.filter('**/*.contentful')).forEach(function(file){
+            if(!files[file].contentful){
+                throw new Error('File '+ file + ' should have a `contenful` meta key')
+            }
+            files[file].contentful = merge(true,defaults,files[file].contentful)
+        })
+        done();
     })
     .use(logMessage('Prepared global metadata'))
-    .use(contentful({ "accessToken" : CONTENTFUL_ACCESS_TOKEN } ))
+    .use(contentful({ 
+        "accessToken" : process.env.CONTENTFUL_ACCESS_TOKEN 
+    }))
     .use(function (files,metalsmith,done){
         // get rid of the contentful source files from the build
-        each(Object.keys(files), function(file,cb){
-            if(minimatch(file,'contentful/**')){
-                delete files[file];
-            }
-            cb();
-        } , done)
+        Object.keys(files).filter(minimatch.filter('**/*.contentful')).forEach(function(file){
+            delete files['file'];
+        })
+        done();
     })
     .use(logMessage('Downloaded content from Contentful'))
     .use(function (files,metalsmith,done){
@@ -194,6 +191,7 @@ function build(buildCount){
                 // add date information to the post
                 meta.date = meta.date || meta.data.sys.createdAt;
                 meta.updated = meta.updated || meta.data.sys.updatedAt;
+                meta.contents = meta.contents && meta.contents.length>0 ? meta.contents : '';
                 // concat footnotes into main content field
                 if(meta.footnotes) {
                     meta.contents = meta.contents + '\n\n' + meta.footnotes;
@@ -219,6 +217,13 @@ function build(buildCount){
             sortBy: 'menuOrder',
             metadata: {
                 singular: 'blog',
+            }
+        },
+        series: {
+            pattern: 'series/**/index.html',
+            sortBy: 'title',
+            metadata: {
+                singular: 'series',
             }
         }
     }))
@@ -284,12 +289,12 @@ function build(buildCount){
         // console.log(Object.keys(files['articles/index.html']));
 
         // add templates for our collections
-        var collections = ['articles'];
-        collections.forEach(function(collection){
-            if(files[collection+'/index.html']){
-                files[collection+'/index.html'].template = 'collection.jade';
-            }
-        })
+        // var collections = ['articles'];
+        // collections.forEach(function(collection){
+        //     if(files[collection+'/index.html']){
+        //         files[collection+'/index.html'].template = 'collection.jade';
+        //     }
+        // })
         done();
     })
     .use(function (files, metalsmith, done) {
@@ -320,6 +325,46 @@ function build(buildCount){
         done();
     })
     .use(logMessage('Calculated redirects'))   
+    // parse 'series' hierarchy to use file objects from the build
+    .use(function (files, metalsmith, done) {
+        var defaultItem = {
+            file: {},
+            type: '',
+            children: []
+        }
+        // create a lookup table of contentful data IDs and metalsmith files
+        var fileIDLookup = {};
+        Object.keys(files).filter(minimatch.filter('**/*.html')).forEach(function(file){
+            fileIDLookup[files[file].data.sys.id] = files[file];
+        })
+        var series = {};
+        // build a hierarchy of item IDs
+        Object.keys(files).filter(minimatch.filter('series/**/*.html')).forEach(function(file){
+            var s = Object.assign({},defaultItem);
+            s.file = fileIDLookup[files[file].data.sys.id];
+            s.type = fileIDLookup[files[file].data.sys.contentType.sys.id];
+            s.children = getChildren(files[file].data);
+            series[files[file].slug] = s;
+        })
+        metalsmith.metadata().series = series;
+        done();
+
+        // recursive function to traverse series
+        function getChildren(data){
+            var children = [];
+            if(data.sys.contentType.sys.id === 'series' && data.fields.items && data.fields.items.length>0){
+                data.fields.items.forEach(function(child){
+                    var childItem = Object.assign({},defaultItem);
+                    childItem.file = fileIDLookup[child.sys.id];
+                    childItem.type = childItem.file.data.sys.contentType.sys.id;
+                    childItem.children = getChildren(child);
+                    children.push(childItem);
+                })
+            }
+            return children;
+        }
+    })
+    .use(logMessage('Built series hierarchy'))
     // Build HTML files
     .use(function (files, metalsmith, done) {
         // parse HTML files
@@ -331,6 +376,11 @@ function build(buildCount){
     .use(logMessage('Converted Markdown to HTML'))
     .use(excerpts())
     .use(relative())
+    .use(shortcodes({
+        'directory': path.normalize(__dirname+'/../src/templates/shortcodes'),
+        'pattern': '**/*.html'
+    }))
+    .use(logMessage('Converted Shortcodes'))
     .use(branch(function(filename,props,i){
 
             return props.collection && (
@@ -385,6 +435,21 @@ function build(buildCount){
         done();
 
     })
+    .use(function (files, metalsmith, done) {
+        // certain content has been incorporated into other pages, but we don't need them as standalone pages in our final build.
+        Object.keys(files).filter(minimatch.filter('@(series)/**')).forEach(function(file){
+            delete files[file];
+        });
+        done();
+    })
+    .use(function (files, metalsmith, done) {
+        // put the 404 page into the root directory
+       if(files['404/index.html']){
+            files['404.html'] = files['404/index.html'];
+            delete files['404/index.html'];
+        };
+        done();
+    })
     .use(templates({
         engine:'jade',
         directory: '../src/templates',
@@ -400,15 +465,6 @@ function build(buildCount){
     //     customIcons: 'fonts/glyphs.json'
     // }))
     // .use(logMessage('Added icon fonts'))
-    .use(function (files, metalsmith, done) {
-        // certain content has been incorporated into other pages, but we don't need them as standalone pages in our final build.
-        Object.keys(files).forEach(function(file){
-            if(minimatch(file,'@(content-block|quotation)/**')){
-                delete files[file];
-            }
-        });
-        done();
-    })
     .use(lazysizes({
         widths: [100,480,768,992,1200,1800],
         qualities: [ 40, 40, 70, 70, 70, 70],
