@@ -56,7 +56,7 @@
     "metalsmith-collections": "^0.7.0",
     "metalsmith-concat": "^6.0.0",
     "metalsmith-copy": "https://github.com/mattwidmann/metalsmith-copy/tarball/master",
-    "metalsmith-excerpts": "https://github.com/colophonemes/metalsmith-excerpts.git",
+    "metalsmith-excerpts": "^1.1.0",
     "metalsmith-feed": "^0.2.0",
     "metalsmith-headings": "^0.1.0",
     "metalsmith-headings-identifier": "0.0.11",

@@ -7,6 +7,8 @@
 .series-article {
 	border-bottom: 1px dashed #CCC;
 }
-.series-description>.first-paragraph {
-	font-size: 1em;
+.series-article-title-numbered{
+	$indent:24px;
+	padding-left: $indent ;
+	text-indent: -$indent;
 }

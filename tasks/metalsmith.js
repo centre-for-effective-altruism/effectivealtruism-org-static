@@ -343,14 +343,14 @@ function build(buildCount){
             var s = Object.assign({},defaultItem);
             s.file = fileIDLookup[files[file].data.sys.id];
             s.type = fileIDLookup[files[file].data.sys.contentType.sys.id];
-            s.children = getChildren(files[file].data);
+            s.children = getChildren(files[file].data,files[file].slug);
             series[files[file].slug] = s;
         })
-        metalsmith.metadata().series = series;
+        metalsmith.metadata().seriesSet = series;
         done();
 
         // recursive function to traverse series
-        function getChildren(data){
+        function getChildren(data,seriesSlug){
             var children = [];
             if(data.sys.contentType.sys.id === 'series' && data.fields.items && data.fields.items.length>0){
                 data.fields.items.forEach(function(child){
@@ -359,6 +359,16 @@ function build(buildCount){
                     childItem.type = childItem.file.data.sys.contentType.sys.id;
                     childItem.children = getChildren(child);
                     children.push(childItem);
+                })
+            }
+            if(seriesSlug){
+                children.forEach(function(child,index){
+                    // assign series info to original file
+                    child.file.series = child.file.series || {};
+                    child.file.series[seriesSlug] = {
+                        previous: index > 0 ? children[index-1] : false,
+                        next: index < children.length-1 ? children[index+1] : false
+                    };
                 })
             }
             return children;

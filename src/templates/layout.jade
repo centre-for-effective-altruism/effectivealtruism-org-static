@@ -3,7 +3,7 @@ html.no-js
     include ./layout/head
     body(class=[slug==="/" ? 'home' : slug,collectionSlug])
         include ./layout/navbar
-        section#contents.container
+        section#content-wrapper.container
             include ./layout/warnings
             block header
                 include ./layout/header

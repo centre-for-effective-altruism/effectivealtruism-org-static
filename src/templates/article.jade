@@ -1,1 +1,20 @@
 extends ./page
+
+block postContent
+	if Object.keys(series).length>0
+		each s,seriesSlug in series
+			if seriesSet[seriesSlug] && seriesSet[seriesSlug]
+				.series-pagination
+					.series-pagination-series-name Part of the series 
+						strong!= seriesSet[seriesSlug].file.title
+						ul.series-pagination-links
+							if s.previous
+								li.series-pagination-previous
+									a(href=s.previous.file.canonical) Previous Idea: 
+										strong!= s.previous.file.title
+							if s.next
+								li.series-pagination-next
+									a(href=s.next.file.canonical) Next Idea: 
+										strong!= s.next.file.title
+			else 
+				pre no file found for `#{seriesSlug}`

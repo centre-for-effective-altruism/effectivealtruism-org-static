@@ -1,36 +1,20 @@
-/* .page-content,.post-content, .page-content>.overview, .page-content .report-contents {
-	&>p, &>ul>li, &>ol>li {
-		font-family: $font-family-serif;
-		a, strong,b {
-			font-weight: 700;
-		}
-		a.btn {
-			font-family: $font-family-sans-serif;
-			font-weight: 400;
-		}
-	}
-	&>ul,&>ol {
-		margin-left: 0;
-		padding-left: 24px;
-		@media(min-width:$screen-sm){
-			margin-left: $grid-gutter-width*-1;
-			padding-left: $grid-gutter-width;
-		}
-	}
-
-	&>.container, &>figure>.container {
-		padding: 0;
-	}
-
-
-	
-} */
-.first-paragraph {
+#content>.first-paragraph {
 	// font-family: $font-family-sans-serif !important;
 	font-size: $first-paragraph-small-size;
-	line-height: $first-paragraph-small-size;
+	line-height: floor(($first-paragraph-small-size*$line-height-base));
 	@media(min-width:$screen-sm){
 		font-size: $first-paragraph-large-size;
-		line-height: $first-paragraph-large-size;
+		line-height: floor(($first-paragraph-large-size*$line-height-base));
+	}
+	&::first-letter {
+		font-size: floor(($first-paragraph-small-size*$line-height-base*2));
+		line-height: floor(($first-paragraph-small-size*$line-height-base*2))-1;
+	    float: left;
+	    padding-right: 0.05em;
+	    color: $site-lolight;
+		@media(min-width:$screen-sm){
+			font-size: floor(($first-paragraph-large-size*$line-height-base*2));
+			line-height: floor(($first-paragraph-large-size*$line-height-base*2))-1;
+		}
 	}
 }
