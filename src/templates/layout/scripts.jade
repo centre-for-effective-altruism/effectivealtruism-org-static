@@ -1,9 +1,10 @@
-link#app-script(href='/scripts/app.min.js')
-script.
-    // hack to get netlify CDN url for app script
-    var a = document.getElementById("app-script");
-    window.appScript = a.getAttribute("href");
-    document.getElementsByTagName("body")[0].removeChild(a);
+//-
+    link#app-script(href='/scripts/app.min.js')
+    script.
+        // hack to get netlify CDN url for app script
+        var a = document.getElementById("app-script");
+        window.appScript = a.getAttribute("href");
+        document.getElementsByTagName("body")[0].removeChild(a);
 script(src='/scripts/LAB.min.js')
 script.
     window.$LAB = window.$LAB || undefined;
@@ -12,7 +13,8 @@ script.
         // labjs script loader
         $LAB
         .queueScript("https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js")
-        .queueScript("https://cdn.optimizely.com/js/3479250027.js")
+        // uncomment if running optimizely experiments:
+        /*.queueScript("https://cdn.optimizely.com/js/XXXXXX.js")
         .queueWait(function(){
             // kill optimizely if it hasn't loaded within a few seconds
             function optimizelyTimeout() {
@@ -22,7 +24,7 @@ script.
                 }
             }
             setTimeout(optimizelyTimeout, 2000);
-        })
+        })*/
         .queueScript("https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js")
         .queueWait(function(){
             function webfontStatus(status){
@@ -56,7 +58,7 @@ script.
                 }
             });
         })
-        .queueScript(window.appScript)
+        .queueScript(window.appScript || '/scripts/app.min.js')
         .queueScript('https://cdn.segment.com/analytics.js/v1/VtTlzxOC5QJ1H0zermvo84cAbReTofDU/analytics.min.js')
         .queueWait(function(){
             // Segment actions
