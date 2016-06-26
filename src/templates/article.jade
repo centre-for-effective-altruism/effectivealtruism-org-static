@@ -3,18 +3,24 @@ extends ./page
 block postContent
 	if Object.keys(series).length>0
 		each s,seriesSlug in series
-			if seriesSet[seriesSlug] && seriesSet[seriesSlug]
+			if seriesSet[seriesSlug] && seriesSet[seriesSlug] && seriesSet[seriesSlug].file.paginateItems
 				.series-pagination
 					.series-pagination-series-name Part of the series 
+						br
 						strong!= seriesSet[seriesSlug].file.title
-						ul.series-pagination-links
-							if s.previous
-								li.series-pagination-previous
-									a(href=s.previous.file.canonical) Previous Idea: 
-										strong!= s.previous.file.title
-							if s.next
-								li.series-pagination-next
-									a(href=s.next.file.canonical) Next Idea: 
-										strong!= s.next.file.title
-			else 
-				pre no file found for `#{seriesSlug}`
+					ul.series-pagination-links
+						if s.previous
+							li.series-pagination-previous
+								a(href=s.previous.file.canonical) &larr; Previous Idea
+									br
+									strong  #{s.previous.file.title}
+						if s.next
+							li.series-pagination-next
+								a(href=s.next.file.canonical) Next Idea &rarr;
+									br
+									strong #{s.next.file.title}
+						else 
+							li.series-pagination-next
+								a(href='/articles/') End of this series ↩
+									br
+									strong Go back to the Ideas page 

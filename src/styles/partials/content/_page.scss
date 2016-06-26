@@ -1,20 +1,30 @@
 #content>.first-paragraph {
+	// first paragraphs
+	$first-paragraph-xs-size: 22px;
+	$first-paragraph-xs-line-height: floor(($first-paragraph-xs-size*$line-height-base));
+	$first-paragraph-sm-size: 26px;
+	$first-paragraph-sm-line-height: floor(($first-paragraph-sm-size*$line-height-base));
+
 	// font-family: $font-family-sans-serif !important;
-	font-size: $first-paragraph-small-size;
-	line-height: floor(($first-paragraph-small-size*$line-height-base));
+	font-size: $first-paragraph-xs-size;
+	line-height: $first-paragraph-xs-line-height;
+	min-height: 72px;
 	@media(min-width:$screen-sm){
-		font-size: $first-paragraph-large-size;
-		line-height: floor(($first-paragraph-large-size*$line-height-base));
+		font-size: $first-paragraph-sm-size;
+		line-height: $first-paragraph-sm-line-height;
+		min-height: 90px;
 	}
+
 	&::first-letter {
-		font-size: floor(($first-paragraph-small-size*$line-height-base*2));
-		line-height: floor(($first-paragraph-small-size*$line-height-base*2))-1;
+		font-size: $first-paragraph-xs-line-height*2;
+		line-height: ($first-paragraph-xs-line-height*2)-1;
+		font-family: $font-family-sans-serif; 
 	    float: left;
 	    padding-right: 0.05em;
 	    color: $site-lolight;
 		@media(min-width:$screen-sm){
-			font-size: floor(($first-paragraph-large-size*$line-height-base*2));
-			line-height: floor(($first-paragraph-large-size*$line-height-base*2))-1;
+			font-size: $first-paragraph-sm-line-height*2;
+			line-height: ($first-paragraph-sm-line-height*2)-1;
 		}
 	}
 }
