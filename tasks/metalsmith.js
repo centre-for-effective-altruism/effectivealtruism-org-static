@@ -57,6 +57,7 @@ var fs = require('fs');
 var path = require('path');
 var extend = require('util')._extend;
 var merge = require('merge');
+var typogr = require('typogr');
 var NotificationCenter = require('node-notifier').NotificationCenter;
 var notifier = new NotificationCenter;
 // utility global var to hold 'site' info from our settings file, for reuse in other plugins
@@ -80,9 +81,9 @@ function build(buildCount){
     }
 
     // hacky solution to share data between Contentful pages and the 'pagination' plugin
-    var collectionSlugs = ['articles']
+    var collectionSlugs = ['ideas']
     var collectionInfo = {
-        articles: {
+        ideas: {
             title: 'Articles',
             singular: 'article',
             // sortBy: 'date',
@@ -212,8 +213,8 @@ function build(buildCount){
                 singular: 'page',
             }
         },
-        articles: {
-            pattern: 'articles/**/index.html',
+        ideas: {
+            pattern: 'ideas/**/index.html',
             sortBy: 'menuOrder',
             metadata: {
                 singular: 'blog',
@@ -286,10 +287,10 @@ function build(buildCount){
     )
     .use(logMessage('Added navigation metadata'))
     .use(function (files, metalsmith, done) {
-        // console.log(Object.keys(files['articles/index.html']));
+        // console.log(Object.keys(files['ideas/index.html']));
 
         // add templates for our collections
-        // var collections = ['articles'];
+        // var collections = ['ideas'];
         // collections.forEach(function(collection){
         //     if(files[collection+'/index.html']){
         //         files[collection+'/index.html'].template = 'collection.jade';
@@ -401,7 +402,7 @@ function build(buildCount){
 
             return props.collection && (
                 props.collection.indexOf('pages')    > -1 ||
-                props.collection.indexOf('articles') > -1
+                props.collection.indexOf('ideas') > -1
             );
         })
         .use(headingsIdentifier({
@@ -469,6 +470,7 @@ function build(buildCount){
     .use(templates({
         engine:'jade',
         directory: '../src/templates',
+        typogr: typogr,
         moment: moment,
         collectionSlugs: collectionSlugs,
         collectionInfo: collectionInfo,
