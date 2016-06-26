@@ -13,10 +13,13 @@ head
     //- |   {% include './layout/json-schema.swig' %}
     script.
         // fast pre-rendering check for javascript capability without requiring Modernizr in the head
-        document.documentElement.className = document.documentElement.className.replace('no-js','js');
+        var h = document.documentElement
+        h.className = h.className.replace('no-js','js');
         // hide text while webfonts load, but unhide after three seconds if they haven't loaded yet
-        document.documentElement.className += " wf-loading";
-        window.wfl = setTimeout(function(){document.documentElement.className += ' wf-inactive';},3000)
+        h.className += " wf-loading";
+        window.wfl = setTimeout(function(){
+            h.className=h.className.replace('wf-loading','wf-inactive');
+        },3000)
         // defer execution of jquery-dependent scripts defined before jQuery loads
         window.q=[];window.$=function(f){q.push(f)}
         // enqueue scripts at the end of the page from before the closing body tag
