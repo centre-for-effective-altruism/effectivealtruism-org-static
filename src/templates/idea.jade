@@ -30,7 +30,9 @@ block postContent
 					ul.series-pagination-links
 						if s.previous
 							li.series-pagination-previous
-								a(href=s.previous.file.canonical) &larr; Previous Idea
+								a(href=s.previous.file.canonical)
+									i.fa.fa-long-arrow-left
+									|  Previous Idea
 									br
 									strong!= typogr.typogrify(s.previous.file.title)
 						else 
@@ -38,10 +40,13 @@ block postContent
 								em Beginning of this series
 								br
 								a(href='/ideas/')
-									strong Go back to the Ideas page ↩
+									i.fa.fa-backward
+									strong  Go back to the Ideas page 
 						if s.next
 							li.series-pagination-next
-								a(href=s.next.file.canonical) Next Idea &rarr;
+								a(href=s.next.file.canonical)
+									| Next Idea 
+									i.fa.fa-long-arrow-right
 									br
 									strong!= typogr.typogrify(s.next.file.title)
 						else 
@@ -49,4 +54,5 @@ block postContent
 								em End of this series 
 								br
 								a(href='/ideas/') 
-									strong Go back to the Ideas page ↩
+									i.fa.fa-backward
+									strong  Go back to the Ideas page 
