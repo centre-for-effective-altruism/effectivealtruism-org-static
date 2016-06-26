@@ -59,11 +59,11 @@ script.
             });
         })
         .queueScript(window.appScript || '/scripts/app.min.js')
-        .queueScript('https://cdn.segment.com/analytics.js/v1/VtTlzxOC5QJ1H0zermvo84cAbReTofDU/analytics.min.js')
+        .queueScript('https://cdn.segment.com/analytics.js/v1/XXXXXX/analytics.min.js')
         .queueWait(function(){
             // Segment actions
             // Segment actions reliant on jQuery
-            (function($){
+            /*(function($){
                 $("#mailchimp-signup-form").on('newsletter_signup',function(event,data){
                     analytics.identify({
                         email: data.email,
@@ -77,7 +77,7 @@ script.
                 $('.mailchimp-signup-modal').on('newsletter_modal_shown',function(event,data){
                     analytics.track("Saw Newsletter popup")
                 })
-            })(jQuery);
+            })(jQuery);*/
         })
         // enqueue anything that's been requested with loadScript() elsewhere in the body
         var s;
