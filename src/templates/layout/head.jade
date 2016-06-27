@@ -17,7 +17,9 @@ head
         h.className = h.className.replace('no-js','js');
         // hide text while webfonts load, but unhide after three seconds if they haven't loaded yet
         h.className += " wf-loading";
+        window.wfInactive = false;
         window.wfl = setTimeout(function(){
+            window.wfInactive = true;
             h.className=h.className.replace('wf-loading','wf-inactive');
         },3000)
         // defer execution of jquery-dependent scripts defined before jQuery loads

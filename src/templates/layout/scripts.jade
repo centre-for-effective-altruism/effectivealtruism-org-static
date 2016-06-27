@@ -37,6 +37,8 @@ script.
                 })(jQuery)
             }
             WebFont.load({
+                timeout: 1000,
+                classes: !window.wfInactive,
                 google: {
                     families: [
                         'Raleway:400,700,:latin',
@@ -44,7 +46,8 @@ script.
                     ]
                 },
                 custom: {
-                    urls:['https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css']
+                    families:['FontAwesome'],
+                    urls:['https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css']
                 },
                 loading: function(){
                     clearTimeout(window.wfl);
@@ -56,6 +59,7 @@ script.
                 inactive: function() {
                     webfontStatus('inactive');
                 }
+
             });
         })
         .queueScript(window.appScript || '/scripts/app.min.js')
