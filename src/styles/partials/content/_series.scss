@@ -7,8 +7,22 @@
 .series-article {
 	border-bottom: 1px dashed #CCC;
 }
+.series-article-title {
+
+	.heading-permalink {
+		display: none;
+	}
+	&:hover {
+		.heading-permalink {
+			opacity: 0;
+		}
+	}
+}
 .series-article-title-numbered{
 	$indent:24px;
 	padding-left: $indent ;
 	text-indent: -$indent;
+}
+.series-article-excerpt {
+	font-style: italic;
 }
