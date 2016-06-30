@@ -122,7 +122,7 @@ function build(buildCount){
     .use(logMessage('NODE VERSION: ' + process.version,chalk.dim,true))
     .use(logMessage('BUILD TIME: ' + moment().format('YYYY-MM-DD @ H:m'),chalk.dim,true))
     .source('../src/metalsmith')
-    .destination('../dest')
+    .destination('../build')
     .use(ignore([
         '**/.DS_Store',
     ]))

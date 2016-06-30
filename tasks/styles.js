@@ -20,7 +20,7 @@ var cleanCSS = Promise.promisifyAll(require('clean-css'));
 
 var srcFile = path.join(__dirname,'..','src','styles','styles.scss');
 var destPath = path.join(__dirname,'..','src','metalsmith','styles')
-var builtPath = path.join(__dirname,'..','dest','styles')
+var builtPath = path.join(__dirname,'..','build','styles')
 
 new Promise(function(resolve,reject){
 	rm(destPath,function(err){
@@ -80,6 +80,13 @@ new Promise(function(resolve,reject){
 	})
 	.then(function(){
 		console.log(chalk.green.bold('✓ Files copied to build directory!'));
+	})
+	.catch(function(err){
+		if(err.length === 1 && err[0].code==='ENOENT'){
+			// no build directory, don't bother doing anything
+		} else {
+			throw err;
+		}
 	})
 })
 .catch(function(err){

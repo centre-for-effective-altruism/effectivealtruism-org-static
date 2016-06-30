@@ -21,7 +21,7 @@ var filter = require('minimatch').filter;
 
 var srcPath = path.join(__dirname,'..','src','scripts');
 var destPath = path.join(__dirname,'..','src','metalsmith','scripts')
-var builtPath = path.join(__dirname,'..','dest','scripts')
+var builtPath = path.join(__dirname,'..','build','scripts')
 
 
 
@@ -116,6 +116,13 @@ new Promise(function(resolve,reject){
 	})
 	.then(function(){
 		console.log(chalk.green.bold('✓ Files copied to build directory!'));
+	})
+	.catch(function(err){
+		if(err.length === 1 && err[0].code==='ENOENT'){
+			// no build directory, don't bother doing anything
+		} else {
+			throw err;
+		}
 	})
 })
 .catch(function(err){
