@@ -88,6 +88,7 @@
     "rimraf": "^2.5.2",
     "scrollmagic": "^2.0.5",
     "slug": "^0.9.1",
+    "striptags": "^2.1.1",
     "throttle-debounce": "^1.0.1",
     "time-require": "^0.1.2",
     "truncate": "^2.0.0",

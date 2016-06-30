@@ -6,7 +6,7 @@ head
     -var canonicalURL = site.url + canonical;
     link(rel='canonical', href=canonicalURL)
     -var description = description || excerpt || site.description;
-    meta(name='description', content=description)
+    meta(name='description', content=strip(description))
     link(rel='stylesheet', type='text/css', href='/styles/app.min.css')
     include ./favicons
     //- |   {% include './layout/og-images.swig' %}

@@ -43,6 +43,12 @@ var concat = require('metalsmith-concat');
 var feed = require('metalsmith-feed');
 var headingsIdentifier = require('metalsmith-headings-identifier');
 var headings = require('metalsmith-headings');
+var striptags = require('striptags');
+var htmlEntities = require('html-entities').Html5Entities;
+var strip = function (input){
+    // strip out HTML & decode entities for using HTML in Jade attributes
+    return htmlEntities.decode(striptags(input));
+}
 // only require in production
 if(process.env.NODE_ENV==='staging' || process.env.NODE_ENV==='production'){
     var htmlMinifier = require("metalsmith-html-minifier");
@@ -118,9 +124,9 @@ function build(buildCount){
     // START THE BUILD!
     var colophonemes = new Metalsmith(__dirname);
     colophonemes
-    .use(logMessage('process.env.NODE_ENV: ' + process.env.NODE_ENV,chalk.dim,true))
+    .use(logMessage('NODE_ENV: ' + process.env.NODE_ENV,chalk.dim,true))
     .use(logMessage('NODE VERSION: ' + process.version,chalk.dim,true))
-    .use(logMessage('BUILD TIME: ' + moment().format('YYYY-MM-DD @ H:m'),chalk.dim,true))
+    .use(logMessage('BUILD TIMESTAMP: ' + moment().format('YYYY-MM-DD @ H:m'),chalk.dim,true))
     .source('../src/metalsmith')
     .destination('../build')
     .use(ignore([
@@ -470,10 +476,11 @@ function build(buildCount){
     .use(templates({
         engine:'jade',
         directory: '../src/templates',
-        typogr: typogr,
-        moment: moment,
-        collectionSlugs: collectionSlugs,
-        collectionInfo: collectionInfo,
+        typogr,
+        moment,
+        strip,
+        collectionSlugs,
+        collectionInfo,
         environment: process.env.NODE_ENV
     }))
     .use(logMessage('Built HTML files from templates'))
