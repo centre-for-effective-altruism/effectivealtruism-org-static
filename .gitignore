@@ -1,4 +1,5 @@
 .DS_Store
+build
 dest
 node_modules
 bower_components
