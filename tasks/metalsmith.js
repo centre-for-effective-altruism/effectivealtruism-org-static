@@ -39,7 +39,7 @@ message('Loaded metadata');
 var parseHTML = require('../lib/parseHTML').parse;
 var shortcodes = require('metalsmith-shortcodes');
 var concat = require('metalsmith-concat');
-// var icons = require('metalsmith-icons');
+var icons = require('metalsmith-icons');
 var feed = require('metalsmith-feed');
 var headingsIdentifier = require('metalsmith-headings-identifier');
 var headings = require('metalsmith-headings');
@@ -47,8 +47,9 @@ var striptags = require('striptags');
 var htmlEntities = require('html-entities').Html5Entities;
 var strip = function (input){
     // strip out HTML & decode entities for using HTML in Jade attributes
-    return htmlEntities.decode(striptags(input));
+    return htmlEntities.decode(striptags(input).replace('&#xA0;',' ').replace('&nbsp;',' '));
 }
+message('Loaded static file compilation');
 // only require in production
 if(process.env.NODE_ENV==='staging' || process.env.NODE_ENV==='production'){
     var htmlMinifier = require("metalsmith-html-minifier");
@@ -56,8 +57,8 @@ if(process.env.NODE_ENV==='staging' || process.env.NODE_ENV==='production'){
     var cleanCSS = require('metalsmith-clean-css');
     var sitemap = require("metalsmith-sitemap");
     // var subset = require('metalsmith-subsetfonts')
+    message('Loaded production modules');
 }
-message('Loaded static file compilation');
 // utility
 var fs = require('fs');
 var path = require('path');
@@ -419,14 +420,6 @@ function build(buildCount){
         }))
         .use(logMessage('Created TOCs'))
     )
-    // .use(templates({
-    //     engine:'jade',
-    //     directory: '../src/templates',
-    //     moment: moment,
-    //     pattern: "**/*.html",
-    //     inPlace: true
-    // }))
-    // .use(logMessage('Completed in-place templating'))
     .use(function (files, metalsmith, done) {
         // create matching JSON files for each piece of content
         Object.keys(files).filter(minimatch.filter('**/index.html')).forEach(function(file){
@@ -476,6 +469,7 @@ function build(buildCount){
     .use(templates({
         engine:'jade',
         directory: '../src/templates',
+        pretty: process.env.NODE_ENV === 'development' ? true : false,
         typogr,
         moment,
         strip,
@@ -484,39 +478,24 @@ function build(buildCount){
         environment: process.env.NODE_ENV
     }))
     .use(logMessage('Built HTML files from templates'))
-    // .use(icons({
-    //     sets:       {   fa:'fontawesome'},
-    //     fontDir:    'fonts',
-    //     customIcons: 'fonts/glyphs.json'
+    .use(icons({
+        fontDir: 'fonts',
+        customIcons: 'fonts/glyphs.json'
+    }))
+    .use(logMessage('Added icon fonts'))
+    // .use(lazysizes({
+    //     widths: [100,480,768,992,1200,1800],
+    //     qualities: [ 40, 40, 70, 70, 70, 70],
+    //     backgrounds: ['#banner','.content-block-wrapper','.post-header','.featured-image'],
+    //     ignore: "/images/**",
+    //     ignoreSelectors:'.content-block-content',
+    //     querystring: {
+    //         w: '%%width%%',
+    //         q: '%%quality%%'
+    //     }
     // }))
-    // .use(logMessage('Added icon fonts'))
-    .use(lazysizes({
-        widths: [100,480,768,992,1200,1800],
-        qualities: [ 40, 40, 70, 70, 70, 70],
-        backgrounds: ['#banner','.content-block-wrapper','.post-header','.featured-image'],
-        ignore: "/images/**",
-        ignoreSelectors:'.content-block-content',
-        querystring: {
-            w: '%%width%%',
-            q: '%%quality%%'
-        }
-    }))
-    .use(logMessage('Added responsive image markup'))
-    // Concat CSS
-    colophonemes
-    .use(concat({
-        files: ['styles/app.min.css','styles/icons.css'],
-        output: 'styles/app.concat.min.css',
-        keepConcatenated: true
-    }))
-    .use(function (files, metalsmith, done) {
-        // hacky fix to put styles back in the right place after concat
-        files['styles/app.min.css'] = {contents:files['styles/app.concat.min.css'].contents}
-        delete files['styles/app.concat.min.css']
-        done();
-    })
-    .use(logMessage('Concatenated CSS files'))
-    ;
+    // .use(logMessage('Added responsive image markup'))
+    
     // stuff to only do in production
     if(process.env.NODE_ENV==='staging' || process.env.NODE_ENV==='production'){
         colophonemes
@@ -549,16 +528,23 @@ function build(buildCount){
                 media: ['(min-width: 480px)','(min-width: 768px)','(min-width: 992px)','(min-width: 1200px)']
             }
         }))
-        .use(function(files,metalsmith,done){
-            files['styles/app.min.css'] = files['styles/app.min.uncss.css'];
-            delete files['styles/app.min.uncss.css'];
-            done();
-        })
-        .use(cleanCSS())
+        .use(logMessage('Cleaned CSS files'))
+        // concat main CSS and icon CSS together and put back in the right place
+        .use(concat({
+            files: ['styles/app.min.uncss.css','styles/icons.css'],
+            output: 'styles/app.min.css',
+            keepConcatenated: false
+        }))
+        .use(logMessage('Concatenated CSS files'))
+        .use(cleanCSS({
+            cleanCSS: {
+                rebase: false,
+            }
+        }))
         .use(function(files,metalsmith,done){
             // delete sourcemaps from production builds
             // delete settings folder
-            Object.keys(files).filter(minimatch.filter('{**/*.map,settings/**,fonts/glyphs.json}')).forEach(function(file){
+            Object.keys(files).filter(minimatch.filter('{**/*.map,settings/**}')).forEach(function(file){
                 delete files[file];
             });
 

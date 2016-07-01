@@ -8,6 +8,8 @@ head
     -var description = description || excerpt || site.description;
     meta(name='description', content=strip(description))
     link(rel='stylesheet', type='text/css', href='/styles/app.min.css')
+    if environment==='development'
+        link(rel='stylesheet', type='text/css', href='/styles/icons.css')
     include ./favicons
     //- |   {% include './layout/og-images.swig' %}
     //- |   {% include './layout/json-schema.swig' %}
