@@ -483,18 +483,18 @@ function build(buildCount){
         customIcons: 'fonts/glyphs.json'
     }))
     .use(logMessage('Added icon fonts'))
-    // .use(lazysizes({
-    //     widths: [100,480,768,992,1200,1800],
-    //     qualities: [ 40, 40, 70, 70, 70, 70],
-    //     backgrounds: ['#banner','.content-block-wrapper','.post-header','.featured-image'],
-    //     ignore: "/images/**",
-    //     ignoreSelectors:'.content-block-content',
-    //     querystring: {
-    //         w: '%%width%%',
-    //         q: '%%quality%%'
-    //     }
-    // }))
-    // .use(logMessage('Added responsive image markup'))
+    .use(lazysizes({
+        widths: [100,480,768,992,1200,1800],
+        qualities: [ 40, 40, 70, 70, 70, 70],
+        backgrounds: ['#banner','.content-block-wrapper','.post-header','.featured-image'],
+        ignore: "/images/**",
+        ignoreSelectors:'.content-block-content',
+        querystring: {
+            w: '%%width%%',
+            q: '%%quality%%'
+        }
+    }))
+    .use(logMessage('Added responsive image markup'))
     
     // stuff to only do in production
     if(process.env.NODE_ENV==='staging' || process.env.NODE_ENV==='production'){
