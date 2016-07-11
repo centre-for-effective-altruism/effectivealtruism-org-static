@@ -4,77 +4,48 @@ block header
 
 block content
 	.home-content
-		.row
-			.col-md-8.col-md-offset-2.center
-				section.home-section
-					h1#page-title.page-title-home What kind of impact do you want to have on the world?
+		section.home-section.home-section-hero
+			.row
+				.col-md-10.col-md-offset-1
 					!= contents
-					a.btn.btn-primary(href="/ideas/introduction-to-effective-altruism") Continue reading
+					i.icon.icon-multiply-impact.home-section-hero-featured-icon
+					.center
+						a.btn.btn-primary(href="/ideas/introduction-to-effective-altruism") Continue reading
+							i.fa.fa-ellipsis-h
+		section.home-section.home-section-cause-prioritisation-tool
+			.row
+				.col-md-8.col-md-offset-2
+					hr
+			.row
+				.col-md-5.col-md-offset-1.center
+					h2 Not sure what cause you should work on?
+					p Use our cause prioritisation tool to explore some of the questions that inform which causes might be most important for you 
+					a.btn.btn-default(href="https://flowcharts-beta.effectivealtruism.org/flowchart/6H6rJK1nJ6OsCywOoS0Km8" target="_blank") Open flowchart
+						i.fa.fa-external-link
+				.col-md-5
+					a(href="https://flowcharts-beta.effectivealtruism.org/flowchart/6H6rJK1nJ6OsCywOoS0Km8")
+						img.img-responsive(src="https://images.contentful.com/ohf186sfn6di/26SRYqNfYciQYCyiUywssm/f13a1f6ab72aad29fc94f07dcc4386a5/flowchart.png" target="_blank")
+			.row
+				.col-md-8.col-md-offset-2
+					hr
+		section.home-section.home-section-newsletter-signup
+			.row
+				.col-md-6.col-md-offset-3
+					include ./components/newsletter-signup-small
 		.row
-			.col-md-3
-				aside.home-aside
-					h3.home-aside-heading Featured Ideas
-					p
-						a Read More
-			.col-md-9
+			.col-md-5.col-md-offset-1
 				section.home-section
-					.row
-						article.col-md-3.featured-idea-article
-							a(href="#") 
-								img.img-responsive(src="https://placehold.it/350x350")
-								h3.featured-idea-article-title Counter-factual reasoning
-								p Author Name
-						article.col-md-3
-							a(href="#") 
-								img.img-responsive(src="https://placehold.it/350x350")
-								h3.featured-idea-article-title Thinking on the margin
-								p Author Name
-						article.col-md-3
-							a(href="#") 
-								img.img-responsive(src="https://placehold.it/350x350")
-								h3.featured-idea-article-title Epistemic humility
-								p Author Name
-						article.col-md-3
-							a(href="#") 
-								img.img-responsive(src="https://placehold.it/350x350")
-								h3.featured-idea-article-title Helping more rather than helping less
-								p Author Name
-		.row
-			.col-md-3
-				aside.home-aside
-					h3.home-aside-heading Featured EAs
-					p
-						a Read More
-			.col-md-9
+					h3.home-section-title Featured Ideas
+					ul.home-section-featured-ideas.list-unstyled
+						each child in seriesSet['featured-ideas'].children
+							li
+								a(href=child.file.canonical)!= child.file.title
+				
+			.col-md-5
 				section.home-section
-					.row
-						article.col-xs-6.col-md-2.home-featured-ea-article
-							a(href="#") 
-								img.img-responsive(src="https://placehold.it/350x350")
-								h3.home-featured-ea-article-title
-									| Peter Singer
-						article.col-xs-6.col-md-2.home-featured-ea-article
-							a(href="#") 
-								img.img-responsive(src="https://placehold.it/350x350")
-								h3.home-featured-ea-article-title
-									| Eva Vivalt
-						article.col-xs-6.col-md-2.home-featured-ea-article
-							a(href="#") 
-								img.img-responsive(src="https://placehold.it/350x350")
-								h3.home-featured-ea-article-title
-									| Alison Woodman
-						article.col-xs-6.col-md-2.home-featured-ea-article
-							a(href="#") 
-								img.img-responsive(src="https://placehold.it/350x350")
-								h3.home-featured-ea-article-title
-									| Eva Vivalt
-						article.col-xs-6.col-md-2.home-featured-ea-article
-							a(href="#") 
-								img.img-responsive(src="https://placehold.it/350x350")
-								h3.home-featured-ea-article-title
-									| Jann Tallinn
-						article.col-xs-6.col-md-2.home-featured-ea-article
-							a(href="#") 
-								img.img-responsive(src="https://placehold.it/350x350")
-								h3.home-featured-ea-article-title
-									| Nick Bostrom
+					h3.home-section-title Featured Effective Altruists
+					.row.home-section-featured-ideas
+						each child in seriesSet['featured-effective-altruists'].children
+							.col-sm-6.col-md-3
+								img.img-responsive(src=child.file.photo.fields.file.url)
+								a(href=child.file.canonical)!= child.file.title
