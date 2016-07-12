@@ -1,0 +1,19 @@
+if file
+	article.series-organisation(id='series-organisation-'+file.slug)
+		.row
+			.col-md-3.series-organisation-logo.visible-md.visible-lg
+				if file.logo && file.logo.fields
+					a(href=file.website target="_blank")
+						img.img-responsive(src=file.logo.fields.file.url)
+			.col-md-9
+				h4.series-organisation-title(class=useNumbering?'series-article-title-numbered':'')
+					a(href=file.website target="_blank")
+						if useNumbering
+							| #{index+1}. 
+						!= file.title
+				.row
+					.col-xs-6.col-sm-6.series-organisation-logo.visible-xs.visible-sm
+						if file.logo && file.logo.fields
+							a(href=file.website target="_blank")
+								img.img-responsive(src=file.logo.fields.file.url)
+				.series-organisation-description!= file.description

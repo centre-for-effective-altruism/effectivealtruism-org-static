@@ -2,9 +2,8 @@ if quotation && quotation.contentType === 'quotation'
     .quotation
         - var contentType = quotation.source.sys.contentType.sys.id
         - var source = quotation.source.fields
-        .quotation-author-image
-            - var img = contentType === 'person' ? source.photo.fields.file.url : source.logo.fields.file.url
-            img.img-responsive(src=img+'?w=100&q=70&h=100&fit=thumb')
+        - var img = contentType === 'person' ? source.photo.fields.file.url : source.logo.fields.file.url
+        img.quotation-author-image(src=img+'?w=100&q=70&h=100&fit=thumb')
         blockquote.quotation-text
             != quotation.contents
         .quotation-source

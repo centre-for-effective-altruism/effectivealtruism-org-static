@@ -23,5 +23,8 @@ if seriesSlug
 				when 'page'
 					-var file = child.file
 					include ./series-article
+				when 'organisation'
+					-var file = child.file
+					include ./series-organisation
 else 
 	// A series was called via a shortcode, but required var seriesSlug was not set

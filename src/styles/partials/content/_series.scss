@@ -26,3 +26,20 @@
 .series-article-excerpt {
 	font-style: italic;
 }
+
+.series-organisation>.row {
+    padding-bottom: $grid-gutter-width/2;
+    margin-bottom: $grid-gutter-width/2;
+    border-bottom: 1px dashed #DDD;
+    @media(min-width: $screen-md){
+    	display: flex;
+	    align-items: center;
+	}
+}
+.series-organisation-title {
+    margin-top:0;
+}
+
+.series-organisation-logo img {
+    margin: 0 auto;
+}
