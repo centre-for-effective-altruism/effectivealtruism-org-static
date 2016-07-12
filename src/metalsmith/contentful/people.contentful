@@ -2,7 +2,7 @@
 title: People
 contentful:
   content_type: person
-  entry_template: page.jade
+  entry_template: person.jade
   entry_filename_pattern: people/:fields.slug
   permalink_style: true
 ---

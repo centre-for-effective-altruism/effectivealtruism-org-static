@@ -233,6 +233,13 @@ function build(buildCount){
             metadata: {
                 singular: 'series',
             }
+        },
+        people: {
+            pattern: 'people/**/index.html',
+            sortBy: 'title',
+            metadata: {
+                singular: 'person',
+            }
         }
     }))
     .use(logMessage('Added files to collections'))
@@ -364,6 +371,9 @@ function build(buildCount){
                 data.fields.items.forEach(function(child){
                     var childItem = Object.assign({},defaultItem);
                     childItem.file = fileIDLookup[child.sys.id];
+                    if(!childItem) {
+                        throw new TypeError('Could not find item with id ' + child.sys.id + '. This may be because the content type of this item is not being requested from Contentful')
+                    }
                     childItem.type = childItem.file.data.sys.contentType.sys.id;
                     childItem.children = getChildren(child);
                     children.push(childItem);
@@ -453,7 +463,7 @@ function build(buildCount){
     })
     .use(function (files, metalsmith, done) {
         // certain content has been incorporated into other pages, but we don't need them as standalone pages in our final build.
-        Object.keys(files).filter(minimatch.filter('@(series)/**')).forEach(function(file){
+        Object.keys(files).filter(minimatch.filter('@(series|quotations)/**')).forEach(function(file){
             delete files[file];
         });
         done();
@@ -485,7 +495,7 @@ function build(buildCount){
     .use(logMessage('Added icon fonts'))
     .use(lazysizes({
         widths: [100,480,768,992,1200,1800],
-        qualities: [ 40, 40, 70, 70, 70, 70],
+        qualities: [ 50, 70, 70, 70, 70, 70],
         backgrounds: ['#banner','.content-block-wrapper','.post-header','.featured-image'],
         ignore: "/images/**",
         ignoreSelectors:'.content-block-content',

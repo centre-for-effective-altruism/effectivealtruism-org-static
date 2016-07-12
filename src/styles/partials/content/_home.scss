@@ -22,7 +22,7 @@
 
 .home-content {
 	@media(min-width:$screen-md){
-		margin-top: $grid-gutter-width*2;
+		// margin-top: $grid-gutter-width*2;
 	}
 }
 .home-aside {
@@ -40,6 +40,18 @@
 .home-section {
 	margin-bottom: $grid-gutter-width*2;
 }
+
+.home-section-quotations {
+	&>.row {
+		// background-color: $site-primary;
+		// color: #FFF;
+		padding: $grid-gutter-width*2 0;
+		border: 2px solid $site-lolight;
+		border-left: none;
+		border-right: none;
+	}
+}
+
 .home-section-cause-prioritisation-tool {
 	img {
 		border: 2px solid #333;

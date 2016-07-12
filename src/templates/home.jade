@@ -10,8 +10,15 @@ block content
 					!= contents
 					i.icon.icon-multiply-impact.home-section-hero-featured-icon
 					.center
-						a.btn.btn-primary(href="/ideas/introduction-to-effective-altruism") Continue reading
-							i.fa.fa-ellipsis-h
+						a.btn.btn-primary(href="/ideas/introduction-to-effective-altruism") Learn more &hellip;
+						//- br
+						//- a.btn.btn-default(href="https://flowcharts-beta.effectivealtruism.org/flowchart/6H6rJK1nJ6OsCywOoS0Km8" target="_blank") How can I help?
+		section.home-section.home-section-quotations
+			.row
+				.col-md-10.col-md-offset-1
+					each child in seriesSet['quotations-on-effective-altruism'].children
+						- var quotation = child.file
+						include ./components/quotation
 		section.home-section.home-section-cause-prioritisation-tool
 			.row
 				.col-md-8.col-md-offset-2

@@ -1,6 +1,7 @@
 @import 'components/footnotes';
 @import 'components/heading-permalink';
 @import 'components/newsletter-signup';
+@import 'components/quotation';
 @import 'components/social-icons';
 @import 'components/table-of-contents';
 
@@ -9,6 +10,8 @@
 }
 
 .btn {
+	font-family: $font-family-sans-serif;
+	font-weight: 400;
 	border-radius: 0 !important;
 	// border-width: 2px;
 	@media(max-width:$screen-xs-max){

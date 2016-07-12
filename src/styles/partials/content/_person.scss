@@ -1,0 +1,30 @@
+.person-page-title {
+	margin-bottom: 0;
+}
+.person-job-title {
+	font-family: $font-family-sans-serif;
+	color: #999;
+	font-size: 24px;
+}
+
+.person-organisations {
+	border-top: 1px solid #DDD;
+	margin-top: $grid-gutter-width;
+	padding-top: $grid-gutter-width;
+}
+.person-organisations-header {
+	color: #DDD;
+	margin-top:0;
+	font-size: 20px;
+}
+.person-organisation {
+	display: flex;
+	align-items: center;
+}
+.person-organisation-title {
+	margin-top: 0;
+    font-weight: 400;
+}
+.person-organisation-logo {
+	margin-bottom: $grid-gutter-width/2;
+}
