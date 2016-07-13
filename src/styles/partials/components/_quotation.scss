@@ -24,6 +24,9 @@ $text-spacing: $author-image-size + $quotation-mark-spacing + ( $grid-gutter-wid
     font-style: italic;
     position: relative;
     font-size: 18px;
+    em {
+        font-style: normal;
+    }
     &>.first-paragraph {
         margin-top: 0;
     }

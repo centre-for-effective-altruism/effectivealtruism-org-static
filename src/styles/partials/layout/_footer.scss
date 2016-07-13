@@ -22,7 +22,7 @@ footer#footer {
 	.footer-left{
 		background-color: $site-primary;
 		font-size:12px;
-		color: #CCC;
+		color: $heading-font-color;
 	}
 	.footer-right {
 		@media(min-width:$screen-md){
@@ -46,6 +46,7 @@ footer#footer {
 	.nav-title {
 		padding: 10px 15px;
 		font-weight: 700;
+		color: $heading-font-color;
 	}
 }
 .footer-nav-main {
