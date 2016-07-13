@@ -6,7 +6,7 @@ if seriesSlug
 			case child.type
 				when 'series'
 					section.series(id='series-'+child.file.slug)
-						h3.series-title!= child.file.title
+						h2.series-title!= child.file.title
 						.series-description
 							!= child.file.contents
 						each seriesChild,index in child.children
@@ -17,6 +17,9 @@ if seriesSlug
 								when 'page'
 									-var file = seriesChild.file
 									include ./series-article
+								when 'organisation'
+									-var file = seriesChild.file
+									include ./series-organisation
 				when 'article'
 					-var file = child.file
 					include ./series-article

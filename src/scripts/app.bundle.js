@@ -35,6 +35,8 @@ require('lazysizesBGSet')
 require('bootstrapDropdown')
 require('bootstrapCollapse')
 require('bootstrapTransition')
+require('bootstrapAffix')
+require('bootstrapScrollspy')
 // require('bootstrapModal')
 // require('bootstrapTooltip')
 // third party bootstrap plugins

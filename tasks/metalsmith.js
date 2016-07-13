@@ -191,25 +191,26 @@ function build(buildCount){
             Object.keys(meta.data.fields).forEach(function(key){
                 // 'body' and 'bio' are used as main content fields, so add them to the 'contents' key
                 if(['body','bio'].indexOf(key)>-1){
-                    meta['contents'] = meta.data.fields[key]
+                    meta['contents'] = meta.data.fields[key] || '';
                 } else {
                     meta[key] = meta.data.fields[key]
                 }
-                // add date information to the post
-                meta.date = meta.date || meta.data.sys.createdAt;
-                meta.updated = meta.updated || meta.data.sys.updatedAt;
-                meta.contents = meta.contents && meta.contents.length>0 ? meta.contents : '';
-                // concat footnotes into main content field
-                if(meta.footnotes) {
-                    meta.contents = meta.contents + '\n\n' + meta.footnotes;
-                    delete meta.footnotes;
-                }
             });
+            // add date information to the post
+            meta.date = meta.date || meta.data.sys.createdAt;
+            meta.updated = meta.updated || meta.data.sys.updatedAt;
+            meta.contents = meta.contents && meta.contents.length>0 ? meta.contents : '';
+
+
+            // concat footnotes into main content field
+            if(meta.footnotes) {
+                meta.contents = meta.contents + '\n\n' + meta.footnotes;
+                delete meta.footnotes;
+            }
         });
 
         done();
     })
-    
     .use(logMessage('Processed Contentful metadata'))
     .use(collections({
         pages: {
@@ -408,6 +409,21 @@ function build(buildCount){
     })
     .use(excerpts())
     .use(logMessage('Converted Markdown to HTML'))
+    .use(function (files, metalsmith, done) {
+        // certain content has been incorporated into other pages, but we don't need them as standalone pages in our final build.
+        Object.keys(files).filter(minimatch.filter('@(series|quotations)/**')).forEach(function(file){
+            delete files[file];
+        });
+        done();
+    })
+    .use(function (files, metalsmith, done) {
+        // put the 404 page into the root directory
+       if(files['404/index.html']){
+            files['404.html'] = files['404/index.html'];
+            delete files['404/index.html'];
+        };
+        done();
+    })
     .use(shortcodes({
         'directory': path.normalize(__dirname+'/../src/templates/shortcodes'),
         'pattern': '**/*.html'
@@ -428,6 +444,26 @@ function build(buildCount){
         }))
         .use(logMessage('Created TOCs'))
     )
+    .use(function (files, metalsmith, done) {
+        files['ideas/index.html'].template = 'page-with-toc.jade';
+        done();
+    })
+    .use(function (files, metalsmith, done) {
+        // update shortcodes we haven't processed yet because they don't
+        var shortcodes = ['toc'];
+        var re = new RegExp('\\[('+shortcodes.join('|')+').*?\\]','gim');
+        Object.keys(files).filter(minimatch.filter('**/index.html')).forEach(function(file){
+            files[file].contents = files[file].contents.toString().replace(re,function(match,shortcode){
+                return match.replace(shortcode,shortcode+'-parsed');
+            })
+        })
+        done();
+    })
+    .use(shortcodes({
+        'directory': path.normalize(__dirname+'/../src/templates/shortcodes'),
+        'pattern': '**/*.html'
+    }))
+    .use(logMessage('Converted Shortcodes (2nd pass)'))
     .use(function (files, metalsmith, done) {
         // create matching JSON files for each piece of content
         Object.keys(files).filter(minimatch.filter('**/index.html')).forEach(function(file){
@@ -452,27 +488,12 @@ function build(buildCount){
                     json[field] = files[file][field]
                 }
             })
-            json.contents = json.contents.toString();
+            json.contents = json.contents ? json.contents.toString() : '';
             files[jsonfile] = {contents:JSON.stringify(json)}
         })
 
         done();
 
-    })
-    .use(function (files, metalsmith, done) {
-        // certain content has been incorporated into other pages, but we don't need them as standalone pages in our final build.
-        Object.keys(files).filter(minimatch.filter('@(series|quotations)/**')).forEach(function(file){
-            delete files[file];
-        });
-        done();
-    })
-    .use(function (files, metalsmith, done) {
-        // put the 404 page into the root directory
-       if(files['404/index.html']){
-            files['404.html'] = files['404/index.html'];
-            delete files['404/index.html'];
-        };
-        done();
     })
     .use(templates({
         engine:'jade',
@@ -503,7 +524,6 @@ function build(buildCount){
         }
     }))
     .use(logMessage('Added responsive image markup'))
-    
     // stuff to only do in production
     if(process.env.NODE_ENV==='staging' || process.env.NODE_ENV==='production'){
         colophonemes
@@ -578,7 +598,7 @@ function build(buildCount){
                     title: 'Build failed!',
                     message: err,
                     appIcon: '',
-                    contentImage: path.join(__dirname, 'src', 'images','favicons', 'favicon-96x96.png'), // absolute path (not balloons) 
+                    contentImage: path.join(__dirname, '..', 'src', 'metalsmith', 'images','favicons', 'favicon-96x96.png'), // absolute path (not balloons) 
                     sound: 'Funk',
                     activate: 'com.apple.Terminal'
                 })
@@ -591,7 +611,7 @@ function build(buildCount){
                     title: 'Website built!',
                     message:'Build time: '+t+'\nClick to switch to Chrome',
                     appIcon: '',
-                    contentImage: path.join(__dirname, 'src', 'images','favicons', 'favicon-96x96.png'), // absolute path (not balloons) 
+                    contentImage: path.join(__dirname, '..', 'src', 'metalsmith', 'images','favicons', 'favicon-96x96.png'), // absolute path (not balloons) 
                     sound: 'Glass',
                     activate: 'com.google.Chrome'
                 })

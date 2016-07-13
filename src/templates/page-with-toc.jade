@@ -1,0 +1,14 @@
+extends ./layout
+
+block header
+	.row
+		.col-md-11.col-md-offset-1
+			include ./layout/header
+
+block content
+	.row
+		#content.col-md-7.col-md-offset-1.col-lg-7(data-spy="scroll" data-target="#table-of-contents")
+			!= contents
+			block postContent
+		#table-of-contents.col-md-4.col-lg-3
+			include ./components/table-of-contents

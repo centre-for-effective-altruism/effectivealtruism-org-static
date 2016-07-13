@@ -67,3 +67,16 @@ p,h1,h2,h3,h4,h5,.navbar a,#content-wrapper a,li,[class^="fa-"],[class*=" fa-"] 
 	font-size: 14px;
 	color: #999;
 }
+
+
+// affix for affix plugin
+
+.affix-top {
+	position: relative;
+}
+.affix {
+	position: fixed;
+}
+.affix-bottom {
+	position: absolute;
+}

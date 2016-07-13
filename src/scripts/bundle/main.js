@@ -88,6 +88,25 @@
     }; 
 })( jQuery, validate );
 
+;(function($){
+    function tocAffix(){
+        var toc = $('#table-of-contents>.table-of-contents-wrapper');
+        toc.css('width',toc.outerWidth())
+        var nav = $('#navbar-main');
+        var content = $('#content');
+        var footer = $('#footer');
+        var footerOffset = footer.offset().top;
+        console.log(footerOffset)
+        toc.affix({
+            offset: {
+                top: content.offset().top - nav.outerHeight(),
+                bottom: footer.outerHeight() + 120
+            }
+        })
+    }
+    tocAffix();
+})(jQuery);
+
 
 // // Handler for Mailchimp signup form
 // ;(function($,cookies){
