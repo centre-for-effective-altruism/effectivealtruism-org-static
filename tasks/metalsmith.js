@@ -30,7 +30,6 @@ var lazysizes = require('metalsmith-lazysizes');
 var branch  = require('metalsmith-branch');
 var collections  = require('metalsmith-collections');
 var permalinks  = require('metalsmith-permalinks');
-var relative = require('metalsmith-relative');
 var excerpts = require('metalsmith-excerpts');
 var pagination = require('metalsmith-pagination');
 var navigation = require('metalsmith-navigation');
@@ -409,7 +408,6 @@ function build(buildCount){
     })
     .use(excerpts())
     .use(logMessage('Converted Markdown to HTML'))
-    .use(relative())
     .use(shortcodes({
         'directory': path.normalize(__dirname+'/../src/templates/shortcodes'),
         'pattern': '**/*.html'
