@@ -1,46 +1,12 @@
-footer#footer.container
+footer.footer#footer
+	.container
 		.row
+			.col-md-6.footer-left
+				.row
+					.col-xs-12
+						.footer-legal
+							p EffectiveAltruism.org is a project of The Centre for Effective Altruism, a registered charity in England and Wales (Charity Number 1149828). All content © Centre For Effective Altruism or its respective authors #{moment().utc().format('YYYY')}, unless otherwise noted.
 			.col-md-6.footer-right
 				.row
 					.col-md-8.col-md-offset-2
 						include ../components/newsletter-signup-small
-						include ../components/social-icons
-			.col-md-6.footer-left
-				.row
-					.col-xs-12
-						.footer-menu
-							.row
-								.col-sm-4
-									ul.nav.footer-nav.footer-nav-main
-										li
-											a(href="#") About
-										li
-											a(href="#") Ideas
-										li
-											a(href="#") Network
-										li
-											a(href="#") Get Involved
-								.col-sm-4
-									ul.nav.footer-nav
-										li.nav-title What is EA?
-										li
-											a(href="#") Key Concepts
-										li
-											a(href="#") Featured EAs
-										li
-											a(href="#") In the News
-								.col-sm-4
-									ul.nav.footer-nav
-										li.nav-title Related Sites
-										li
-											a(href="#") EA Forum
-										li
-											a(href="#") EA Global
-										li
-											a(href="#") The Centre for Effective Altruism
-				.row
-					.col-xs-12
-						.footer-legal
-							hr
-							p EffectiveAltruism.org is a project of The Centre for Effective Altruism, a registered charity in England and Wales (Charity Number 1149828).
-							p All content © Centre For Effective Altruism or its authors #{moment().utc().format('YYYY')}, unless otherwise noted.

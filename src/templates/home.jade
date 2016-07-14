@@ -12,12 +12,6 @@ block content
 						a.btn.btn-primary(href="/ideas/introduction-to-effective-altruism") Learn more&hellip;
 						//- br
 						//- a.btn.btn-default(href="https://flowcharts-beta.effectivealtruism.org/flowchart/6H6rJK1nJ6OsCywOoS0Km8" target="_blank") How can I help?
-		section.home-section.home-section-quotations
-			.row
-				.col-md-10.col-md-offset-1
-					each child in seriesSet['quotations-on-effective-altruism'].children
-						- var quotation = child.file
-						include ./components/quotation
 		section.home-section.home-section-cause-prioritisation-tool
 			.row
 				.col-md-5.col-md-offset-1
@@ -34,6 +28,12 @@ block content
 			.row
 				.col-md-6.col-md-offset-3
 					include ./components/newsletter-signup-small
+		section.home-section.home-section-quotations
+			.row
+				.col-md-10.col-md-offset-1
+					each child in seriesSet['quotations-on-effective-altruism'].children
+						- var quotation = child.file
+						include ./components/quotation
 		.row
 			.col-md-5.col-md-offset-1
 				section.home-section
@@ -49,5 +49,6 @@ block content
 					.row.home-section-featured-ideas
 						each child in seriesSet['featured-effective-altruists'].children
 							.col-xs-6.col-md-3
-								img.img-responsive(src=child.file.photo.fields.file.url)
-								a(href=child.file.canonical)!= child.file.title
+								a(href=child.file.canonical)
+									img.img-responsive(src=child.file.photo.fields.file.url)
+									!= child.file.title

@@ -1,45 +1,37 @@
 // FONT FACES
 $font-family-serif: Merriweather, Georgia, Garamond, 'Times New Roman', serif;
-$font-family-sans-serif: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-sans-serif: "futura-pt", "Helvetica Neue", Helvetica, Arial, sans-serif;
 // COLOURS
 
-$site-primary: #0C869B;
-$site-secondary: #edede5;
-$site-ternary: #26484e;
-$site-quaternary: #57b6a4;
-$site-quinary: #e9c46a;
-$site-senary: #f4a261;
+$site-primary: #3092cf;
+$site-secondary: #FFA32F;
+$site-muted: #f6f3ec;
+
 
 $site-first: $site-primary;
 $site-second: $site-secondary;
-$site-third: $site-ternary;
-$site-fourth: $site-quaternary;
-$site-fifth: $site-quinary;
-$site-sixth: $site-senary;
+
 
 // $site-highlight: #6c0000;
 // $site-lolight: #6c0000;
 
 // coefficients
-$darker-factor: 20%;
-$dark-factor: 10%;
-$lighter-factor: 40%;
-$light-factor: 20%;
+
 
 // site colours
-$site-light: #00B2BE;
+$site-light: #53A5DA;
 $site-highlight: $site-light;
-$site-lighter: lighten($site-light, $light-factor);
-$site-dark: #1B5266;
+$site-lighter: #7EBDE6;
+$site-dark: #0C7CC4;
 $site-lolight: $site-dark;
-$site-darker: darken($site-dark, $dark-factor);
+$site-darker: #065C94;
 
-$site-secondary-light: lighten($site-secondary, $light-factor);
-$site-secondary-highlight: $site-light;
-$site-secondary-lighter: lighten($site-secondary, $lighter-factor);
-$site-secondary-dark: darken($site-secondary, $dark-factor);
-$site-secondary-lolight: $site-dark;
-$site-secondary-darker: darken($site-secondary, $darker-factor);
+$site-secondary-light: #FFB557;
+$site-secondary-highlight: $site-secondary-light;
+$site-secondary-lighter: #FFC985;
+$site-secondary-dark: #FF8E00;
+$site-secondary-lolight: $site-secondary-dark;
+$site-secondary-darker: #E78100;
 
 
 $cea: #2c5aa9;

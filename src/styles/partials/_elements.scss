@@ -2,9 +2,7 @@ html,body {
     height:100%;
 }
 body {
-	@media(min-width:$screen-md){
-		background-color: #EEE;
-	}
+	background-color: $site-muted;
 	font-weight: 300;
 	position: relative;
 }
