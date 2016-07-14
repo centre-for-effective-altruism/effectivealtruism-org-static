@@ -56,7 +56,7 @@ $text-spacing: $author-image-size + $quotation-mark-spacing + ( $grid-gutter-wid
     }
 }
 .quotation-source-title {
-    font-weight: 700;
+    font-weight: 500;
     margin: 0;
     &:before {
     	content: '— ';

@@ -12,13 +12,7 @@
 // 	}
 // }
 #navbar-main{
-	@media(max-width:$screen-sm-max){
-		width:100%;
-	}
-	.navbar-collapse {
-		padding-left:0;
-		padding-right:0;
-	}
+	
 }
 .navbar {
 	transition: opacity .25s ease-in-out;
@@ -26,8 +20,7 @@
 	background-color: transparent;
 }
 .navbar-inner {
-	box-shadow: 0 9px 15px -8px $site-darker;
-	background-color: #FFF;
+	background-color: $site-muted;
 	margin: auto;
 	@include clearfix();
 }
@@ -54,7 +47,7 @@
 		}
 		&>a{
 			font-family: $font-family-sans-serif;
-			font-weight:700;
+			font-weight: 300;
 			color: #333;
 			padding: 8px;
 			@media(min-width:$screen-md){	
@@ -86,6 +79,7 @@
 }
 .navbar-header-brand-logo {
 	max-height: $navbar-height *2/3;
+	font-size: $navbar-height *2/3;
 	/* @media(min-width:$screen-md){
 		max-height: 84px;
 	    margin-top: 26px;
@@ -108,7 +102,7 @@
 $navbar-font-size-md: 11px;
 $navbar-font-size-lg: 14px;
 .navbar-header-brand-description {
-	font-weight: 700;
+	font-weight: 500;
 	@media(max-width: $screen-sm-max ){
 		display: none;
 	}

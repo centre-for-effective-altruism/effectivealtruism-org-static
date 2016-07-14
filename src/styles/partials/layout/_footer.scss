@@ -3,52 +3,25 @@ $link-color: #AAA;
 $link-color-hover: #FFF;
 $heading-font-color: #CCC;
 
-footer#footer {
+.footer {
+	padding: $grid-gutter-width*2 0;
 	@media(max-width:$screen-sm-max){
 		width:100%;
 	}
-	font-family: $font-family-sans-serif;
-	color:#FFF;
-	background-color: $site-lolight;
-	.footer-left, .footer-right {
-		padding-top: $grid-gutter-width;
-		padding-bottom: $grid-gutter-width;
-		@media(min-width:$screen-md){
-
-			padding-top: $grid-gutter-width*2;
-			padding-bottom: $grid-gutter-width*2;
-		}
-	}
-	.footer-left{
-		background-color: $site-primary;
-		font-size:12px;
-		color: $heading-font-color;
-	}
-	.footer-right {
-		@media(min-width:$screen-md){
-			float: right !important;
-		}
-		background-color: $site-lolight;
+	font-size: 14px;
+}
+.footer-legal {
+	@media(min-width:$screen-md){
+		margin-top: 25px;
 	}
 }
 
-.footer-nav{
-	@media(max-width:$screen-sm-max){
-		text-align: center;
-	}
-	&>li>a{
-		color: #FFF;
-		&:hover, &:focus {
-			text-decoration: underline;
-			background-color: transparent;
+.footer {
+	.newsletter-signup-small-form {
+		input, .btn{
+			border-color: #555;
+			color: #555;
+			background-color: darken($site-muted,5%);
 		}
 	}
-	.nav-title {
-		padding: 10px 15px;
-		font-weight: 700;
-		color: $heading-font-color;
-	}
-}
-.footer-nav-main {
-	font-weight: 700;
 }

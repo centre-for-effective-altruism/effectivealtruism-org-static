@@ -1,6 +1,8 @@
-	h1 {
 
-	}
+.home-section-title {
+	border-bottom: 2px solid $site-primary;
+	padding-bottom: 7px;
+}
 
 @media(max-width: $screen-sm-max){
 	.home-section-hero {
@@ -60,7 +62,9 @@
 .home-section-quotations {
 	&>.row {
 		padding: $grid-gutter-width*2 0 0;
-		border-top: 2px solid $site-lolight;
+		border: 2px solid $site-primary;
+		border-left: none;
+		border-right: none;
 	}
 	.quotation {
 		margin-bottom: $grid-gutter-width;
@@ -76,7 +80,7 @@
 		}
 	}
 	&>.row{
-		background-color: $site-lolight;
+		background-color: $site-primary;
 		color: #FFF;
 		padding: $grid-gutter-width 0;
 	}
@@ -94,6 +98,8 @@
 	}
 }
 
+
+
 .home-section-newsletter-signup > .row {
 	font-family: $font-family-sans-serif;
 }
@@ -107,4 +113,10 @@
 
 .home-featured-ea-article {
 
+}
+
+.home {
+	.heading-permalink {
+		display: none !important;
+	}
 }

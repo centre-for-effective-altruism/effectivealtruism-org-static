@@ -6,7 +6,6 @@
 }
 
 .table-of-contents-item {
-	font-family: $font-family-serif;
 	font-weight: 300;
 	font-size: 14px;
 }
@@ -16,9 +15,9 @@
 	&>.table-of-contents-item {
 		list-style-type:none;
 		font-family: $font-family-sans-serif;
-		font-weight: 700;
+		font-weight: 500;
 		&>a {
-			color: $site-lolight;
+			color: $site-darker;
 		}
 	}
 }
