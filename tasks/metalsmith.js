@@ -552,6 +552,8 @@ function build(buildCount){
                     /tooltip/,
                     /alert/,
                     /highlighted/,
+                    /affix/,
+                    /active/,
                 ],
                 media: ['(min-width: 480px)','(min-width: 768px)','(min-width: 992px)','(min-width: 1200px)']
             }

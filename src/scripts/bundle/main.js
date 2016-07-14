@@ -104,7 +104,21 @@
             }
         })
     }
-    tocAffix();
+
+    function tocScrollSpy(){
+        var nav = $('#navbar-main');
+        $('body').scrollspy({ target: '.table-of-contents-wrapper', offset: nav.outerHeight() + 120 })
+    }
+
+    function createToc(){
+        if ($(window).width() >= window.breakpoints.md){
+            tocAffix();
+            tocScrollSpy();
+        }
+    }
+
+    createToc();
+
 })(jQuery);
 
 

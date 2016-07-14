@@ -21,7 +21,35 @@
 			color: $site-lolight;
 		}
 	}
-		
+}
+.table-of-contents {
+	&>.table-of-contents-item {
+		&>.table-of-contents {
+			display: none;
+			&>.table-of-contents-item {
+				&>a {
+					color: #999;
+					padding-left: 10px;
+				}
+			}
+		}
+	}
+	&>.table-of-contents-item.active {
+		&>a {
+			color: $site-primary;
+		}
+		&>.table-of-contents {
+			display: block;
+			&>.table-of-contents-item.active {
+				&>a {
+					color: $site-primary;
+				}
+			}
+		}
+	}
+	&>li>a {
+		padding: 0 0 5px 0;
+	}
 }
 
 #table-of-contents>.table-of-contents-wrapper {
