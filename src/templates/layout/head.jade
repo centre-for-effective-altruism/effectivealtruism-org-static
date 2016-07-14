@@ -23,7 +23,7 @@ head
         window.wfl = setTimeout(function(){
             window.wfInactive = true;
             h.className=h.className.replace('wf-loading','wf-inactive');
-        },3000)
+        },1500)
         // defer execution of jquery-dependent scripts defined before jQuery loads
         window.q=[];window.$=function(f){q.push(f)}
         // enqueue scripts at the end of the page from before the closing body tag
