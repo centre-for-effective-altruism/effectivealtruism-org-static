@@ -37,7 +37,7 @@
 			justify-content: space-between;
 			align-items: center;
 			float: none;
-			height: $navbar-height;
+			height: $navbar-height-large;
 		}
 	}
 	li.nav{
@@ -47,8 +47,8 @@
 		}
 		&>a{
 			font-family: $font-family-sans-serif;
-			font-weight: 300;
-			color: #333;
+			font-weight: $font-weight-normal;
+			color:$site-dark-gray;
 			padding: 8px;
 			@media(min-width:$screen-md){	
 				padding:10px 0;
@@ -57,52 +57,60 @@
 				color: $site-primary;
 			}
 		}
+		&.active {
+			&>a {
+				color: $site-primary;
+			}
+		}
 	}
 }
 .navbar-toggle {
 	padding: 0;
+}
+.navbar-header-brand {
+	margin-top: 17px;
+	@media(min-width: $screen-md){
+		margin-top: 21px;
+	}
 }
 .navbar-header-brand-logo-wrapper {
 	// padding: 0 0 0 15px;
 }
 .navbar-header-brand-logo-text-wrapper {
 	@media(max-width:$screen-sm-max){
-		text-align: center;
+		// text-align: center;
 	}
 }
 .navbar-header-brand-logo-wrapper,.navbar-header-brand-logo-text-wrapper {
-	height: $navbar-height;
-	display:flex;
-	justify-content: space-between;
-	align-items: center;
-
+	float: left;
 }
 .navbar-header-brand-logo {
-	max-height: $navbar-height *2/3;
-	font-size: $navbar-height *2/3;
-	/* @media(min-width:$screen-md){
-		max-height: 84px;
-	    margin-top: 26px;
-	    // max-width: none;
+	font-size: 37px;
+	line-height: 1em;
+	@media(min-width: $screen-md){
+		font-size: $navbar-height *2/3;
 	}
-	@media(min-width:$screen-lg){
-		max-height: 104px;
-	    margin-top: 53px;
-	    // max-width: none;
-	} */
+}
+.navbar-header-brand-logo-wrapper {
+
+}
+.navbar-header-brand-logo-text-wrapper {
+	width: 224px;
+	
+	@media(min-width: $screen-md){
+		margin-top: 5px;
+		width: 300px;
+	}
+	max-height: $navbar-height *2/3;
 }
 .navbar-header-brand-logo-text {
-	width: 90%;
-	@media(min-width: $screen-lg){
-		width: 80%;
-	}
-	max-height: $navbar-height *2/3;
+	width: 100%;
 }
 
 $navbar-font-size-md: 11px;
 $navbar-font-size-lg: 14px;
 .navbar-header-brand-description {
-	font-weight: 500;
+	font-weight: $font-weight-bold;
 	@media(max-width: $screen-sm-max ){
 		display: none;
 	}

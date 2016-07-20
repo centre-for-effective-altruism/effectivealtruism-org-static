@@ -7,11 +7,10 @@ block content
 		section.home-section.home-section-hero
 			.row
 				.col-md-10.col-md-offset-1
+					h1.page-title.page-title-home#page-title!= title
 					!= contents
 					.center
 						a.btn.btn-primary(href="/ideas/introduction-to-effective-altruism") Learn more&hellip;
-						//- br
-						//- a.btn.btn-default(href="https://flowcharts-beta.effectivealtruism.org/flowchart/6H6rJK1nJ6OsCywOoS0Km8" target="_blank") How can I help?
 		section.home-section.home-section-cause-prioritisation-tool
 			.row
 				.col-md-5.col-md-offset-1
@@ -20,35 +19,38 @@ block content
 					a.btn.btn-default.visible-md.visible-lg(href="https://flowcharts-beta.effectivealtruism.org/flowchart/6H6rJK1nJ6OsCywOoS0Km8" target="_blank") Try it now 
 						i.fa.fa-external-link
 				.col-md-5
+					section.home-section.home-section-newsletter-signup
+							include ./components/newsletter-signup-small
+				//- .col-md-5
 					a(href="https://flowcharts-beta.effectivealtruism.org/flowchart/6H6rJK1nJ6OsCywOoS0Km8")
 						img.img-responsive(src="https://images.contentful.com/ohf186sfn6di/26SRYqNfYciQYCyiUywssm/f13a1f6ab72aad29fc94f07dcc4386a5/flowchart.png" target="_blank")
-					a.btn.btn-default.visible-xs.visible-sm(href="https://flowcharts-beta.effectivealtruism.org/flowchart/6H6rJK1nJ6OsCywOoS0Km8" target="_blank") Open
+					a.btn.btn-default.visible-xs.visible-sm(href="https://flowcharts-beta.effectivealtruism.org/flowchart/6H6rJK1nJ6OsCywOoS0Km8" target="_blank") Try it now 
 						i.fa.fa-external-link
-		section.home-section.home-section-newsletter-signup
-			.row
-				.col-md-6.col-md-offset-3
-					include ./components/newsletter-signup-small
-		section.home-section.home-section-quotations
-			.row
-				.col-md-10.col-md-offset-1
-					each child in seriesSet['quotations-on-effective-altruism'].children
-						- var quotation = child.file
-						include ./components/quotation
 		.row
 			.col-md-5.col-md-offset-1
-				section.home-section
-					h3.home-section-title Key Ideas
-					ul.home-section-featured-ideas.list-unstyled
-						each child in seriesSet['featured-ideas'].children
-							li
+				section.home-section.home-section-key-ideas
+					h3.home-section-title!= seriesSet['key-ideas'].file.title
+						a.home-section-read-more-link(href="/ideas/") Read more...
+					ul.home-section-key-ideas-list.list-unstyled
+						each child in seriesSet['key-ideas'].children
+							li.home-section-key-ideas-idea
 								a(href=child.file.canonical)!= child.file.title
 				
 			.col-md-5
-				section.home-section
-					h3.home-section-title Featured Effective Altruists
-					.row.home-section-featured-ideas
+				section.home-section.home-section-effective-altruist-profiles
+					h3.home-section-title!= seriesSet['featured-effective-altruists'].file.title
+						a.home-section-read-more-link(href="/community/effective-altruist-profiles/") Read more...
+					.row
 						each child in seriesSet['featured-effective-altruists'].children
-							.col-xs-6.col-md-3
+							.col-xs-6.col-sm-3.home-section-effective-altruist-profiles-profile
 								a(href=child.file.canonical)
-									img.img-responsive(src=child.file.photo.fields.file.url)
-									!= child.file.title
+									img.img-responsive.home-section-effective-altruist-profiles-profile-image(src=child.file.photo.fields.file.url)
+									p.home-section-effective-altruist-profiles-profile-title!= child.file.title
+		section.home-section.home-section-quotations
+			.row
+				.col-md-10.col-md-offset-1
+					.row
+					each child in seriesSet['quotations-on-effective-altruism'].children
+						- var quotation = child.file
+						.col-md-6
+							include ./components/quotation

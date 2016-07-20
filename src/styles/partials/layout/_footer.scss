@@ -4,7 +4,7 @@ $link-color-hover: #FFF;
 $heading-font-color: #CCC;
 
 .footer {
-	padding: $grid-gutter-width*2 0;
+	padding: $grid-gutter-width 0;
 	@media(max-width:$screen-sm-max){
 		width:100%;
 	}
@@ -21,6 +21,11 @@ $heading-font-color: #CCC;
 		input, .btn{
 			border-color: #555;
 			color: #555;
+		}
+		input {
+			background-color: $site-muted;
+		}
+		.btn {
 			background-color: darken($site-muted,5%);
 		}
 	}

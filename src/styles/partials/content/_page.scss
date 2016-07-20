@@ -4,3 +4,16 @@
 		// @include first-paragraph();
 	}
 }
+
+// .page {
+// 	&.about,
+// 	&.ideas,
+// 	&.community,
+// 	&.get-involved {
+// 		.page-title {
+// 			@media(min-width: $screen-md){
+// 				display: none;
+// 			}
+// 		}
+// 	}
+// }

@@ -3,7 +3,7 @@ html,body {
 }
 body {
 	background-color: $site-muted;
-	font-weight: 300;
+	font-weight: $font-weight-normal;
 	position: relative;
 }
 h1,h2,h3,h4,h5,h6 {
@@ -34,7 +34,7 @@ figure {
 	}
 	figcaption {
 		text-align: right;
-		font-weight: 200;
+		font-weight: $font-weight-normal;
 		font-style: italic;
 		border-bottom: 2px dashed $site-secondary-darker;
 		padding: 5px 0;
@@ -62,4 +62,9 @@ table {
 	&.table-striped>tbody>tr:nth-of-type(odd)>th{
 		background-color: darken($site-secondary,2%);
 	}
+}
+
+::selection {
+	background-color: $site-primary;
+	color: #FFF;
 }

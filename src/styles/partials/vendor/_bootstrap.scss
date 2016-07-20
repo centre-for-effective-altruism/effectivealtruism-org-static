@@ -19,7 +19,7 @@ $brand-primary:         $site-primary;
 //** Background color for `<body>`.
 $body-bg:               #fff;
 //** Global text color on `<body>`.
-$text-color:            #555 !default;
+$text-color:            $site-dark-gray !default;
 
 //** Global textual link color.
 $link-color:            $site-primary;
@@ -38,7 +38,7 @@ $font-size-large:         ceil(($font-size-base * 1.25)); // ~18px
 $font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
 
 $headings-font-family:    $font-family-sans-serif;
-$headings-font-weight:    500;
+$headings-font-weight:    $font-weight-bold;
 
 
 
@@ -54,6 +54,7 @@ $line-height-computed:    floor(($font-size-base * $line-height-base)); // ~20px
 
 // Basics of a navbar
 $navbar-height:                    68px !default;
+$navbar-height-large:              90px !default; // custom var for more space on bigger screens
 // $navbar-margin-bottom:             $line-height-computed !default;
 // $navbar-border-radius:             $border-radius-base !default;
 // $navbar-padding-horizontal:        floor(($grid-gutter-width / 2)) !default;

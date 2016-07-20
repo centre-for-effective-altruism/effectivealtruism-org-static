@@ -8,4 +8,7 @@
 		padding-top: 128px + $grid-gutter-width*2;
 	} */
 	background:#FFF;
+	@media(min-width: $screen-md){
+		padding-top: $navbar-height-large + $grid-gutter-width*2;
+	}
 }
