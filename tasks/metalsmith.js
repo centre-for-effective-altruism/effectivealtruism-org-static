@@ -1,3 +1,4 @@
+require("time-require");
 // start a timer
 var buildTime = process.hrtime();
 var buildTimeDiff = buildTime;
@@ -22,8 +23,8 @@ var ignore      = require('metalsmith-ignore');
 var contentful = require('contentful-metalsmith');
 var slug = require('slug'); slug.defaults.mode = 'rfc3986';
 var copy = require('metalsmith-copy');
-var templates  = require('metalsmith-templates');
-var inPlace  = require('metalsmith-in-place');
+// var templates  = require('metalsmith-templates');
+var layouts  = require('metalsmith-layouts');
 message('Loaded templating');
 var lazysizes = require('metalsmith-lazysizes');
 // metadata and structure
@@ -64,6 +65,7 @@ var path = require('path');
 var extend = require('util')._extend;
 var merge = require('merge');
 var typogr = require('typogr');
+var url = require('url');
 var NotificationCenter = require('node-notifier').NotificationCenter;
 var notifier = new NotificationCenter;
 // utility global var to hold 'site' info from our settings file, for reuse in other plugins
@@ -276,6 +278,8 @@ function build(buildCount){
     .use(function (files,metalsmith,done){
         // use the 'home' template for the home page
         files['index.html'].template = 'home.jade';
+        // long intro to EA page should have TOC
+        files['ideas/introduction-to-effective-altruism/index.html'].template = 'idea-with-toc.jade';
         done();
     })
     // .use(function (files,metalsmith,done){
@@ -300,18 +304,6 @@ function build(buildCount){
         }))
     )
     .use(logMessage('Added navigation metadata'))
-    .use(function (files, metalsmith, done) {
-        // console.log(Object.keys(files['ideas/index.html']));
-
-        // add templates for our collections
-        // var collections = ['ideas'];
-        // collections.forEach(function(collection){
-        //     if(files[collection+'/index.html']){
-        //         files[collection+'/index.html'].template = 'collection.jade';
-        //     }
-        // })
-        done();
-    })
     .use(function (files, metalsmith, done) {
         var dynamicSiteRedirects = files['settings/_redirects'].contents.toString().split('\n').sort()
         // build a list of redirects from file meta
@@ -362,6 +354,7 @@ function build(buildCount){
             series[files[file].slug] = s;
         })
         metalsmith.metadata().seriesSet = series;
+
         done();
 
         // recursive function to traverse series
@@ -411,7 +404,7 @@ function build(buildCount){
     .use(logMessage('Converted Markdown to HTML'))
     .use(function (files, metalsmith, done) {
         // certain content has been incorporated into other pages, but we don't need them as standalone pages in our final build.
-        Object.keys(files).filter(minimatch.filter('@(series|quotations)/**')).forEach(function(file){
+        Object.keys(files).filter(minimatch.filter('@(series|quotations|links)/**')).forEach(function(file){
             delete files[file];
         });
         done();
@@ -495,11 +488,20 @@ function build(buildCount){
         done();
 
     })
-    .use(templates({
+    .use(function (files, metalsmith, done) {
+        // copy 'template' key to 'layout' key
+        Object.keys(files).filter(minimatch.filter('**/index.html')).forEach(function(file){
+            if (files[file].template && !files[file].layout) files[file].layout = files[file].template;
+        })
+        done();
+    })
+    .use(layouts({
         engine:'jade',
         directory: '../src/templates',
         pretty: process.env.NODE_ENV === 'development' ? true : false,
+        cache: true,
         typogr,
+        url,
         moment,
         strip,
         collectionSlugs,
