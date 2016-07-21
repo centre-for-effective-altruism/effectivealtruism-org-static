@@ -1,14 +1,15 @@
-require("time-require");
 // start a timer
 var buildTime = process.hrtime();
 var buildTimeDiff = buildTime;
 // load environment variables
 require('dotenv').load({silent: true});
-
 // process.env.NODE_ENV VARS - default to development
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 // cache require paths in development
-if (process.env.NODE_ENV === 'development') require('cache-require-paths');
+if (process.env.NODE_ENV === 'development') {
+    require("time-require");
+    require('cache-require-paths');
+}
 
 // Start the build!
 var chalk = require('chalk');
