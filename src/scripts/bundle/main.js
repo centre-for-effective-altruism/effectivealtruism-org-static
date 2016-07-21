@@ -97,7 +97,6 @@
     function tocAffix(){
         toc.css('width',toc.outerWidth())
         var footerOffset = footer.offset().top;
-        console.log(footerOffset)
         toc.affix({
             offset: {
                 top: content.offset().top - nav.outerHeight(),
@@ -106,18 +105,26 @@
         })
     }
 
-    function tocScrollSpy(){
-        $('body').scrollspy({ target: '.table-of-contents-wrapper', offset: nav.outerHeight() + 120 })
-    }
-
     function createToc(){
         if ($(window).width() >= window.breakpoints.md){
             tocAffix();
-            tocScrollSpy();
+            toc.addClass('table-of-contents-scrollspy-active')
+        } else {
+            $(window).off('.affix');
+            toc
+            .removeClass("affix affix-top affix-bottom table-of-contents-scrollspy-active")
+            .removeData("bs.affix");
+
         }
     }
 
+    $('body').scrollspy({ target: '.table-of-contents-scrollspy-active', offset: nav.outerHeight() + 120 })
     createToc();
+
+    $(window).on('resize',function(){
+        clearTimeout(resizeTimeout);
+        var resizeTimeout = setTimeout(createToc,300);
+    })
 
 })(jQuery);
 

@@ -95,8 +95,10 @@
 
 }
 .navbar-header-brand-logo-text-wrapper {
-	width: 224px;
-	
+	width: 182px;
+	@media(min-width: 330px){
+		width: 224px;
+	}
 	@media(min-width: $screen-md){
 		margin-top: 5px;
 		width: 300px;
