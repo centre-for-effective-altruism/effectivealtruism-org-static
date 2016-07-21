@@ -7,6 +7,8 @@ require('dotenv').load({silent: true});
 
 // process.env.NODE_ENV VARS - default to development
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+// cache require paths in development
+if (process.env.NODE_ENV === 'development') require('cache-require-paths');
 
 // Start the build!
 var chalk = require('chalk');
@@ -19,11 +21,9 @@ message('Loaded Metalsmith');
 var metadata = require('metalsmith-metadata');
 var moment = require('moment');
 var ignore      = require('metalsmith-ignore');
-// var getSpecials = require('../lib/get-specials').get
 var contentful = require('contentful-metalsmith');
 var slug = require('slug'); slug.defaults.mode = 'rfc3986';
 var copy = require('metalsmith-copy');
-// var templates  = require('metalsmith-templates');
 var layouts  = require('metalsmith-layouts');
 message('Loaded templating');
 var lazysizes = require('metalsmith-lazysizes');
@@ -56,7 +56,6 @@ if(process.env.NODE_ENV==='staging' || process.env.NODE_ENV==='production'){
     var uncss = require('metalsmith-uncss');
     var cleanCSS = require('metalsmith-clean-css');
     var sitemap = require("metalsmith-sitemap");
-    // var subset = require('metalsmith-subsetfonts')
     message('Loaded production modules');
 }
 // utility
@@ -129,7 +128,8 @@ function build(buildCount){
         pattern: '**/*.html',
         engine:'pug',
         extension:'.pug',
-        cache: true
+        cache: true,
+        url
     }
 
     // START THE BUILD!

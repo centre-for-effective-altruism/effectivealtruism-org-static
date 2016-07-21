@@ -9,7 +9,7 @@ if file
 				i.fa.fa-external-link
 		p.series-link-domain
 			i.fa.fa-globe
-			!= file.url.match(/\/\/((.*?)\/|.*)/)[2]
+			!= url.parse(file.url).hostname
 		.series-item-excerpt!= file.contents
 		//- if useReadMore
 			.series-article-read-more
