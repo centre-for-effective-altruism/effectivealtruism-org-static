@@ -123,6 +123,15 @@ function build(buildCount){
         }
     })
 
+    // shortcodes is used twice so abstract the options object
+    var shortcodeOpts = {
+        directory: path.normalize(__dirname+'/../src/templates/shortcodes'),
+        pattern: '**/*.html',
+        engine:'pug',
+        extension:'.pug',
+        cache: true
+    }
+
     // START THE BUILD!
     var colophonemes = new Metalsmith(__dirname);
     colophonemes
@@ -277,9 +286,9 @@ function build(buildCount){
     })
     .use(function (files,metalsmith,done){
         // use the 'home' template for the home page
-        files['index.html'].template = 'home.jade';
+        files['index.html'].template = 'home.pug';
         // long intro to EA page should have TOC
-        files['ideas/introduction-to-effective-altruism/index.html'].template = 'idea-with-toc.jade';
+        files['ideas/introduction-to-effective-altruism/index.html'].template = 'idea-with-toc.pug';
         done();
     })
     // .use(function (files,metalsmith,done){
@@ -417,10 +426,7 @@ function build(buildCount){
         };
         done();
     })
-    .use(shortcodes({
-        'directory': path.normalize(__dirname+'/../src/templates/shortcodes'),
-        'pattern': '**/*.html'
-    }))
+    .use(shortcodes(shortcodeOpts))
     .use(logMessage('Converted Shortcodes'))
     .use(branch(function(filename,props,i){
 
@@ -438,7 +444,7 @@ function build(buildCount){
         .use(logMessage('Created TOCs'))
     )
     .use(function (files, metalsmith, done) {
-        files['ideas/index.html'].template = 'page-with-toc.jade';
+        files['ideas/index.html'].template = 'page-with-toc.pug';
         done();
     })
     .use(function (files, metalsmith, done) {
@@ -452,10 +458,7 @@ function build(buildCount){
         })
         done();
     })
-    .use(shortcodes({
-        'directory': path.normalize(__dirname+'/../src/templates/shortcodes'),
-        'pattern': '**/*.html'
-    }))
+    .use(shortcodes(shortcodeOpts))
     .use(logMessage('Converted Shortcodes (2nd pass)'))
     .use(function (files, metalsmith, done) {
         // create matching JSON files for each piece of content
@@ -492,11 +495,12 @@ function build(buildCount){
         // copy 'template' key to 'layout' key
         Object.keys(files).filter(minimatch.filter('**/index.html')).forEach(function(file){
             if (files[file].template && !files[file].layout) files[file].layout = files[file].template;
+            files[file].layout = files[file].layout.replace('.jade','.pug')
         })
         done();
     })
     .use(layouts({
-        engine:'jade',
+        engine:'pug',
         directory: '../src/templates',
         pretty: process.env.NODE_ENV === 'development' ? true : false,
         cache: true,
