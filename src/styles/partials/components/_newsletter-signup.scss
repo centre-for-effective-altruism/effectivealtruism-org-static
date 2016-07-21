@@ -15,7 +15,7 @@
 		color: #AAA;
 	}
 	.newsletter-signup-small-form {
-		font-family: $font-family-sans-serif;
+		// font-family: $font-family-sans-serif;
 		margin: 7px 0;
 		.form-control {
 			border: 1px solid $site-dark;
@@ -53,9 +53,8 @@
 
 #footer {
 	.newsletter-signup-small, .newsletter-signup-small-form .btn {
-		text-transform: uppercase;
 	}
 	.newsletter-signup-small-call-to-action {
-		font-weight: 500;
+		font-weight: $font-weight-bold;
 	}
 }

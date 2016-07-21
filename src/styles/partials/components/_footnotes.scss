@@ -14,6 +14,6 @@
 	&.highlighted {
 		background-color: $site-secondary;
     	padding: 0 5px;
-    	font-weight: 500;
+    	font-weight: $font-weight-bold;
 	}
 }

@@ -43,7 +43,7 @@ $text-spacing: $author-image-size + $quotation-mark-spacing + ( $grid-gutter-wid
     	    top: 54px;
     	    font-size: 120px;
     	    line-height: 0;
-    	    color: #DDD;
+    	    color: $site-muted;
     	}
     }
 }
@@ -56,14 +56,13 @@ $text-spacing: $author-image-size + $quotation-mark-spacing + ( $grid-gutter-wid
     }
 }
 .quotation-source-title {
-    font-weight: 500;
     margin: 0;
+    font-weight: $font-weight-bold;
     &:before {
     	content: '— ';
     }
 }
 
 .quotation-source-details {
-    font-style: italic;
-    font-size: 14px;
+
 }

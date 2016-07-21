@@ -1,11 +1,15 @@
 // FONT FACES
-$font-family-serif: Merriweather, Georgia, Garamond, 'Times New Roman', serif;
-$font-family-sans-serif: "futura-pt", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-serif: Alegreya, Georgia, Garamond, 'Times New Roman', serif;
+$font-family-sans-serif: "Alegreya Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+$font-weight-normal: 300;
+$font-weight-bold: 500;
 // COLOURS
 
-$site-primary: #3092cf;
+$site-primary: #6A95CE;
 $site-secondary: #FFA32F;
-$site-muted: #f6f3ec;
+$site-muted: #F4EFE9;
+$site-dark-gray: #5d5d5d;
 
 
 $site-first: $site-primary;

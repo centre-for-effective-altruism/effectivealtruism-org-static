@@ -49,7 +49,7 @@
 		font-size: $first-paragraph-xs-line-height*2;
 		line-height: ($first-paragraph-xs-line-height*2)-1;
 		font-family: $font-family-sans-serif; 
-		font-weight: 500;
+		font-weight: $font-weight-bold;
 	    float: left;
 	    padding-right: 0.05em;
 	    color: $site-lolight;
@@ -57,5 +57,20 @@
 			font-size: $first-paragraph-sm-line-height*2;
 			line-height: ($first-paragraph-sm-line-height*2)-1;
 		}
+	}
+}
+
+@mixin placeholderColor($color:#FFF) {
+	::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+		color: $color !important;
+	}
+	::-moz-placeholder { /* Firefox 19+ */
+		color: $color !important;
+	}
+	:-ms-input-placeholder { /* IE 10+ */
+		color: $color !important;
+	}
+	:-moz-placeholder { /* Firefox 18- */
+		color: $color !important;
 	}
 }

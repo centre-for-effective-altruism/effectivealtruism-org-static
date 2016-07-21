@@ -1,23 +1,24 @@
 .table-of-contents-wrapper {
-	border: 1px solid #CCC;
-	background-color: #EEE;
+	background-color: $site-muted;
 	padding: $grid-gutter-width/2;
 	
 }
 
 .table-of-contents-item {
-	font-weight: 300;
+	font-weight: $font-weight-normal;
 	font-size: 14px;
 }
 .table-of-contents-top-level {
 	margin:0;
 	padding:0;
+    max-height: 380px;
+    overflow-y: auto;
 	&>.table-of-contents-item {
 		list-style-type:none;
 		font-family: $font-family-sans-serif;
-		font-weight: 500;
+		font-weight: $font-weight-bold;
 		&>a {
-			color: $site-darker;
+			color: $site-dark-gray;
 		}
 	}
 }
@@ -54,7 +55,7 @@
 #table-of-contents>.table-of-contents-wrapper {
 	margin-top: 33px;
 	&.affix {
-		margin-top: -110px;
+		margin-top: -80px;
 	}
 	&.affix-bottom {
 	}

@@ -6,7 +6,7 @@ if file
 					a(href=file.website target="_blank")
 						img.img-responsive(src=file.logo.fields.file.url)
 			.col-md-9
-				h3.series-organisation-title(class=useNumbering?'series-article-title-numbered':'')
+				h3.series-item-title.series-organisation-title(class=useNumbering?'series-item-title-numbered':'')
 					a(href=file.website target="_blank")
 						if useNumbering
 							| #{index+1}. 

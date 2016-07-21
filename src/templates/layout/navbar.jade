@@ -11,14 +11,9 @@ nav#navbar-main.navbar.navbar-primary.navbar-fixed-top.container
                         .row
                             .col-xs-12
                                 ul.navbar-nav
-                                    li.nav
-                                        a(href="/about/") About
-                                    li.nav
-                                        a(href="/ideas/") Ideas
-                                    li.nav
-                                        a(href="/community/") Community
-                                    li.nav
-                                        a(href="/get-involved/") Get Involved
+                                    each item in seriesSet['main-navigation'].children
+                                        li.nav(class=(breadcrumb_path && breadcrumb_path[0] && breadcrumb_path[0].path === item.file.path ? 'active' : ''))
+                                            a(href=item.file.canonical)!= item.file.title
                         //-.row
                             .col-xs-12
                                 .row

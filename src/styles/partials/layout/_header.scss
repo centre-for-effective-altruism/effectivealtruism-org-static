@@ -2,9 +2,10 @@
 	// margin-top:$grid-gutter-width;
 }
 .page-title {
-	color: #333;
-	margin-top:0;
-	margin-bottom:33px;
+	color: $site-dark-gray;
+	margin-bottom:0;
+	padding-bottom: 5px;
+	border-bottom: 2px solid $site-primary;
 }
 .breadcrumb {
 	@media(max-width:$screen-xs-max){
