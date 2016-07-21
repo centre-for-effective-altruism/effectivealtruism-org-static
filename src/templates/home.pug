@@ -34,8 +34,14 @@ block content
 					ul.home-section-key-ideas-list.list-unstyled
 						each child in seriesSet['key-ideas'].children
 							li.home-section-key-ideas-idea
-								a(href=child.file.canonical)!= child.file.title
-				
+								if child.type === 'article'
+									a(href=child.file.canonical)
+										!= child.file.title
+								if child.type === 'link'
+									a(href=child.file.url target="_blank")
+										!= child.file.title
+										i.fa.fa-external-link
+
 			.col-md-5
 				section.home-section.home-section-effective-altruist-profiles
 					h2.home-section-title!= seriesSet['featured-effective-altruists'].file.title
