@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/736a64/colophonemes-metalsmith"
+    "url": "https://github.com/centre-for-effective-altruism/effectivealtruism-org-static"
   },
   "author": "Sam Deere",
   "license": "ISC",
@@ -43,7 +43,6 @@
     "express": "^4.14.0",
     "gsap": "^1.18.5",
     "html-entities": "^1.2.0",
-    "jade": "^1.11.0",
     "jquery": "^3.0.0",
     "lazysizes": "^2.0.0",
     "markdown-it": "^7.0.0",
@@ -61,7 +60,7 @@
     "metalsmith-headings": "^0.1.0",
     "metalsmith-headings-identifier": "0.0.11",
     "metalsmith-html-minifier": "^2.0.0",
-    "metalsmith-icons": "^0.3.0",
+    "metalsmith-icons": "^0.4.0",
     "metalsmith-ignore": "^0.1.2",
     "metalsmith-in-place": "^1.4.4",
     "metalsmith-layouts": "^1.6.5",
@@ -80,7 +79,6 @@
     "minifyify": "^7.3.3",
     "minimatch": "^3.0.2",
     "moment": "^2.13.0",
-    "ncp": "^2.0.0",
     "node-notifier": "^4.6.0",
     "node-sass": "^3.8.0",
     "numeral": "^1.5.3",
