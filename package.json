@@ -70,6 +70,7 @@
     "minifyify": "^7.3.3",
     "minimatch": "^3.0.2",
     "moment": "^2.13.0",
+    "ncp": "^2.0.0",
     "node-notifier": "^4.6.0",
     "node-sass": "^3.8.0",
     "numeral": "^1.5.3",
