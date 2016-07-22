@@ -2,6 +2,7 @@
 build
 dest
 node_modules
+npm-debug.log
 bower_components
 .cache-require-paths.json
 .env
