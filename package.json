@@ -88,6 +88,10 @@
   },
   "devDependencies": {
     "cache-require-paths": "^0.2.0",
+    "glob-watcher": "^3.0.0",
+    "livereload": "^0.5.0",
+    "metalsmith-changed": "^2.0.0",
+    "node-static": "^0.7.7",
     "time-require": "^0.1.2"
   },
   "browser": {
