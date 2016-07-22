@@ -85,12 +85,12 @@ message('All dependencies loaded!',chalk.cyan);
 // call the master build function
 // build(true);
 function build(buildCount){
-    buildCount = buildCount || 1;
-    if(buildCount>1){
-        buildTime = process.hrtime();
-        buildTimeDiff = buildTime;
-    }
     return function (done) {
+        buildCount = buildCount || 1;
+        if(buildCount>1){
+            buildTime = process.hrtime();
+            buildTimeDiff = buildTime;
+        }
         // hacky solution to share data between Contentful pages and the 'pagination' plugin
         var collectionSlugs = ['ideas'];
         var collectionInfo = {
@@ -625,18 +625,18 @@ function build(buildCount){
             if(files){
                 message('✓ Build OK!',chalk.green.bold);
             }
-            if(process.env.NODE_ENV === 'development'){
+            if(process.env.NODE_ENV === 'development' && typeof done === 'function'){
                 done();
             }
         });
-    }
+    };
 }
 // call master build function
 build()();
 
 //// DEVELOPMENT RELOADING
-/*// based on example at https://www.npmjs.com/package/metalsmith-changed
-if(process.env.NODE_ENV === 'development'){
+// based on example at https://www.npmjs.com/package/metalsmith-changed
+/*if(process.env.NODE_ENV === 'development'){
     // server
     var serve = new nodeStatic.Server(path.join(__dirname,'..','build'));
     require('http').createServer((req, res) => {
@@ -646,7 +646,6 @@ if(process.env.NODE_ENV === 'development'){
      // watch files
      message('Watching files');
     watch([
-        path.join(__dirname,'..','src','templates'),
         path.join(__dirname,'..','src','metalsmith','contentful'),
         path.join(__dirname,'..','src','metalsmith','fonts'),
         path.join(__dirname,'..','src','metalsmith','images'),
@@ -654,8 +653,8 @@ if(process.env.NODE_ENV === 'development'){
     ], {ignoreInitial: false}, build(2));   
 } else {
     build()();
-}
-*/
+}*/
+
 
 
 // UTILITIES //
@@ -690,4 +689,3 @@ function formatBuildTimeDiff(){
     buildTimeDiff = process.hrtime();
     return formatBuildTime(t);
 }
-
