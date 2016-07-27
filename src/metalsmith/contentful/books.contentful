@@ -1,0 +1,8 @@
+---
+title: Books
+contentful:
+  content_type: book
+  entry_template: page.jade
+  entry_filename_pattern: books/:fields.slug
+  permalink_style: true
+---

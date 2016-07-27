@@ -1,0 +1,5 @@
+if seriesSet['effective-altruist-organisations']
+	ul.organisations-list
+		each child in seriesSet['effective-altruist-organisations'].children
+			li.organisations-list-item
+				p #[a(href=child.file.website target="_blank")!= child.file.title]: #{child.file.description}

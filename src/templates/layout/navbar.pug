@@ -12,8 +12,13 @@ nav#navbar-main.navbar.navbar-primary.navbar-fixed-top.container
                             .col-xs-12
                                 ul.navbar-nav
                                     each item in seriesSet['main-navigation'].children
-                                        li.nav(class=(breadcrumb_path && breadcrumb_path[0] && breadcrumb_path[0].path === item.file.path ? 'active' : ''))
-                                            a(href=item.file.canonical)!= item.file.title
+                                        case item.type
+                                            when 'page'
+                                                li.nav(class=(breadcrumb_path && breadcrumb_path[0] && breadcrumb_path[0].path === item.file.path ? 'active' : ''))
+                                                    a(href=item.file.canonical)!= item.file.title
+                                            when 'link'
+                                                li.nav
+                                                    a(href=item.file.url target="_blank")!= item.file.title
                         //-.row
                             .col-xs-12
                                 .row

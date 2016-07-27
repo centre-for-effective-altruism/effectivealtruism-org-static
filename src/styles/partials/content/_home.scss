@@ -18,7 +18,7 @@
 
 .home-content {
 	@media(min-width:$screen-md){
-		// margin-top: $grid-gutter-width*2;
+		margin-top: $grid-gutter-width;
 	}
 }
 .home-section {
@@ -48,6 +48,14 @@ $button-width: 220px;
 
 .home-section-hero-learn-more {
 	width: $button-width;
+}
+.home-section-hero-take-pledge {
+	width: $button-width;
+	margin-top: $grid-gutter-width;
+	@media(min-width: $screen-sm){
+		margin-top: 0;
+		margin-left: $grid-gutter-width;
+	}
 }
 
 // blue ribbon
@@ -106,8 +114,10 @@ $button-width: 220px;
 .home-section-effective-altruist-profiles-profile {
 	line-height: 1em;
 }
-.home-section-effective-altruist-profiles-profile-image {
+.home-section-effective-altruist-profiles-profile-image-wrapper {
 	margin-bottom: 5px;
+	overflow: hidden;
+	@include responsive-square();	
 }
 
 // quotes

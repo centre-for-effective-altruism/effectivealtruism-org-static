@@ -1,0 +1,9 @@
+/people /community-profiles 301
+/ideas /resources 301
+/ideas/* /resources/:splat 301
+/articles /resources 301
+/articles/* /resources/:splat 301
+/about-ea	/ideas/introduction-to-effective-altruism/ 301
+/accomplishments	/our-impact/ 301
+/join	/get-involved/ 301
+/have-an-impact/	/get-involved/ 301

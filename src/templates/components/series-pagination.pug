@@ -1,10 +1,16 @@
+mixin parentLink(position, file)
+	if file.parent && file.parent.sys.id
+		- var parentFile = fileIDMap[file.parent.sys.id];
+			em #{position} of this series
+			br
+			a(href=parentFile.canonical)
+				i.fa.fa-backward
+				strong  Go back to the #{parentFile.title} #{parentFile.contentType}
+
 if Object.keys(series).length>0
 	each s,seriesSlug in series
 		if seriesSet[seriesSlug] && seriesSet[seriesSlug] && seriesSet[seriesSlug].file.paginateItems
 			.series-pagination
-				- var seriesType = contentType.substr(0,1).toUpperCase() + contentType.substr(1)
-				- var seriesTypePlural = seriesType + 's'
-				- var seriesArchive = '/'+contentType+'/'
 				.series-pagination-series-title-wrapper Part of the series 
 					h4.series-pagination-series-title!= typogr.typogrify(seriesSet[seriesSlug].file.title)
 					-var seriesContentsID = "series-contents-"+seriesSlug
@@ -28,31 +34,21 @@ if Object.keys(series).length>0
 							i.fa.fa-times-circle
 
 				ul.series-pagination-links
-					if s.previous
-						li.series-pagination-previous
+					li.series-pagination-previous
+						if s.previous
 							a(href=s.previous.file.canonical)
 								i.fa.fa-long-arrow-left
 								|  Previous #{seriesType}
 								br
 								strong!= typogr.typogrify(s.previous.file.title)
-					else 
-						li.series-pagination-previous
-							em Beginning of this series
-							br
-							a(href=seriesArchive)
-								i.fa.fa-backward
-								strong  Go back to the #{seriesTypePlural} page 
-					if s.next
-						li.series-pagination-next
+						else 
+							+parentLink('Beginning', seriesSet[seriesSlug].file)
+					li.series-pagination-next
+						if s.next
 							a(href=s.next.file.canonical)
 								| Next #{seriesType} 
 								i.fa.fa-long-arrow-right
 								br
 								strong!= typogr.typogrify(s.next.file.title)
-					else 
-						li.series-pagination-next
-							em End of this series 
-							br
-							a(href=seriesArchive) 
-								i.fa.fa-backward
-								strong  Go back to the #{seriesTypePlural} page 
+						else 
+							+parentLink('End', seriesSet[seriesSlug].file)

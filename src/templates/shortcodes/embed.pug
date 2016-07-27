@@ -1,0 +1,6 @@
+- var embedSrc = src || href || link || false
+- var aspect = aspect || '16by9'
+
+if embedSrc
+	include ../components/responsive-embed
+	+embed(embedSrc,aspect)

@@ -1,0 +1,6 @@
+mixin embed(src, aspect)
+	- var aspectRatio = aspect || '16by9'
+	- var parsedSrc = url.parse(src)
+	- src = ['www.youtube.com'].indexOf(parsedSrc.hostname) > -1 && parsedSrc.pathname ==='/watch' && parsedSrc.query ? 'https://www.youtube.com/embed/'+parsedSrc.query.match(/v=([^&]*)/)[1] : src;
+	.embed-responsive(class=('embed-responsive-'+aspectRatio))
+		iframe.embed-responsive-item(src=src)

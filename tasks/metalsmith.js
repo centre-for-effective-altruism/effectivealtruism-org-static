@@ -7,7 +7,7 @@ require('dotenv').load({silent: true});
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 // cache require paths in development
 if (process.env.NODE_ENV === 'development') {
-    require('time-require');
+    // require('time-require');
     require('cache-require-paths');
 }
 
@@ -91,40 +91,48 @@ function build(buildCount){
             buildTime = process.hrtime();
             buildTimeDiff = buildTime;
         }
-        // hacky solution to share data between Contentful pages and the 'pagination' plugin
-        var collectionSlugs = ['ideas'];
-        var collectionInfo = {
-            ideas: {
-                title: 'Articles',
-                singular: 'article',
-                // sortBy: 'date',
-                // reverse: false,
-                perPage: 10
-            },
-        };
-        var collectionData = {};
-        var collectionOptions = {};
-        var paginationOptions = {};
-        collectionSlugs.forEach(function(slug){
-            collectionData[slug] = {};
-            collectionOptions[slug] = {
+        // // hacky solution to share data between Contentful pages and the 'pagination' plugin
+        // var collectionSlugs = ['ideas'];
+        // var collectionInfo = {
+        //     ideas: {
+        //         title: 'Articles',
+        //         singular: 'article',
+        //         // sortBy: 'date',
+        //         // reverse: false,
+        //         perPage: 10
+        //     },
+        // };
+        // var collectionData = {};
+        // var collectionOptions = {};
+        // var paginationOptions = {};
+        // collectionSlugs.forEach(function(slug){
+        //     collectionData[slug] = {};
+        //     collectionOptions[slug] = {
                 
-                    pattern: collectionInfo[slug].singular+'/**/*.html',
-                    sortBy: collectionInfo[slug].sortBy || 'title',
-                    reverse: collectionInfo[slug].reverse || false,
-                    metadata: {
-                        singular: collectionInfo[slug].singular,
-                    }
+        //             pattern: collectionInfo[slug].singular+'/**/*.html',
+        //             sortBy: collectionInfo[slug].sortBy || 'title',
+        //             reverse: collectionInfo[slug].reverse || false,
+        //             metadata: {
+        //                 singular: collectionInfo[slug].singular,
+        //             }
                 
-            };
-            paginationOptions['collections.'+slug] = {
-                perPage: collectionInfo[slug].perPage || 100,
-                template: './partials/collection-'+slug+'.swig',
-                first: slug+'/index.html',
-                path: slug+'/page/:num/index.html',
-                pageMetadata: collectionData[slug]
-            };
-        });
+        //     };
+        //     paginationOptions['collections.'+slug] = {
+        //         perPage: collectionInfo[slug].perPage || 100,
+        //         template: './partials/collection-'+slug+'.swig',
+        //         first: slug+'/index.html',
+        //         path: slug+'/page/:num/index.html',
+        //         pageMetadata: collectionData[slug]
+        //     };
+        // });
+
+        // hostnames where we should trigger an embed instead of a straight link
+        var embedHostnames = [
+            'youtube.com',
+            'www.youtube.com',
+            'youtu.be',
+            'vimeo.com',
+        ];
 
         // shortcodes is used twice so abstract the options object
         var shortcodeOpts = {
@@ -133,8 +141,10 @@ function build(buildCount){
             engine:'pug',
             extension:'.pug',
             cache: true,
-            url
+            url,
+            embedHostnames
         };
+
 
         // START THE BUILD!
         var colophonemes = new Metalsmith(__dirname);
@@ -153,15 +163,6 @@ function build(buildCount){
         colophonemes.use(metadata({
             'site': 'settings/site.json'
         }))
-        // .use(function (files,metalsmith,done){
-        //     var meta = metalsmith.metadata();
-        //     getSpecials(function(specials){
-        //         Object.keys(specials).forEach(function(specialType){
-        //             meta[specialType] = specials[specialType];
-        //         })
-        //         done();
-        //     })
-        // })
         .use(function (files,metalsmith,done){
             // build a full domain from our settings
             var meta = metalsmith.metadata();
@@ -219,7 +220,6 @@ function build(buildCount){
                 meta.updated = meta.updated || meta.data.sys.updatedAt;
                 meta.contents = meta.contents && meta.contents.length>0 ? meta.contents : '';
 
-
                 // concat footnotes into main content field
                 if(meta.footnotes) {
                     meta.contents = meta.contents + '\n\n' + meta.footnotes;
@@ -238,8 +238,8 @@ function build(buildCount){
                     singular: 'page',
                 }
             },
-            ideas: {
-                pattern: 'ideas/**/index.html',
+            articles: {
+                pattern: 'articles/**/index.html',
                 sortBy: 'menuOrder',
                 metadata: {
                     singular: 'blog',
@@ -295,7 +295,7 @@ function build(buildCount){
             // use the 'home' template for the home page
             files['index.html'].template = 'home.pug';
             // long intro to EA page should have TOC
-            files['ideas/introduction-to-effective-altruism/index.html'].template = 'idea-with-toc.pug';
+            files['articles/introduction-to-effective-altruism/index.html'].template = 'article-with-toc.pug';
             done();
         })
         // .use(function (files,metalsmith,done){
@@ -350,25 +350,31 @@ function build(buildCount){
         .use(logMessage('Calculated redirects'))   
         // parse 'series' hierarchy to use file objects from the build
         .use(function (files, metalsmith, done) {
+            // create a lookup table of contentful data IDs and metalsmith files
+            metalsmith.metadata().fileIDMap = {};
+            var fileIDMap = metalsmith.metadata().fileIDMap;
+            Object.keys(files).filter(minimatch.filter('**/*.html')).forEach(function(file){
+                fileIDMap[files[file].data.sys.id] = files[file];
+            });
+            done();
+        })
+        .use(function (files, metalsmith, done) {
             var defaultItem = {
                 file: {},
                 type: '',
                 children: []
             };
-            // create a lookup table of contentful data IDs and metalsmith files
-            var fileIDLookup = {};
-            Object.keys(files).filter(minimatch.filter('**/*.html')).forEach(function(file){
-                fileIDLookup[files[file].data.sys.id] = files[file];
-            });
+            var fileIDMap = metalsmith.metadata().fileIDMap;
             // recursive function to traverse series
             function getChildren(data,seriesSlug){
                 var children = [];
                 if(data.sys.contentType.sys.id === 'series' && data.fields.items && data.fields.items.length>0){
                     data.fields.items.forEach(function(child){
                         var childItem = Object.assign({},defaultItem);
-                        childItem.file = fileIDLookup[child.sys.id];
-                        if(!childItem) {
-                            throw new TypeError('Could not find item with id ' + child.sys.id + '. This may be because the content type of this item is not being requested from Contentful');
+                        childItem.file = fileIDMap[child.sys.id];
+                        if(!childItem.file) {
+                            // file is probably archived or unpublished
+                            return;
                         }
                         childItem.type = childItem.file.data.sys.contentType.sys.id;
                         childItem.children = getChildren(child);
@@ -391,13 +397,12 @@ function build(buildCount){
             // build a hierarchy of item IDs
             Object.keys(files).filter(minimatch.filter('series/**/*.html')).forEach(function(file){
                 var s = Object.assign({},defaultItem);
-                s.file = fileIDLookup[files[file].data.sys.id];
-                s.type = fileIDLookup[files[file].data.sys.contentType.sys.id];
+                s.file = fileIDMap[files[file].data.sys.id];
+                s.type = fileIDMap[files[file].data.sys.contentType.sys.id];
                 s.children = getChildren(files[file].data,files[file].slug);
                 series[files[file].slug] = s;
             });
             metalsmith.metadata().seriesSet = series;
-
             done();
 
         })
@@ -420,7 +425,7 @@ function build(buildCount){
         .use(logMessage('Converted Markdown to HTML'))
         .use(function (files, metalsmith, done) {
             // certain content has been incorporated into other pages, but we don't need them as standalone pages in our final build.
-            Object.keys(files).filter(minimatch.filter('@(series|quotations|links)/**')).forEach(function(file){
+            Object.keys(files).filter(minimatch.filter('@(series|quotations|links|books)/**')).forEach(function(file){
                 delete files[file];
             });
             done();
@@ -439,7 +444,7 @@ function build(buildCount){
 
                 return props.collection && (
                     props.collection.indexOf('pages')    > -1 ||
-                    props.collection.indexOf('ideas') > -1
+                    props.collection.indexOf('articles') > -1
                 );
             })
             .use(headingsIdentifier({
@@ -451,7 +456,7 @@ function build(buildCount){
             .use(logMessage('Created TOCs'))
         )
         .use(function (files, metalsmith, done) {
-            files['ideas/index.html'].template = 'page-with-toc.pug';
+            files['resources/index.html'].template = 'page-with-toc.pug';
             done();
         })
         .use(function (files, metalsmith, done) {
@@ -500,7 +505,7 @@ function build(buildCount){
         })
         .use(function (files, metalsmith, done) {
             // copy 'template' key to 'layout' key
-            Object.keys(files).filter(minimatch.filter('**/index.html')).forEach(function(file){
+            Object.keys(files).filter(minimatch.filter('{**/index.html,404.html}')).forEach(function(file){
                 if (files[file].template && !files[file].layout) {
                     files[file].layout = files[file].template;
                 } 
@@ -517,8 +522,9 @@ function build(buildCount){
             url,
             moment,
             strip,
-            collectionSlugs,
-            collectionInfo,
+            // collectionSlugs,
+            // collectionInfo,
+            embedHostnames,
             environment: process.env.NODE_ENV
         }))
         .use(logMessage('Built HTML files from templates'))

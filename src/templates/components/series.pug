@@ -1,4 +1,4 @@
-mixin includeChild (item,index,numbering)
+mixin includeChild (item,index,useNumbering)
 	- var file = item.file
 	- var file = item.file
 	case item.type
@@ -10,6 +10,10 @@ mixin includeChild (item,index,numbering)
 			include ./series-organisation
 		when 'link'
 			include ./series-link
+		when 'person'
+			include ./series-person
+		when 'book'
+			include ./series-book
 
 if seriesSlug && seriesSet[seriesSlug] && seriesSet[seriesSlug].children.length
 	each child,index in seriesSet[seriesSlug].children
@@ -18,7 +22,7 @@ if seriesSlug && seriesSet[seriesSlug] && seriesSet[seriesSlug].children.length
 				h2.series-title!= child.file.title
 				.series-description
 					!= child.file.contents
-				each seriesChild,index in child.children
-					+includeChild(seriesChild,index,useNumbering)
+				each seriesChild,childIndex in child.children
+					+includeChild(seriesChild,childIndex,useNumbering)
 		else
 			+includeChild(child,index,useNumbering)

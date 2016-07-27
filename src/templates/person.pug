@@ -4,18 +4,16 @@ block header
 	.row
 		.col-md-10.col-md-offset-1
 			include ./components/breadcrumbs
-			h2.page-title.person-page-title#page-title!= title
+			h2.page-title.person-page-title(class=(!jobTitle || !jobTitle.length ? 'no-job-title' : ''))#page-title!= title
 			if jobTitle && jobTitle.length
-				p.person-job-title!= jobTitle
-					if organisations && organisations.length
-						- var organisation = organisations[0]
-						| , 
-						a(href=organisation.fields.website target="_blank")!= organisation.fields.title
+				p.person-job-title
+					include ./helpers/job-title
+					+jobTitle(jobTitle, organisations)
 block content
 	.row
 		.col-md-10.col-md-offset-1
 			.row
-				.col-md-3
+				.col-sm-3
 					if photo
 						img.img-responsive(src=photo.fields.file.url)
 					if organisations && organisations.length
@@ -35,7 +33,7 @@ block content
 												h5.person-organisation-title!= organisation.fields.title
 													|  
 													i.fa.fa-external-link
-				.col-md-9#content
+				.col-sm-9#content
 					!= contents
 	.row
 		.col-md-10.col-md-offset-1

@@ -1,0 +1,8 @@
+---
+title: Articles
+contentful:
+  content_type: article
+  entry_template: article.jade
+  entry_filename_pattern: articles/:fields.slug
+  permalink_style: true
+---

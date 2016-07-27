@@ -1,5 +1,8 @@
 .person-page-title {
 	margin-bottom: 0;
+	&.no-job-title {
+		margin-bottom: 16.5px;
+	}
 }
 .person-job-title {
 	font-family: $font-family-sans-serif;
