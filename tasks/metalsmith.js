@@ -142,6 +142,8 @@ function build(buildCount){
             extension:'.pug',
             cache: true,
             url,
+            slugify: slug,
+            moment,
             embedHostnames
         };
 
@@ -257,6 +259,14 @@ function build(buildCount){
                 sortBy: 'title',
                 metadata: {
                     singular: 'person',
+                }
+            },
+            'mediaItems': {
+                pattern: 'media-items/**/index.html',
+                sortBy: 'date',
+                reverse: true,
+                metadata: {
+                    singular: 'media-item',
                 }
             }
         }))
@@ -425,7 +435,7 @@ function build(buildCount){
         .use(logMessage('Converted Markdown to HTML'))
         .use(function (files, metalsmith, done) {
             // certain content has been incorporated into other pages, but we don't need them as standalone pages in our final build.
-            Object.keys(files).filter(minimatch.filter('@(series|quotations|links|books)/**')).forEach(function(file){
+            Object.keys(files).filter(minimatch.filter('@(series|quotations|links|books|media-items)/**')).forEach(function(file){
                 delete files[file];
             });
             done();
@@ -522,6 +532,7 @@ function build(buildCount){
             url,
             moment,
             strip,
+            slugify:slug,
             // collectionSlugs,
             // collectionInfo,
             embedHostnames,

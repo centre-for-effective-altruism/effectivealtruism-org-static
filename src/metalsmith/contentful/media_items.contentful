@@ -1,0 +1,9 @@
+---
+title: Media Items
+contentful:
+  content_type: mediaItem
+  entry_template: page.jade
+  entry_filename_pattern: media-items/:sys.id
+  permalink_style: true
+  order: fields.date
+---
