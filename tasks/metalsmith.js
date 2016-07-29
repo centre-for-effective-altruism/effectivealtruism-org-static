@@ -628,16 +628,16 @@ function build(buildCount){
             if(err){
                 message('Build failed!',chalk.red.bold);
                 console.trace(err);
-                if(process.env.NODE_ENV==='development'){
-                    notifier.notify({
-                        title: 'Build failed!',
-                        message: err,
-                        appIcon: '',
-                        contentImage: path.join(__dirname, '..', 'src', 'metalsmith', 'images','favicons', 'favicon-96x96.png'), // absolute path (not balloons) 
-                        sound: 'Funk',
-                        activate: 'com.apple.Terminal'
-                    });
-                }
+            }
+            if(process.env.NODE_ENV==='development'){
+                notifier.notify({
+                    title: 'Build failed!',
+                    message: err,
+                    appIcon: '',
+                    contentImage: path.join(__dirname, '..', 'src', 'metalsmith', 'images','favicons', 'favicon-96x96.png'), // absolute path (not balloons) 
+                    sound: 'Funk',
+                    activate: 'com.apple.Terminal'
+                });
             }
             if(files){
                 message('✓ Build OK!',chalk.green.bold);
