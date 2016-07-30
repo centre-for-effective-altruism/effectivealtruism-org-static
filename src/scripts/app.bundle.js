@@ -28,15 +28,15 @@
 // cookies
 global.cookies = require('browser-cookies');
 // lazysizes
-require('lazysizes')
-require('lazysizesRespImg')
-require('lazysizesBGSet')
+require('lazysizes');
+require('lazysizesRespImg');
+require('lazysizesBGSet');
 // bootstrap javascript plugins
-require('bootstrapDropdown')
-require('bootstrapCollapse')
-require('bootstrapTransition')
-require('bootstrapAffix')
-require('bootstrapScrollspy')
+require('bootstrapDropdown');
+require('bootstrapCollapse');
+require('bootstrapTransition');
+require('bootstrapAffix');
+require('bootstrapScrollspy');
 // require('bootstrapModal')
 // require('bootstrapTooltip')
 // third party bootstrap plugins
@@ -46,7 +46,7 @@ global.breakpoints = {
     sm:768,
     md:992,
     lg:1200
-}
+};
 
 // // GreenSock Animation Plugin
 // require('gsap-tweenlite');
@@ -65,15 +65,16 @@ global.breakpoints = {
 require('jqueryThrottleDebounce');
 
 // form/data validation library
-global.validate = require('validate.js')
+global.validate = require('validate.js');
 
 // number formatting
-global.numeral = require('numeral')
+global.numeral = require('numeral');
 
 // exit intent plugin
 // global.ouibounce = require('ouibounce')
 
 // main app scripts
-require('main')
+require('main');
+require('analytics');
 
 

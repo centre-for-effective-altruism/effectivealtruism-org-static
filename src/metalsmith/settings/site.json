@@ -2,8 +2,8 @@
 	"title" : "Effective Altruism",
 	"domain" : "www.effectivealtruism.org",
 	"protocol" : "https://",
-	"description": "A growing intellectual movement that uses reason and evidence to improve the world as much as possible.",
+	"description": "Using reason and evidence to improve the world as much as possible.",
 	"keywords": "effective altruism, effective charity, effective careers, high-impact careers, effective giving, evidence-based charity",
-	"shortDescription": "Find out how to do the most good. Then do it.",
+	"shortDescription": "Using reason and evidence to do the most good",
 	"ogImageDefault": "/images/layout/og-image-default.jpg"
 }

@@ -15,14 +15,14 @@ block content
 				.col-md-10.col-md-offset-1
 					!= contents
 					.center
-						a.btn.btn-primary.home-section-hero-learn-more(href="/ideas/introduction-to-effective-altruism") Learn more&hellip;
+						a.btn.btn-primary.home-section-hero-learn-more(href="/ideas/introduction-to-effective-altruism" id=slug+"-intro-learn-more-button") Learn more&hellip;
 		.row.home-alternate-background
 			.col-xs-10.col-xs-offset-1.col-md-5.col-md-offset-1
 				section.home-section.home-section-cause-prioritisation-tool
 					- var cptLink = "https://flowcharts-beta.effectivealtruism.org/flowchart/6H6rJK1nJ6OsCywOoS0Km8"
 					h2 Not sure what cause you&nbsp;#[br.visible-md.visible-lg]should&nbsp;work&nbsp;on?
-					p Use our #[a(href=cptLink target="_blank") cause prioritisation tool] to find out. 
-					a.btn.btn-default(href=cptLink target="_blank") Open
+					p Use our #[a(href=cptLink target="_blank" id=slug+"-cause-prioritisation-tool-inline") cause prioritisation tool] to find out. 
+					a.btn.btn-default(href=cptLink target="_blank" id=slug+"-cause-prioritisation-tool-button") Open
 			.col-xs-10.col-xs-offset-1.visible-xs.visible-sm
 				hr.home-section-divider
 			.col-xs-10.col-xs-offset-1.col-md-5.col-md-offset-0
@@ -34,26 +34,26 @@ block content
 			.col-md-5.col-md-offset-1
 				section.home-section.home-section-key-ideas
 					h2.home-section-title Reading
-						a.home-section-read-more-link(href="/ideas/") Read more...
+						a.home-section-read-more-link(href="/resources/" id=slug+"-reading-read-more") Read more...
 					ul.home-section-key-ideas-list.list-unstyled
 						each child in seriesSet['articles'].children.slice(0,8)
 							li.home-section-key-ideas-idea
 								if child.type === 'article'
-									a(href=child.file.canonical)
+									a(href=child.file.canonical id=slug+"-reading-"+child.file.slug)
 										!= child.file.title
 								if child.type === 'link'
-									a(href=child.file.url target="_blank")
+									a(href=child.file.url target="_blank" id=slug+"-reading-"+slugify(child.file.url))
 										!= child.file.title
 									| &nbsp;#[i.fa.fa-external-link]
 
 			.col-md-5
 				section.home-section.home-section-effective-altruist-profiles
 					h2.home-section-title!= seriesSet['featured-effective-altruists'].file.title
-						a.home-section-read-more-link(href="/community-profiles/") Read more...
+						a.home-section-read-more-link(href="/community-profiles/" id=slug+"-community-profiles-read-more") Read more...
 					.row
 						each child in seriesSet['featured-effective-altruists'].children
 							.col-xs-6.col-sm-3.home-section-effective-altruist-profiles-profile
-								a(href=child.file.canonical)
+								a(href=child.file.canonical id=slug+"-reading-"+child.file.slug)
 									.home-section-effective-altruist-profiles-profile-image-wrapper
 										.content
 											img.img-responsive.home-section-effective-altruist-profiles-profile-image(src=child.file.photo.fields.file.url)
@@ -71,5 +71,5 @@ block content
 			.row
 				.col-md-10.col-md-offset-1
 					h2.home-section-title Effective altruism in the media
-						a.home-section-read-more-link(href="/media/") More...
+						a.home-section-read-more-link(href="/media/" id="home-link-readmore-media") More...
 					include ./components/media-highlights

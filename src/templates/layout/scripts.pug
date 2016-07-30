@@ -1,10 +1,3 @@
-//-
-    link#app-script(href='/scripts/app.min.js')
-    script.
-        // hack to get netlify CDN url for app script
-        var a = document.getElementById("app-script");
-        window.appScript = a.getAttribute("href");
-        document.getElementsByTagName("body")[0].removeChild(a);
 script(src='/scripts/LAB.min.js')
 script.
     window.$LAB = window.$LAB || undefined;
@@ -56,26 +49,6 @@ script.
             });
         })
         .queueScript(window.appScript || '/scripts/app.min.js')
-        .queueScript('https://cdn.segment.com/analytics.js/v1/zbkLJhxMO425xQwGvutCFLjmUuzNY8N3/analytics.min.js')
-        .queueWait(function(){
-            // Segment actions
-            // Segment actions reliant on jQuery
-            /*(function($){
-                $("#mailchimp-signup-form").on('newsletter_signup',function(event,data){
-                    analytics.identify({
-                        email: data.email,
-                        firstName: data.firstName,
-                        lastName: data.lastName
-                    });
-                    if(data.status==="success"){
-                        analytics.track("Signed up to Newsletter");
-                    }
-                });
-                $('.mailchimp-signup-modal').on('newsletter_modal_shown',function(event,data){
-                    analytics.track("Saw Newsletter popup")
-                })
-            })(jQuery);*/
-        })
         // enqueue anything that's been requested with loadScript() elsewhere in the body
         var s;
         for (var i = 0; i < d.length; i++) {

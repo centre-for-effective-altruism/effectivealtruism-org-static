@@ -118,7 +118,8 @@
     "jqueryPulse": "./src/scripts/bundle/vendor/jquery.pulse.js",
     "chartist": "./node_modules/chartist/dist/chartist.js",
     "chartistAxisTitle": "./node_modules/chartist-plugin-axistitle/dist/chartist-plugin-axistitle.js",
-    "main": "./src/scripts/bundle/main.js"
+    "main": "./src/scripts/bundle/main.js",
+    "analytics": "./src/scripts/bundle/analytics.js"
   },
   "browserify": {
     "transform": [
@@ -139,6 +140,7 @@
     "scrollmagicJQuery": "scrollmagicJQuery",
     "scrollmagicAnimationGSAP": "scrollmagicAnimationGSAP",
     "jquerySlabText": "jquerySlabText",
-    "main": "main"
+    "main": "main",
+    "analytics": "analytics"
   }
 }

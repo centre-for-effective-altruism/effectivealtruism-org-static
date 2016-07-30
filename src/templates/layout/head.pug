@@ -1,7 +1,9 @@
 head
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
-    title!= title
+    title
+        != (slug==='home'? site.shortDescription : title)
+        |  - #{site.title}
     meta(name='viewport', content='width=device-width, initial-scale=1')
     -var canonicalURL = site.url + canonical;
     link(rel='canonical', href=canonicalURL)
@@ -10,6 +12,8 @@ head
     link(rel='stylesheet', type='text/css', href='/styles/app.min.css')
     if environment==='development'
         link(rel='stylesheet', type='text/css', href='/styles/icons.css')
+    if environment==='staging'
+        meta(name="robots" content="noindex,nofollow")
     include ./favicons
     //- |   {% include './layout/og-images.swig' %}
     //- |   {% include './layout/json-schema.swig' %}
@@ -28,6 +32,19 @@ head
         window.q=[];window.$=function(f){q.push(f)}
         // enqueue scripts at the end of the page from before the closing body tag
         window.d=[];window.loadScript=function(path){d.push(path)}
+    script.
+        // segment tracking code
+        !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+        // load the script
+        analytics.load("zbkLJhxMO425xQwGvutCFLjmUuzNY8N3");
+        }}();
+    script analytics.page('#{title}')
+    script.
+        // track pageviews in old GA account
+        analytics.ready(function(){
+          ga('create', 'UA-50608733-2', 'auto', {'name': 'legacyGA'});
+          ga('legacyGA.send', 'pageview');
+        })
     block head
 
     - var collectionSlug = collections[collection] && collections[collection].metadata && collections[collection].metadata.singular ? collections[collection]['metadata']['singular'] : "";
