@@ -53,11 +53,14 @@
 
 
 p,h1,h2,h3,h4,h5,.navbar a,#content-wrapper a,li,[class^="fa-"],[class*=" fa-"] {
+	transition: opacity .4s ease-in-out;
 	.wf-loading & {
 		visibility: hidden;
+		opacity: 0;
 	}
 	.wf-active &, .wf-inactive & {
 		visibility: visible;
+		opacity: 1;
 	}
 }
 
