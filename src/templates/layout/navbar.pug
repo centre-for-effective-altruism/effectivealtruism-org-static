@@ -18,8 +18,4 @@ nav#navbar-main.navbar.navbar-primary.navbar-fixed-top
                                                     a(href=item.file.canonical id="navbar-link-"+slug)!= item.file.title
                                             when 'link'
                                                 li.nav
-                                                    a(href=item.file.url id="navbar-link-"+slug)!= item.file.title
-                        //-.row
-                            .col-xs-12
-                                .row
-                                    include ../components/newsletter-signup-small
+                                                    a(href=item.file.url id="navbar-link-"+slug target="_blank")!= item.file.title
