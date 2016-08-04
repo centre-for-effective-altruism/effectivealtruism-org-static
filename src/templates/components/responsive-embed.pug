@@ -4,3 +4,8 @@ mixin embed(src, aspect)
 	- src = ['www.youtube.com'].indexOf(parsedSrc.hostname) > -1 && parsedSrc.pathname ==='/watch' && parsedSrc.query ? 'https://www.youtube.com/embed/'+parsedSrc.query.match(/v=([^&]*)/)[1] : src;
 	.embed-responsive(class=('embed-responsive-'+aspectRatio))
 		iframe.embed-responsive-item(src=src)
+		if aspectRatio === 'full'
+			script.
+				loadScript(function(){
+					window.iFrameResize('.embed-responsive-full');
+				})

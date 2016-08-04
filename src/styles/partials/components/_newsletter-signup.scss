@@ -1,20 +1,20 @@
-.newsletter-signup-small {
+.newsletter-signup {
 	@include clearfix();
 }
 
-.newsletter-signup-small-call-to-action {
+.newsletter-signup-call-to-action {
 	margin:0;
 }
 
 
 #navbar-main {
-	.newsletter-signup-small {
+	.newsletter-signup {
 		// background-color: #EEE;
 	}
-	.newsletter-signup-small-call-to-action {
+	.newsletter-signup-call-to-action {
 		color: #AAA;
 	}
-	.newsletter-signup-small-form {
+	.newsletter-signup-form {
 		// font-family: $font-family-sans-serif;
 		margin: 7px 0;
 		.form-control {
@@ -34,16 +34,16 @@
 			}
 		}
 	}
-	.newsletter-signup-small-call-to-action-wrapper,
-	.newsletter-signup-small-form-wrapper {
+	.newsletter-signup-call-to-action-wrapper,
+	.newsletter-signup-form-wrapper {
 		@include make-sm-column(8);
     	@include make-sm-column-offset(2);
     	@include make-md-column-offset(0);
 	}
-	.newsletter-signup-small-call-to-action-wrapper{
+	.newsletter-signup-call-to-action-wrapper{
     	@include make-md-column(3);
     }
-	.newsletter-signup-small-form-wrapper {
+	.newsletter-signup-form-wrapper {
     	@include make-md-column(9);
     	margin-bottom: 5px;
     }
@@ -52,9 +52,9 @@
 
 
 #footer {
-	.newsletter-signup-small, .newsletter-signup-small-form .btn {
+	.newsletter-signup, .newsletter-signup-form .btn {
 	}
-	.newsletter-signup-small-call-to-action {
+	.newsletter-signup-call-to-action {
 		font-weight: $font-weight-bold;
 	}
 }

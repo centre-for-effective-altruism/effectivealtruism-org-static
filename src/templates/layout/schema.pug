@@ -1,0 +1,89 @@
+//- Facebook / Open Graph
+- var defaultOGImage = site.url + '/images/social/ea-og-image-1200x650.png'
+mixin defaultOGImageTags
+	meta(property="og:image" content=site.url + '/images/social/ea-og-image-1200x650.png')
+	meta(property="og:image:width" content=1200)
+	meta(property="og:image:height" content=650)
+	meta(property="og:image" content=site.url + '/images/social/ea-og-image-120x120.png')
+	meta(property="og:image:width" content=120)
+	meta(property="og:image:height" content=120)
+	meta(property="og:image" content=site.url + '/images/social/ea-og-image-180x110.png')
+	meta(property="og:image:width" content=180)
+	meta(property="og:image:height" content=110)
+	
+mixin ogImageFromContentfulLink(image)
+	if image && image.fields.file.url
+		- var imageURL = 'https:' + image.fields.file.url
+		- var imageWidth = image.fields.file.details.image.width
+		- var imageHeight = image.fields.file.details.image.height
+		//- largest possible size
+		meta(property="og:image" content=imageURL)
+		meta(property="og:image:width" content=imageWidth)
+		meta(property="og:image:height" content=imageHeight)
+	else
+		+defaultOGImageTags
+
+case collectionSlug
+	when 'article'
+		meta(property="og:title" content=title)
+	default
+		meta(property="og:title" content=title + ' - ' + site.title)
+- var ogType = slug==='home' ? 'website' : 'article'
+meta(property="og:type" content=ogType )
+meta(property="og:url" content=canonicalURL)
+case collectionSlug
+	when 'person'
+		+ogImageFromContentfulLink(photo)
+	default
+		+defaultOGImageTags
+		
+meta(property="og:description" content=strip(description))
+meta(property="og:locale" content="en_US")
+meta(property="og:site_name" content=site.title)
+//- Twitter Cards
+meta(name="twitter:card" content="summary")
+meta(name="twitter:site" content="@Effect_Altruism")
+meta(name="twitter:creator" content="@Effect_Altruism")
+case collectionSlug
+	when 'person'
+		if photo && photo.fields.file.url
+			- var twitterImage = 'https:' + photo.fields.file.url + '?w=150'
+	default
+		- var twitterImage = twitterImage || site.url + '/images/social/ea-og-image-120x120.png'
+meta(name="twitter:image" content=twitterImage)
+//- JSON Schema
+case collectionSlug
+	when 'article'
+		script(type="application/ld+json").
+			{
+				"@context": "http://schema.org",
+				"@type": "Article",
+				"url": "#{canonicalURL}",
+				"name": #{title},
+				"publisher": {
+					"@type": "Organization",
+					"name": "Centre for Effective Altruism",
+					"logo": ""
+				},
+				"image": {
+					"@list": [
+						#{defaultOGImage}
+					]
+				},
+				"datePublished": #{date}
+			}
+	when 'person'
+		script(type="application/ld+json").
+			{
+				"@context": "http://schema.org",
+				"@type": "Person",
+				"url": "#{canonicalURL}",
+				"name": #{title}
+			}
+	default
+		script(type="application/ld+json").
+			{
+				"@context": "http://schema.org",
+				"@type": "WebPage",
+				"name": "#{title}"
+			}

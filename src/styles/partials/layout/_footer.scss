@@ -1,14 +1,15 @@
-$font-size: 14px;
-$link-color: #AAA;
-$link-color-hover: #FFF;
-$heading-font-color: #CCC;
 
 .footer {
+	background-color: $footer-background-color;
 	padding: $grid-gutter-width 0;
 	@media(max-width:$screen-sm-max){
 		width:100%;
 	}
 	font-size: 14px;
+	a {
+		color: $text-color;
+		text-decoration: underline;
+	}
 }
 .footer-legal {
 	@media(min-width:$screen-md){
@@ -17,7 +18,7 @@ $heading-font-color: #CCC;
 }
 
 .footer {
-	.newsletter-signup-small-form {
+	.newsletter-signup-form {
 		input, .btn{
 			border-color: #555;
 			color: #555;

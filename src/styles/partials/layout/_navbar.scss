@@ -12,7 +12,8 @@
 // 	}
 // }
 #navbar-main{
-	
+	background-color: #FFF;
+	border-bottom: 1px solid #DDD;
 }
 .navbar {
 	transition: opacity .25s ease-in-out;
@@ -20,15 +21,14 @@
 	background-color: transparent;
 }
 .navbar-inner {
-	/*box-shadow: 0px 5px 5px -5px #333;
-	background-color: #FFF;*/
-	background-color: $site-muted;
+	// box-shadow: 0px 5px 5px -5px #333;
+	// background-color: #FFF;
+	// background-color: $site-muted;
 	margin: auto;
 	@include clearfix();
 }
 .navbar-main-menu{
 	ul.navbar-nav {
-
 		@media(max-width:$screen-sm-max){
 			text-align: center;
 			padding: 0 $grid-gutter-width/2;

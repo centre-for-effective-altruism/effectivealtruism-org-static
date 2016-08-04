@@ -1,9 +1,9 @@
 // FONT FACES
-$font-family-serif: Alegreya, Georgia, Garamond, 'Times New Roman', serif;
-$font-family-sans-serif: "Alegreya Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-serif: Merriweather, Georgia, Garamond, 'Times New Roman', serif;
+$font-family-sans-serif: Raleway, "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 $font-weight-normal: 300;
-$font-weight-bold: 500;
+$font-weight-bold: 700;
 // COLOURS
 
 $site-primary: #6A95CE;
@@ -48,3 +48,5 @@ $ace: #349895;
 $grid-gutter-width: 30px;
 $content-padding: $grid-gutter-width * 2;
 
+
+$footer-background-color: $site-muted;

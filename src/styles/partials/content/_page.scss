@@ -3,17 +3,15 @@
 	>.first-paragraph {
 		// @include first-paragraph();
 	}
+	hr {
+		border: none;
+		height: 1px;
+		position: relative;
+		text-align: center;
+		&:before {
+			content: "* * *";
+			position: absolute;
+			top: -0.65em;
+		}
+	}
 }
-
-// .page {
-// 	&.about,
-// 	&.ideas,
-// 	&.community,
-// 	&.get-involved {
-// 		.page-title {
-// 			@media(min-width: $screen-md){
-// 				display: none;
-// 			}
-// 		}
-// 	}
-// }

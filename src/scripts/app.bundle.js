@@ -38,7 +38,7 @@ require('bootstrapTransition');
 require('bootstrapAffix');
 require('bootstrapScrollspy');
 // require('bootstrapModal')
-// require('bootstrapTooltip')
+require('bootstrapTooltip')
 // third party bootstrap plugins
 // inject breakpoints into the global scope so we can use them elsewhere
 global.breakpoints = {
@@ -63,6 +63,7 @@ global.breakpoints = {
 
 // jQuery Plugins
 require('jqueryThrottleDebounce');
+// global.iFrameResize = require('iframeResizer');
 
 // form/data validation library
 global.validate = require('validate.js');
@@ -76,5 +77,6 @@ global.numeral = require('numeral');
 // main app scripts
 require('main');
 require('analytics');
+require('newsletter');
 
 

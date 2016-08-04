@@ -3,7 +3,6 @@
 @import 'components/media-list';
 @import 'components/newsletter-signup';
 @import 'components/quotation';
-@import 'components/social-icons';
 @import 'components/table-of-contents';
 
 .btn {
@@ -48,6 +47,11 @@
 
 .embed-responsive {
 	width: 100%;
+}
+.embed-responsive-full {
+	min-height: 300px;
+	min-height: 50vh;
+	height: 2500px;
 }
 
 .noscript {

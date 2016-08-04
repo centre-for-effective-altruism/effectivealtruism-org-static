@@ -1,5 +1,8 @@
-if seriesSet['effective-altruist-organisations']
+- var seriesSlug = slug
+if seriesSet[seriesSlug]
+	h3.organisations-list-title!= typogr.typogrify(seriesSet[seriesSlug].file.title)
 	ul.organisations-list
-		each child in seriesSet['effective-altruist-organisations'].children
+		each child in seriesSet[seriesSlug].children
 			li.organisations-list-item
-				p #[a(href=child.file.website target="_blank")!= child.file.title]: #{child.file.description}
+				p #[a(href=child.file.website target="_blank")!= child.file.title]: 
+					!= typogr.typogrify(child.file.description)

@@ -1,4 +1,4 @@
-mixin includeChild (item,index,useNumbering)
+mixin includeChild (item,index, useNumbering, useExcerpts)
 	- var file = item.file
 	- var file = item.file
 	case item.type
@@ -23,6 +23,6 @@ if seriesSlug && seriesSet[seriesSlug] && seriesSet[seriesSlug].children.length
 				.series-description
 					!= child.file.contents
 				each seriesChild,childIndex in child.children
-					+includeChild(seriesChild,childIndex,useNumbering)
+					+includeChild(seriesChild,childIndex,useNumbering, useExcerpts)
 		else
-			+includeChild(child,index,useNumbering)
+			+includeChild(child,index,useNumbering, useExcerpts)

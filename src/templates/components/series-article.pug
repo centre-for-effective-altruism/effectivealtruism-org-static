@@ -5,7 +5,8 @@ if file
 				if useNumbering
 					| #{index+1}. 
 				!= file.title
-		.series-article-excerpt!= file.excerpt
+		if useExcerpts
+			.series-article-excerpt!= file.excerpt
 		//- if useReadMore
 			.series-article-read-more
 				|  

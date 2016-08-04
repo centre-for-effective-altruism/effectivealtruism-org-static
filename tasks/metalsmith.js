@@ -46,7 +46,19 @@ var striptags = require('striptags');
 var htmlEntities = require('html-entities').Html5Entities;
 var strip = function (input){
     // strip out HTML & decode entities for using HTML in Jade attributes
-    return htmlEntities.decode(striptags(input).replace('&#xA0;',' ').replace('&nbsp;',' '));
+    function subs(input){
+            var substitutions = [
+                ['&#xA0;',' '],['&nbsp;', ' ']
+            ];
+            var i = striptags(input);
+            substitutions.forEach(function(substitution){
+                i = i.replace(substitution[0],substitution[1]);
+            });
+            return i;
+        
+    }
+    return htmlEntities.decode(subs(input));
+
 };
 message('Loaded static file compilation');
 
@@ -142,6 +154,7 @@ function build(buildCount){
             extension:'.pug',
             cache: true,
             url,
+            typogr,
             slugify: slug,
             moment,
             embedHostnames
@@ -168,6 +181,9 @@ function build(buildCount){
         .use(function (files,metalsmith,done){
             // build a full domain from our settings
             var meta = metalsmith.metadata();
+            if(process.env.NODE_ENV === 'staging'){
+                meta.site.domain = meta.site.domain.replace('www','staging');
+            }
             meta.site.url = meta.site.protocol + meta.site.domain;
             done();
         })
@@ -244,7 +260,7 @@ function build(buildCount){
                 pattern: 'articles/**/index.html',
                 sortBy: 'menuOrder',
                 metadata: {
-                    singular: 'blog',
+                    singular: 'article',
                 }
             },
             series: {
@@ -299,13 +315,26 @@ function build(buildCount){
                 files[newPath] = files[file];
                 delete files[file];
             });
+            // move 404 out of subdirectory
+            if(files['404/index.html']){
+                files['404.html'] = files['404/index.html'];
+                delete files['404/index.html'];
+            }
+            // move favicons into root directory
+            Object.keys(files).filter(minimatch.filter('images/favicons/**')).forEach(function(file){
+                files[path.basename(file)] = files[file];
+                delete files[file];
+            })
             done();
         })
+        .use(logMessage('Moved files into place'))
         .use(function (files,metalsmith,done){
             // use the 'home' template for the home page
             files['index.html'].template = 'home.pug';
             // long intro to EA page should have TOC
             files['articles/introduction-to-effective-altruism/index.html'].template = 'article-with-toc.pug';
+            // cause prioritization tool needs to be full-width
+            if(files['cause-prioritization-tool/index.html']) files['cause-prioritization-tool/index.html'].template = 'page-full-width.pug';
             done();
         })
         // .use(function (files,metalsmith,done){
@@ -438,14 +467,6 @@ function build(buildCount){
             Object.keys(files).filter(minimatch.filter('@(series|quotations|links|books|media-items)/**')).forEach(function(file){
                 delete files[file];
             });
-            done();
-        })
-        .use(function (files, metalsmith, done) {
-            // put the 404 page into the root directory
-           if(files['404/index.html']){
-                files['404.html'] = files['404/index.html'];
-                delete files['404/index.html'];
-            }
             done();
         })
         .use(shortcodes(shortcodeOpts))

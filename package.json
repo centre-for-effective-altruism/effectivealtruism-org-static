@@ -38,6 +38,7 @@
     "dotenv": "^2.0.0",
     "express": "^4.14.0",
     "html-entities": "^1.2.0",
+    "iframe-resizer": "^3.5.5",
     "jquery": "^3.0.0",
     "lazysizes": "^2.0.0",
     "markdown-it": "^7.0.0",
@@ -118,8 +119,10 @@
     "jqueryPulse": "./src/scripts/bundle/vendor/jquery.pulse.js",
     "chartist": "./node_modules/chartist/dist/chartist.js",
     "chartistAxisTitle": "./node_modules/chartist-plugin-axistitle/dist/chartist-plugin-axistitle.js",
+    "iframeResizer": "./node_modules/iframe-resizer/src/iframeResizer.js",
     "main": "./src/scripts/bundle/main.js",
-    "analytics": "./src/scripts/bundle/analytics.js"
+    "analytics": "./src/scripts/bundle/analytics.js",
+    "newsletter": "./src/scripts/bundle/newsletter.js"
   },
   "browserify": {
     "transform": [
@@ -140,7 +143,9 @@
     "scrollmagicJQuery": "scrollmagicJQuery",
     "scrollmagicAnimationGSAP": "scrollmagicAnimationGSAP",
     "jquerySlabText": "jquerySlabText",
+    "iframeResizer": "iframeResizer",
     "main": "main",
-    "analytics": "analytics"
+    "analytics": "analytics",
+    "newsletter": "newsletter"
   }
 }

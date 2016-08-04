@@ -1,22 +1,23 @@
 head
+    - var collectionSlug = collections[collection] && collections[collection].metadata && collections[collection].metadata.singular ? collections[collection]['metadata']['singular'] : "";
+    -var canonicalURL = site.url + canonical;
+    -var description = description || excerpt || site.description;
+    
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     title
         != (slug==='home'? site.shortDescription : title)
         |  - #{site.title}
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    -var canonicalURL = site.url + canonical;
     link(rel='canonical', href=canonicalURL)
-    -var description = description || excerpt || site.description;
     meta(name='description', content=strip(description))
     link(rel='stylesheet', type='text/css', href='/styles/app.min.css')
     if environment==='development'
         link(rel='stylesheet', type='text/css', href='/styles/icons.css')
     if environment==='staging'
         meta(name="robots" content="noindex,nofollow")
+    include ./schema
     include ./favicons
-    //- |   {% include './layout/og-images.swig' %}
-    //- |   {% include './layout/json-schema.swig' %}
     script.
         // fast pre-rendering check for javascript capability without requiring Modernizr in the head
         var h = document.documentElement
@@ -46,5 +47,3 @@ head
           ga('legacyGA.send', 'pageview');
         })
     block head
-
-    - var collectionSlug = collections[collection] && collections[collection].metadata && collections[collection].metadata.singular ? collections[collection]['metadata']['singular'] : "";
