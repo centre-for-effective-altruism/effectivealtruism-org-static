@@ -60,14 +60,15 @@ var strip = function (input){
     return htmlEntities.decode(subs(input));
 
 };
+var jsFiles = {};
 message('Loaded static file compilation');
 
 // only require in development
-if(process.env.NODE_ENV==='development'){
+/*if(process.env.NODE_ENV==='development'){
     var watch = require('glob-watcher');
     var nodeStatic = require('node-static');
     message('Loaded dev modules');
-}
+}*/
 
 // only require in production
 if(process.env.NODE_ENV==='staging' || process.env.NODE_ENV==='production'){
@@ -243,6 +244,18 @@ function build(buildCount){
                     meta.contents = meta.contents + '\n\n' + meta.footnotes;
                     delete meta.footnotes;
                 }
+
+                // remap 'layout' key from text string to filename
+                var layoutSubstitutions = {
+                    "Basic Page": 'page.pug',
+                    "Page with Table of Contents": 'page-with-toc.pug',
+                    "Home Page": 'home.pug',
+                    "Basic Article": 'article.pug',
+                    "Article with Table of Contents": 'article-with-toc.pug',
+                }
+                if (meta.layout && Object.keys(layoutSubstitutions).indexOf(meta.layout) > -1) {
+                    meta.layout = layoutSubstitutions[meta.layout];
+                }
             });
 
             done();
@@ -328,15 +341,6 @@ function build(buildCount){
             done();
         })
         .use(logMessage('Moved files into place'))
-        .use(function (files,metalsmith,done){
-            // use the 'home' template for the home page
-            files['index.html'].template = 'home.pug';
-            // long intro to EA page should have TOC
-            files['articles/introduction-to-effective-altruism/index.html'].template = 'article-with-toc.pug';
-            // cause prioritization tool needs to be full-width
-            if(files['cause-prioritization-tool/index.html']) files['cause-prioritization-tool/index.html'].template = 'page-full-width.pug';
-            done();
-        })
         // .use(function (files,metalsmith,done){
         //     console.log(Object.keys(files))
         // })
@@ -487,10 +491,6 @@ function build(buildCount){
             .use(logMessage('Created TOCs'))
         )
         .use(function (files, metalsmith, done) {
-            files['resources/index.html'].template = 'page-with-toc.pug';
-            done();
-        })
-        .use(function (files, metalsmith, done) {
             // update shortcodes we haven't processed yet because they don't
             var shortcodes = ['toc'];
             var re = new RegExp('\\[('+shortcodes.join('|')+').*?\\]','gim');
@@ -544,6 +544,13 @@ function build(buildCount){
             });
             done();
         })
+        .use(function (files, metalsmith, done) {
+            // get javascript files so we can inline them if needed
+            Object.keys(files).filter(minimatch.filter('**/*.js')).forEach(function(file){
+                jsFiles[file] = files[file].contents.toString();
+            });
+            done();
+        })
         .use(layouts({
             engine:'pug',
             directory: '../src/templates',
@@ -553,6 +560,7 @@ function build(buildCount){
             url,
             moment,
             strip,
+            jsFiles,
             slugify:slug,
             // collectionSlugs,
             // collectionInfo,
