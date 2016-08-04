@@ -1,5 +1,8 @@
 script(src='/scripts/LAB.min.js')
+script#app-script(src='/scripts/app.min.js' type="application/x-no-execution" async)
 script.
+    window.appScript = document.getElementById('app-script').src;
+    console.log(window.appScript);
     window.$LAB = window.$LAB || undefined;
     (function($LAB){
         if(!$LAB) return;
