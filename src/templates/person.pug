@@ -23,9 +23,9 @@ block content
 								.row.person-organisation
 									if organisation.fields.logo
 										a(href=organisation.fields.website, target="_blank")
-											.col-sm-3
+											.col-xs-6
 												img.person-organisation-logo(src=organisation.fields.logo.fields.file.url) 
-											.col-sm-9
+											.col-xs-12
 												h5.person-organisation-title!= organisation.fields.title
 									else
 										.col-sm-12 

@@ -11,9 +11,14 @@
 }
 
 .person-organisations {
-	border-top: 1px solid #DDD;
+	$border: 1px solid #DDD;
+	border-top: $border;
 	margin-top: $grid-gutter-width;
 	padding-top: $grid-gutter-width;
+	@media(max-width: $screen-xs-max) {
+		border-bottom: $border;
+		margin-bottom: $grid-gutter-width;
+	}
 }
 .person-organisations-header {
 	color: #DDD;
