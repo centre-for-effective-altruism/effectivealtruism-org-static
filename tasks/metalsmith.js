@@ -542,9 +542,6 @@ function build(buildCount){
                 } 
                 files[file].layout = files[file].layout.replace('.jade','.pug');
             });
-            done();
-        })
-        .use(function (files, metalsmith, done) {
             // get javascript files so we can inline them if needed
             Object.keys(files).filter(minimatch.filter('**/*.js')).forEach(function(file){
                 jsFiles[file] = files[file].contents.toString();
