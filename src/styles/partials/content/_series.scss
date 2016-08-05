@@ -91,3 +91,9 @@
 		content: '— ';
 	}
 }
+.series-item-external-link-info {
+	overflow: hidden;
+	@media(max-width: $screen-sm-max){
+		font-size: 12px;
+	}
+}
