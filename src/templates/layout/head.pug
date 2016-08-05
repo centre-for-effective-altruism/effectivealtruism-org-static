@@ -14,7 +14,7 @@ head
     link(rel='stylesheet', type='text/css', href='/styles/app.min.css')
     if environment==='development'
         link(rel='stylesheet', type='text/css', href='/styles/icons.css')
-    if environment==='staging'
+    if environment==='development' || environment==='staging'
         meta(name="robots" content="noindex,nofollow")
     include ./schema
     include ./favicons
