@@ -27,6 +27,11 @@
 		&>.table-of-contents {
 			display: none;
 			&>.table-of-contents-item {
+				font-family: $font-family-serif;
+				font-weight: $font-weight-normal;
+				font-size: 12px;
+				line-height: 1.2em;
+				margin-bottom: 5px;
 				&>a {
 					color: #999;
 					padding-left: 10px;
