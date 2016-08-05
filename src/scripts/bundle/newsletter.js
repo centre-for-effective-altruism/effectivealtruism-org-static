@@ -29,12 +29,10 @@
         .removeClass('btn-success')
         .addClass('btn-default');
 
-        console.log(form.serializeArray());
         // based on https://github.com/scdoshi/jquery-ajaxchimp/blob/dev-2.0/src/jquery.ajaxchimp.js
         $.each(form.serializeArray(), function (index, item) {
             requestData[item.name] = item.value;
         });
-        console.log(requestData);
         $.ajax({
                 method: 'GET',
                 url: url,
@@ -44,7 +42,6 @@
 
         })
         .done(function (data) {
-            console.log(data);
             if (data.result === 'success') {
                 form.find('.controls').addClass('hidden');
                 resultDiv
