@@ -1,11 +1,25 @@
-mixin embed(src, aspect)
+mixin embed(src, aspect, title, showModalOnLoad)
 	- var aspectRatio = aspect || '16by9'
 	- var parsedSrc = url.parse(src)
 	- src = ['www.youtube.com'].indexOf(parsedSrc.hostname) > -1 && parsedSrc.pathname ==='/watch' && parsedSrc.query ? 'https://www.youtube.com/embed/'+parsedSrc.query.match(/v=([^&]*)/)[1] : src;
-	.embed-responsive(class=('embed-responsive-'+aspectRatio))
-		iframe.embed-responsive-item(src=src)
 		if aspectRatio === 'full'
+			- var modalId = 'embed-modal-full'
+			- var embedTitle = title || ''
+			a.btn.btn-primary(id=modalId+'-launch' href="#") Launch #{embedTitle}
+			include ../helpers/modal
+			+modal(title,modalId+'-embed')
+				.embed-responsive.embed-responsive-full
+					iframe.embed-responsive-item(src=src)
 			script.
 				loadScript(function(){
-					window.iFrameResize('.embed-responsive-full');
+					$('##{modalId}-embed').modal({
+						show: #{showModalOnLoad||'false'}
+					});
+					$('##{modalId}-launch').click(function(event){
+						event.preventDefault();
+						$('##{modalId}-embed').modal('show');
+					})
 				})
+		else
+			.embed-responsive(class=('embed-responsive-'+aspectRatio))
+				iframe.embed-responsive-item(src=src)

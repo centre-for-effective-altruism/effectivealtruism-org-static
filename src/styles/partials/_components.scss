@@ -3,6 +3,7 @@
 @import 'components/media-list';
 @import 'components/newsletter-signup';
 @import 'components/quotation';
+@import 'components/responsive-embed';
 @import 'components/table-of-contents';
 
 .btn {
@@ -42,16 +43,6 @@
 
 .bg-alternate {
 	background-color: lighten($site-primary,50%)
-}
-
-
-.embed-responsive {
-	width: 100%;
-}
-.embed-responsive-full {
-	min-height: 300px;
-	min-height: 50vh;
-	height: 2500px;
 }
 
 .noscript {

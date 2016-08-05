@@ -1,0 +1,40 @@
+.embed-responsive {
+	width: 100%;
+}
+.embed-responsive-full {
+	height: 100%;
+}
+
+
+.modal-dialog {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 20px;
+}
+
+.modal-content {
+  height: auto;
+  min-height: 100%;
+  border-radius: 0;
+  position: relative;
+}
+
+.modal-header {
+	&>.close {
+		z-index: 1060;
+		position: absolute;
+		right: 20px;
+	}
+}
+
+.modal-body {
+	position: absolute;
+	width: 100%;
+	top: 64px;
+	bottom: 0;
+}
+
+.modal-footer {
+	display: none;	
+}

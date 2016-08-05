@@ -37,7 +37,7 @@ require('bootstrapCollapse');
 require('bootstrapTransition');
 require('bootstrapAffix');
 require('bootstrapScrollspy');
-// require('bootstrapModal')
+require('bootstrapModal')
 require('bootstrapTooltip')
 // third party bootstrap plugins
 // inject breakpoints into the global scope so we can use them elsewhere
