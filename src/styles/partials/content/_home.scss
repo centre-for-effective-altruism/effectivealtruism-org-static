@@ -107,6 +107,12 @@ $button-width: 220px;
 		border-color: #FFF;
 		color: $site-primary;
 	}
+	.btn.disabled{
+		&:hover, &:focus {
+			color: #DDD;
+			border-color: #DDD;
+		}
+	}
 	.newsletter-signup-call-to-action-wrapper {
 		display: none;
 	}
