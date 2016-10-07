@@ -624,17 +624,6 @@ function build(buildCount){
             }))
             .use(logMessage('Cleaned CSS files'))
             // concat main CSS and icon CSS together and put back in the right place
-            .use(concat({
-                files: ['styles/app.min.uncss.css','styles/icons.css'],
-                output: 'styles/app.min.css',
-                keepConcatenated: false
-            }))
-            .use(logMessage('Concatenated CSS files'))
-            .use(cleanCSS({
-                cleanCSS: {
-                    rebase: false,
-                }
-            }))
             .use(function(files,metalsmith,done){
                 // delete sourcemaps from production builds
                 // delete settings folder
