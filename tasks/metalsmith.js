@@ -34,8 +34,35 @@ var excerpts = require('metalsmith-excerpts');
 // var pagination = require('metalsmith-pagination');
 var navigation = require('metalsmith-navigation');
 message('Loaded metadata');
+// Markdown processing
+const MarkdownIt = require('metalsmith-markdownit')
+const MarkdownItAttrs = require('markdown-it-attrs')
+const MarkdownItContainer = require('markdown-it-container')
+const markdown = MarkdownIt({
+  plugin: {
+    pattern: '**/*.html'
+  },
+  breaks: true
+})
+.use(MarkdownItAttrs)
+.use(MarkdownItContainer, 'classname', {
+  validate: name => {
+    const classes = name.trim().split(' ')
+    return classes.every((className) => {
+      return /^[a-zA-Z0-9\-]+$/.test(className)
+    })
+  },
+  render: (tokens, idx) => {
+    if (tokens[idx].nesting === 1) {
+      return `<div class="${tokens[idx].info.trim()}">\n`
+    } else {
+      return '</div>\n'
+    }
+  }
+})
 // static file compilation
-var parseHTML = require('../lib/parseHTML').parse;
+var parseHTML = require('../lib/parseHTML');
+var sanitizeShortcodes = require('../lib/sanitizeShortcodes');
 var shortcodes = require('metalsmith-shortcodes');
 var concat = require('metalsmith-concat');
 var icons = require('metalsmith-icons');
@@ -73,7 +100,7 @@ message('Loaded static file compilation');
 // only require in production
 if(process.env.NODE_ENV==='staging' || process.env.NODE_ENV==='production'){
     var htmlMinifier = require('metalsmith-html-minifier');
-    var uncss = require('metalsmith-uncss');
+    var purifyCSS = require('../lib/purifyCSS');
     var cleanCSS = require('metalsmith-clean-css');
     var sitemap = require('metalsmith-sitemap');
     message('Loaded production modules');
@@ -451,21 +478,11 @@ function build(buildCount){
         })
         .use(logMessage('Built series hierarchy'))
         // Build HTML files
-        .use(function (files, metalsmith, done) {
-            // parse HTML files
-            Object.keys(files).filter(minimatch.filter('**/*.html')).forEach(function(file){
-                files[file].contents = parseHTML(files[file].contents.toString(),files[file],{
-                    redirects: metalsmith.metadata().redirects,
-                    firstPars: true
-                });
-                files[file].excerpt = files[file].excerpt ? parseHTML(files[file].excerpt.toString(),files[file],{
-                    redirects: metalsmith.metadata().redirects
-                }) : '';
-            });
-            done();
-        })
-        .use(excerpts())
+        .use(markdown)
         .use(logMessage('Converted Markdown to HTML'))
+        .use(parseHTML())
+        .use(logMessage('Postprocessed HTML'))
+        .use(excerpts())
         .use(function (files, metalsmith, done) {
             // certain content has been incorporated into other pages, but we don't need them as standalone pages in our final build.
             Object.keys(files).filter(minimatch.filter('@(series|quotations|links|books|media-items)/**')).forEach(function(file){
@@ -473,6 +490,7 @@ function build(buildCount){
             });
             done();
         })
+        .use(sanitizeShortcodes())
         .use(shortcodes(shortcodeOpts))
         .use(logMessage('Converted Shortcodes'))
         .use(branch(function(filename,props){
@@ -586,36 +604,23 @@ function build(buildCount){
         // stuff to only do in production
         if(process.env.NODE_ENV==='staging' || process.env.NODE_ENV==='production'){
             colophonemes
-            .use(logMessage('Minifying HTML',chalk.dim))
-            .use(htmlMinifier('**/*.html',{
-                minifyJS: true
+            .use(logMessage('Minifying HTML', chalk.dim))
+            .use(htmlMinifier('**/*.html', {
+              minifyJS: true
             }))
             .use(logMessage('Minified HTML'))
-            .use(logMessage('Cleaning CSS files',chalk.dim))
-            .use(uncss({
-                basepath: 'styles',
-                css: ['app.min.css'],
-                output: 'app.min.uncss.css',
-                removeOriginal: true,
-                uncss: {
-                    ignore: [
-                        /collaps/,
-                        /nav/,
-                        /dropdown/,
-                        /modal/,
-                        /.fade/,
-                        /.in/,
-                        /.open/,
-                        '.transparent',
-                        /lazyload/,
-                        /tooltip/,
-                        /alert/,
-                        /highlighted/,
-                        /affix/,
-                        /active/,
-                    ],
-                    media: ['(min-width: 480px)','(min-width: 768px)','(min-width: 992px)','(min-width: 1200px)']
-                }
+            .use(concat({
+              files: ['styles/app.min.css', 'styles/icons.css'],
+              output: 'styles/app.min.css',
+              keepConcatenated: false,
+              forceOutput: true
+            }))
+            .use(logMessage('Concatenated CSS files'))
+            .use(purifyCSS())
+            .use(cleanCSS({
+              cleanCSS: {
+                rebase: false
+              }
             }))
             .use(logMessage('Cleaned CSS files'))
             // concat main CSS and icon CSS together and put back in the right place
