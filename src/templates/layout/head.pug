@@ -1,8 +1,7 @@
 head
     - var collectionSlug = collections[collection] && collections[collection].metadata && collections[collection].metadata.singular ? collections[collection]['metadata']['singular'] : "";
-    -var canonicalURL = site.url + canonical;
+    -var canonicalURL = canonical && canonical.substr(0,4) !== 'http' ? site.url + canonical : canonical
     -var description = description || excerpt || site.description;
-    
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     title

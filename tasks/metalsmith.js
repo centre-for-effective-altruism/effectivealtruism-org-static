@@ -375,7 +375,7 @@ function build(buildCount){
             // add paths to HTML files
             Object.keys(files).filter(minimatch.filter('**/index.html')).forEach(function(file){
                 files[file].path = file!=='index.html' ? file.replace('/index.html','') : '/';
-                files[file].canonical = (file!=='index.html' ? '/' : '') + files[file].path + (file!=='index.html' ? '/' : '');
+                if(!files[file].canonical) files[file].canonical = (file!=='index.html' ? '/' : '') + files[file].path + (file!=='index.html' ? '/' : '');
             });
             done();
         })
