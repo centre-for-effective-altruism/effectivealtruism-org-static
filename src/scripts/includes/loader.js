@@ -569,6 +569,10 @@ APPLICATION LOAD QUEUE
             });
         })
         .queueScript(window.appScript || '/scripts/app.min.js')
+        .queueWait(function(){
+            window.$mcGoal = {'settings':{'uuid':'52b028e7f799cca137ef74763','dc':'us8'}}
+        })
+        .queueScript('https://s3.amazonaws.com/downloads.mailchimp.com/js/goal.min.js')
         // enqueue anything that's been requested with loadScript() elsewhere in the body
         var s;
         for (var i = 0; i < d.length; i++) {
