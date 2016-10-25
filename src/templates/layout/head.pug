@@ -38,7 +38,12 @@ head
         // load the script
         analytics.load("zbkLJhxMO425xQwGvutCFLjmUuzNY8N3");
         }}();
-    script analytics.page('#{title}')
+    script.
+        analytics.page('#{title}')
+        analytics.track('Accessed URL', {
+          category: 'Page View',
+          label: '#{canonicalURL}'
+        });
     script.
         // track pageviews in old GA account
         analytics.ready(function(){
