@@ -42,7 +42,7 @@ head
         analytics.page('#{title}')
         analytics.track('Accessed URL', {
           category: 'Page View',
-          label: window.location.href.split('?')[0]
+          label: [location.protocol, '//', location.host, location.pathname].join('')
         });
     script.
         // track pageviews in old GA account
