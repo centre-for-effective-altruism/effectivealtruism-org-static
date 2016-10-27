@@ -44,6 +44,8 @@
     "markdown-it-attrs": "^0.7.1",
     "markdown-it-container": "^2.0.0",
     "markdown-it-footnote": "^2.0.0",
+    "markdown-it-sub": "^1.0.0",
+    "markdown-it-sup": "^1.0.0",
     "merge": "^1.2.0",
     "metalsmith": "^2.1.0",
     "metalsmith-branch": "0.0.4",

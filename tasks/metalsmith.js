@@ -37,6 +37,8 @@ message('Loaded metadata');
 // Markdown processing
 const MarkdownIt = require('metalsmith-markdownit')
 const MarkdownItAttrs = require('markdown-it-attrs')
+const MarkdownItSup = require('markdown-it-sup')
+const MarkdownItSub = require('markdown-it-sub')
 const MarkdownItContainer = require('markdown-it-container')
 const markdown = MarkdownIt({
   plugin: {
@@ -45,6 +47,8 @@ const markdown = MarkdownIt({
   breaks: true
 })
 .use(MarkdownItAttrs)
+.use(MarkdownItSup)
+.use(MarkdownItSub)
 .use(MarkdownItContainer, 'classname', {
   validate: name => {
     const classes = name.trim().split(' ')
