@@ -19,26 +19,27 @@ message('Initialising new build...',chalk.dim,true);
 var Metalsmith = require('metalsmith');
 message('Loaded Metalsmith');
 // templating
-var metadata = require('metalsmith-metadata');
-var moment = require('moment');
-var ignore      = require('metalsmith-ignore');
-var contentful = require('contentful-metalsmith');
-var slug = require('slug'); slug.defaults.mode = 'rfc3986';
-var layouts  = require('metalsmith-layouts');
-message('Loaded templating');
-var lazysizes = require('metalsmith-lazysizes');
+var metadata = require('metalsmith-metadata')
+var moment = require('moment')
+var ignore = require('metalsmith-ignore')
+var contentful = require('contentful-metalsmith')
+var slug = require('slug'); slug.defaults.mode = 'rfc3986'
+var layouts = require('metalsmith-layouts')
+message('Loaded templating')
+var lazysizes = require('metalsmith-lazysizes')
 // metadata and structure
-var branch  = require('metalsmith-branch');
-var collections  = require('metalsmith-collections');
-var excerpts = require('metalsmith-excerpts');
+var branch = require('metalsmith-branch')
+var collections = require('metalsmith-collections')
+var excerpts = require('metalsmith-excerpts')
 // var pagination = require('metalsmith-pagination');
-var navigation = require('metalsmith-navigation');
-message('Loaded metadata');
+var navigation = require('metalsmith-navigation')
+message('Loaded metadata')
 // Markdown processing
 const MarkdownIt = require('metalsmith-markdownit')
 const MarkdownItAttrs = require('markdown-it-attrs')
 const MarkdownItSup = require('markdown-it-sup')
 const MarkdownItSub = require('markdown-it-sub')
+const MarkdownItFootnote = require('markdown-it-footnote')
 const MarkdownItContainer = require('markdown-it-container')
 const markdown = MarkdownIt({
   plugin: {
@@ -49,6 +50,7 @@ const markdown = MarkdownIt({
 .use(MarkdownItAttrs)
 .use(MarkdownItSup)
 .use(MarkdownItSub)
+.use(MarkdownItFootnote)
 .use(MarkdownItContainer, 'classname', {
   validate: name => {
     const classes = name.trim().split(' ')
