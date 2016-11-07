@@ -44,6 +44,13 @@ head
           category: 'Page View',
           label: [location.protocol, '//', location.host, location.pathname].join('')
         });
+    if slug === '404'
+        script.
+            // track 404s
+            analytics.track('HTTPError',{
+                'HTTPError_Code': 404,
+                'HTTPError_Path': window.location.pathname
+            });
     script.
         // track pageviews in old GA account
         analytics.ready(function(){
