@@ -32,7 +32,7 @@ var lazysizes = require('metalsmith-lazysizes')
 var branch = require('metalsmith-branch')
 var collections = require('metalsmith-collections')
 var excerpts = require('metalsmith-excerpts')
-// var pagination = require('metalsmith-pagination')
+var pagination = require('metalsmith-pagination')
 var navigation = require('metalsmith-navigation')
 message('Loaded metadata')
 // Markdown processing
@@ -95,13 +95,6 @@ var strip = function (input) {
 }
 var jsFiles = {}
 message('Loaded static file compilation')
-
-// only require in development
-/*if(process.env.NODE_ENV==='development'){
-    var watch = require('glob-watcher')
-    var nodeStatic = require('node-static')
-    message('Loaded dev modules')
-}*/
 
 // only require in production
 if (process.env.NODE_ENV === 'staging' || process.env.NODE_ENV === 'production') {
@@ -180,7 +173,7 @@ function build (buildCount) {
 
     // shortcodes is used twice so abstract the options object
     var shortcodeOpts = {
-      directory: path.normalize(__dirname + '/../src/templates/shortcodes'),
+      directory: path.normalize(path.join(__dirname, '/../src/templates/shortcodes')),
       pattern: '**/*.html',
       engine: 'pug',
       extension: '.pug',
@@ -189,7 +182,8 @@ function build (buildCount) {
       typogr,
       slugify: slug,
       moment,
-    embedHostnames}
+      embedHostnames
+    }
 
     // START THE BUILD!
     var colophonemes = new Metalsmith(__dirname)
@@ -327,6 +321,18 @@ function build (buildCount) {
           }
         }
       }))
+      .use(pagination({
+        'collections.articles': {
+          perPage: 10,
+          template: 'collection.pug',
+          first: 'articles/index.html',
+          noPageOne: true,
+          path: 'articles/:num/index.html',
+          pageMetadata: {
+            title: 'Articles'
+          }
+        }
+      }))
       .use(logMessage('Added files to collections'))
       .use(function (files, metalsmith, done) {
         // check all of our HTML files have slugs
@@ -424,6 +430,7 @@ function build (buildCount) {
         metalsmith.metadata().fileIDMap = {}
         var fileIDMap = metalsmith.metadata().fileIDMap
         Object.keys(files).filter(minimatch.filter('**/*.html')).forEach(function (file) {
+          if (!files[file].data) return
           fileIDMap[files[file].data.sys.id] = files[file]
         })
         done()
@@ -565,7 +572,7 @@ function build (buildCount) {
       .use(layouts({
         engine: 'pug',
         directory: '../src/templates',
-        pretty: process.env.NODE_ENV === 'development' ? true : false,
+        pretty: process.env.NODE_ENV === 'development',
         cache: true,
         typogr,
         url,
@@ -586,7 +593,7 @@ function build (buildCount) {
       .use(logMessage('Added icon fonts'))
       .use(lazysizes({
         widths: [100, 480, 768, 992, 1200, 1800],
-        qualities: [ 50, 70, 70, 70, 70, 70],
+        qualities: [50, 70, 70, 70, 70, 70],
         backgrounds: ['#banner', '.content-block-wrapper', '.post-header', '.featured-image'],
         ignore: '/images/**',
         ignoreSelectors: '.content-block-content',
@@ -639,7 +646,6 @@ function build (buildCount) {
 
     // Run build
     colophonemes.use(logMessage('Finalising build')).build(function (err, files) {
-      var t = formatBuildTime(buildTime)
       if (err) {
         message('Build failed!', chalk.red.bold)
         console.trace(err)
@@ -648,7 +654,7 @@ function build (buildCount) {
             title: 'Build failed!',
             message: err,
             appIcon: '',
-            contentImage: path.join(__dirname, '..', 'src', 'metalsmith', 'images', 'favicons', 'favicon-96x96.png'), // absolute path (not balloons) 
+            contentImage: path.join(__dirname, '..', 'src', 'metalsmith', 'images', 'favicons', 'favicon-96x96.png'), // absolute path (not balloons)
             sound: 'Funk',
             activate: 'com.apple.Terminal'
           })
@@ -660,7 +666,7 @@ function build (buildCount) {
             title: 'Build succeeded!',
             message: 'Click to switch to Chrome',
             appIcon: '',
-            contentImage: path.join(__dirname, '..', 'src', 'metalsmith', 'images', 'favicons', 'favicon-96x96.png'), // absolute path (not balloons) 
+            contentImage: path.join(__dirname, '..', 'src', 'metalsmith', 'images', 'favicons', 'favicon-96x96.png'), // absolute path (not balloons)
             sound: 'Glass',
             activate: 'com.google.Chrome'
           })
@@ -675,27 +681,6 @@ function build (buildCount) {
 }
 // call master build function
 build()()
-
-// // DEVELOPMENT RELOADING
-// based on example at https://www.npmjs.com/package/metalsmith-changed
-/*if(process.env.NODE_ENV === 'development'){
-    // server
-    var serve = new nodeStatic.Server(path.join(__dirname,'..','build'))
-    require('http').createServer((req, res) => {
-      req.addListener('end', () => serve.serve(req, res))
-      req.resume()
-    }).listen(8080)
-     // watch files
-     message('Watching files')
-    watch([
-        path.join(__dirname,'..','src','metalsmith','contentful'),
-        path.join(__dirname,'..','src','metalsmith','fonts'),
-        path.join(__dirname,'..','src','metalsmith','images'),
-        path.join(__dirname,'..','src','metalsmith','settings'),
-    ], {ignoreInitial: false}, build(2));   
-} else {
-    build()()
-}*/
 
 // UTILITIES //
 
