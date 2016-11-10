@@ -3,7 +3,7 @@ extends ./page
 block content
   .row
     #content.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2
-      if pagination.files
+      if pagination && pagination.files
         each file in pagination.files
           .collection-item
             h2.collection-item-title
@@ -11,5 +11,21 @@ block content
             != file.excerpt
             p
               a(href=file.canonical) Read more &rarr;
+      if pagination && pagination.pages.length > 1
+        section.section-divider
+          //- Pagination
+          nav.pagination-wrapper(aria-label='Page navigation')
+            ul.pagination
+              if pagination.previous
+                li
+                  a(href=pagination.previous.path, aria-label='Previous')
+                    span(aria-hidden='true') «
+              each page,index in pagination.getPages(5)
+                li
+                  a(href=page.path)!= index+1
+              if pagination.next
+                li
+                  a(href=pagination.next.path, aria-label='Previous')
+                    span(aria-hidden='true') »
 
       block postContent
