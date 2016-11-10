@@ -1,9 +1,15 @@
 extends ./page
-	
-block postContent
-	ul
-		each child in breadcrumb_path[0].children
-			li
-				h3
-					a(href=child.file.canonical)!= child.file.title
-				p!= child.file.excerpt
+
+block content
+  .row
+    #content.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2
+      if pagination.files
+        each file in pagination.files
+          .collection-item
+            h2.collection-item-title
+              a(href=file.canonical)!= file.title
+            != file.excerpt
+            p
+              a(href=file.canonical) Read more &rarr;
+
+      block postContent
