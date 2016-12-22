@@ -2,7 +2,7 @@
 title: Quotations
 contentful:
   content_type: quotation
-  entry_template: page.jade
-  entry_filename_pattern: quotations/:fields.slug
-  permalink_style: true
+  entry_template: page.pug
+  entry_filename_pattern: quotations/${fields.slug}
+  create_permalinks: true
 ---

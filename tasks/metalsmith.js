@@ -215,7 +215,7 @@ function build (buildCount) {
         /*eslint-disable */
         var defaults = {
           space_id: process.env.CONTENTFUL_SPACE,
-          limit: 2000,
+          limit: 1000,
           permalink_style: true
         }
         /*eslint-enable */
@@ -229,7 +229,7 @@ function build (buildCount) {
       })
       .use(logMessage('Prepared global metadata'))
       .use(contentful({
-        'accessToken': process.env.CONTENTFUL_ACCESS_TOKEN
+        'access_token': process.env.CONTENTFUL_ACCESS_TOKEN
       }))
       .use(function (files, metalsmith, done) {
         // get rid of the contentful source files from the build
