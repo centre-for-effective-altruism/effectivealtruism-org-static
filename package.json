@@ -71,7 +71,6 @@
     "metalsmith-shortcodes": "https://github.com/centre-for-effective-altruism/metalsmith-shortcodes.git",
     "metalsmith-sitemap": "git+https://github.com/centre-for-effective-altruism/metalsmith-sitemap.git",
     "metalsmith-slug": "0.2.0",
-    "metalsmith-uncss": "^0.2.0",
     "minifyify": "^7.3.3",
     "minimatch": "^3.0.2",
     "moment": "^2.13.0",
