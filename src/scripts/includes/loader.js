@@ -528,7 +528,7 @@ APPLICATION LOAD QUEUE
         $LAB
         .queueScript("https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js")
         // uncomment if running optimizely experiments:
-        /*.queueScript("https://cdn.optimizely.com/js/XXXXXX.js")
+        .queueScript("https://cdn.optimizely.com/js/XXXXXX.js")
         .queueWait(function(){
             // kill optimizely if it hasn't loaded within a few seconds
             function optimizelyTimeout() {
@@ -538,7 +538,7 @@ APPLICATION LOAD QUEUE
                 }
             }
             setTimeout(optimizelyTimeout, 2000);
-        })*/
+        })
         .queueScript("https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js")
         .queueWait(function(){
             function webfontStatus(status){
