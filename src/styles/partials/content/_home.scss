@@ -92,6 +92,17 @@ $button-width: 220px;
 	}
 }
 
+.home-section-ea-funds {
+	text-align:center;
+	p>a {
+		color: #FFF;
+		text-decoration: underline;
+		font-style: italic;
+	}
+	.btn {
+		width: $button-width;
+	}
+}
 
 .home-section-newsletter-signup {
 	text-align: center;
