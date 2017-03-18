@@ -1,0 +1,8 @@
+---
+title: Chapters
+contentful:
+  content_type: chapter
+  entry_template: chapter.pug
+  entry_filename_pattern: chapters/${fields.slug}
+  create_permalinks: true
+---

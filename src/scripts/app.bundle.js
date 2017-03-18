@@ -79,4 +79,13 @@ require('main');
 require('analytics');
 require('newsletter');
 
+// email descrambling
+const emailScramble = require('email-scramble');
+var links = document.querySelectorAll('[data-email-scramble]');
+for (var i = 0; i < links.length; i++) {
+	var link = links[i]
+	console.log(emailScramble.decode(link.innerHTML))
+	link.innerHTML = emailScramble.decode(link.innerHTML);
+	link.href = emailScramble.decode(link.href);
+}
 

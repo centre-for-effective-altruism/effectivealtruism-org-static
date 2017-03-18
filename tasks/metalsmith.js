@@ -74,6 +74,8 @@ var sanitizeShortcodes = require('../lib/sanitizeShortcodes')
 var shortcodes = require('metalsmith-shortcodes')
 var concat = require('metalsmith-concat')
 var icons = require('metalsmith-icons')
+var emailScramble = require('email-scramble')
+var countryData = require('country-data')
 // var feed = require('metalsmith-feed')
 var headingsIdentifier = require('metalsmith-headings-identifier')
 var headings = require('metalsmith-headings')
@@ -182,7 +184,9 @@ function build (buildCount) {
       typogr,
       slugify: slug,
       moment,
-      embedHostnames
+      embedHostnames,
+      emailScramble,
+      countryData
     }
 
     // START THE BUILD!
@@ -310,6 +314,13 @@ function build (buildCount) {
           sortBy: 'title',
           metadata: {
             singular: 'person'
+          }
+        },
+        chapters: {
+          pattern: 'chapters/**/index.html',
+          sortBy: 'title',
+          metadata: {
+            singular: 'chapter'
           }
         },
         'mediaItems': {
@@ -582,6 +593,7 @@ function build (buildCount) {
         slugify: slug,
         // collectionSlugs,
         // collectionInfo,
+        emailScramble,
         embedHostnames,
         environment: process.env.NODE_ENV
       }))

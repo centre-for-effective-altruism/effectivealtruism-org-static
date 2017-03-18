@@ -1,0 +1,26 @@
+extends ./page
+
+block content
+  .row
+    #content.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2
+      if picture
+        div(style=`height: 300px; background-image: url(https:${picture.fields.file.url}); background-size: cover; background-position:center;`)
+      != contents
+      h2 Get involved
+      if contactEmail
+        p
+          a(data-email-scramble href=emailScramble.encode(`mailto:${contactEmail}`))
+            i.fa.fa-at
+            |  
+            != emailScramble.encode(contactEmail)
+      if website
+        p
+          a(href=website target='_blank')
+            i.fa.fa-globe
+            |  Website
+      if facebook
+        p
+          a(href=facebook target='_blank')
+            i.fa.fa-facebook
+            |  Facebook
+      block postContent
