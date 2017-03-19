@@ -1,7 +1,9 @@
-http://www.effectivealtruism.com https:www.effectivealtruism.org 302
-https://www.effectivealtruism.com https:www.effectivealtruism.org 302
-http://www.effectivealtruism.com/* https:www.effectivealtruism.org/:splat 302
-https://www.effectivealtruism.com/* https:www.effectivealtruism.org/:splat 302
+http://effectivealtruism.com https://www.effectivealtruism.org 302
+https://effectivealtruism.com https://www.effectivealtruism.org 302
+http://www.effectivealtruism.com https://www.effectivealtruism.org 302
+https://www.effectivealtruism.com https://www.effectivealtruism.org 302
+http://www.effectivealtruism.com/* https://www.effectivealtruism.org/:splat 302
+https://www.effectivealtruism.com/* https://www.effectivealtruism.org/:splat 302
 /people /community-profiles 301
 /ideas /articles 301
 /ideas/* /articles/:splat 301
