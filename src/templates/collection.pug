@@ -7,10 +7,17 @@ block content
         each file in pagination.files
           .collection-item
             h2.collection-item-title
-              a(href=file.canonical)!= file.title
+              a(href=`/${file.path}`)!= file.title
+            if file.authors
+              p.authors
+                each author, index in file.authors
+                  a(href=`/people/${author.fields.slug}`)!= author.fields.title
+                  if (index + 1) < file.authors.length
+                    | , 
+            p.date-published!= dateFormat(Date.parse(file.date))
             != file.excerpt
             p
-              a(href=file.canonical) Read more &rarr;
+              a(href=`/${file.path}`) Read more &rarr;
       if pagination && pagination.pages.length > 1
         section.section-divider
           //- Pagination
@@ -18,14 +25,14 @@ block content
             ul.pagination
               if pagination.previous
                 li
-                  a(href=pagination.previous.path, aria-label='Previous')
+                  a(href=`/${pagination.previous.path}`, aria-label='Previous')
                     span(aria-hidden='true') «
               each page,index in pagination.getPages(5)
                 li
-                  a(href=page.path)!= index+1
+                  a(href=`/${page.path}`)!= index+1
               if pagination.next
                 li
-                  a(href=pagination.next.path, aria-label='Previous')
+                  a(href=`/${pagination.next.path}`, aria-label='Previous')
                     span(aria-hidden='true') »
 
       block postContent

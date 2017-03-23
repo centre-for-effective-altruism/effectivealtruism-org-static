@@ -1,4 +1,14 @@
 extends ./page
 
-block postContent
-	include ./components/series-pagination
+block content
+  .row
+    #content.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2
+      div.article-front-matter
+        p.authors
+            each author, index in authors
+              a(href=`/people/${author.fields.slug}`)!= author.fields.title
+              if (index + 1) < authors.length
+                | , 
+        p.date-published!= dateFormat(Date.parse(date))
+      != contents
+      include ./components/series-pagination

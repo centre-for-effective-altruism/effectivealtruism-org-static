@@ -44,7 +44,8 @@ const MarkdownItFootnote = require('markdown-it-footnote')
 const MarkdownItContainer = require('markdown-it-container')
 const markdown = MarkdownIt({
   plugin: {
-    pattern: '**/*.html'
+    pattern: '**/*.html',
+    fields: ['contents', 'excerpt']
   },
   breaks: true
 })
@@ -297,7 +298,8 @@ function build (buildCount) {
         },
         articles: {
           pattern: 'articles/**/index.html',
-          sortBy: 'menuOrder',
+          sortBy: 'date',
+          reverse: true,
           metadata: {
             singular: 'article'
           }
@@ -385,9 +387,6 @@ function build (buildCount) {
         done()
       })
       .use(logMessage('Moved files into place'))
-      // .use(function (files,metalsmith,done){
-      //     console.log(Object.keys(files))
-      // })
       .use(function (files, metalsmith, done) {
         // add paths to HTML files
         Object.keys(files).filter(minimatch.filter('**/index.html')).forEach(function (file) {
@@ -496,6 +495,13 @@ function build (buildCount) {
       .use(logMessage('Built series hierarchy'))
       // Build HTML files
       .use(markdown)
+      .use(function (files, metalsmith, done) {
+        // convert excerpts to string (Markdown plugin returns a buffer, but metalsmith-excerpts will overwrite this)
+        Object.keys(files).forEach(file => {
+          if (files[file].excerpt) files[file].excerpt = files[file].excerpt.toString()
+        })
+        done()
+      })
       .use(logMessage('Converted Markdown to HTML'))
       .use(parseHTML())
       .use(logMessage('Postprocessed HTML'))
@@ -593,6 +599,7 @@ function build (buildCount) {
         slugify: slug,
         // collectionSlugs,
         // collectionInfo,
+        dateFormat: Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format,
         emailScramble,
         embedHostnames,
         environment: process.env.NODE_ENV
