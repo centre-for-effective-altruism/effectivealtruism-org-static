@@ -1,5 +1,6 @@
-mixin embed(src, aspect, title, showModalOnLoad)
+mixin embed(src, aspect, title, showModalOnLoad, height)
 	- var aspectRatio = aspect || '16by9'
+	- if (height) { aspectRatio = 'fixed' }
 	- var parsedSrc = url.parse(src)
 	- src = ['www.youtube.com'].indexOf(parsedSrc.hostname) > -1 && parsedSrc.pathname ==='/watch' && parsedSrc.query ? 'https://www.youtube.com/embed/'+parsedSrc.query.match(/v=([^&]*)/)[1] : src;
 		if aspectRatio === 'full'
@@ -21,5 +22,5 @@ mixin embed(src, aspect, title, showModalOnLoad)
 					})
 				})
 		else
-			.embed-responsive(class=('embed-responsive-'+aspectRatio))
+			.embed-responsive(class=('embed-responsive-'+aspectRatio), style= height ? `height: ${height};` : null)
 				iframe.embed-responsive-item(src=src)

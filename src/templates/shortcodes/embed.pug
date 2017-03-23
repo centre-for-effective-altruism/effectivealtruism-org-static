@@ -2,7 +2,8 @@
 - var aspectRatio = aspect || '16by9'
 - var embedTitle = title || ''
 - var showModalOnLoad = launch
+- var embedHeight = height
 
 if embedSrc
 	include ../components/responsive-embed
-	+embed(embedSrc,aspectRatio,embedTitle,showModalOnLoad)
+	+embed(embedSrc,aspectRatio,embedTitle,showModalOnLoad,embedHeight)
