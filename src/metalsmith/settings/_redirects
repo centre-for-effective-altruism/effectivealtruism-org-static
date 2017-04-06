@@ -5,6 +5,7 @@ https://www.effectivealtruism.com https://www.effectivealtruism.org/doing-good-b
 http://www.effectivealtruism.com/* https://www.effectivealtruism.org/:splat 301
 https://www.effectivealtruism.com/* https://www.effectivealtruism.org/:splat 301
 http://www.effectivealtruism.org/book https://www.effectivealtruism.org/doing-good-better 301
+https://www.effectivealtruism.org/book https://www.effectivealtruism.org/doing-good-better 301
 /people /community-profiles 301
 /ideas /articles 301
 /ideas/* /articles/:splat 301
