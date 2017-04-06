@@ -14,6 +14,8 @@ mixin includeChild (item,index, useNumbering, useExcerpts)
 			include ./series-person
 		when 'book'
 			include ./series-book
+		when 'quotation'
+			include ./series-quotation
 
 if seriesSlug && seriesSet[seriesSlug] && seriesSet[seriesSlug].children.length
 	each child,index in seriesSet[seriesSlug].children

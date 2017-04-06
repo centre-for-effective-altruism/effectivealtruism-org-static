@@ -276,6 +276,7 @@ function build (buildCount) {
           var layoutSubstitutions = {
             'Basic Page': 'page.pug',
             'Page with Table of Contents': 'page-with-toc.pug',
+            'Full-Width Page': 'page-full-width.pug',
             'Home Page': 'home.pug',
             'Basic Article': 'article.pug',
             'Article with Table of Contents': 'article-with-toc.pug'
@@ -331,6 +332,13 @@ function build (buildCount) {
           reverse: true,
           metadata: {
             singular: 'media-item'
+          }
+        },
+        'quotations': {
+          pattern: 'quotations/**/index.html',
+          sortBy: 'title',
+          metadata: {
+            singular: 'quotation'
           }
         }
       }))

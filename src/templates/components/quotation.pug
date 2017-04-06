@@ -2,8 +2,9 @@ if quotation && quotation.contentType === 'quotation'
     .quotation
         - var contentType = quotation.source.sys.contentType.sys.id
         - var source = quotation.source.fields
-        - var img = contentType === 'person' ? source.photo.fields.file.url : source.logo.fields.file.url
-        img.quotation-author-image(src=img+'?w=100&q=70&h=100&fit=thumb')
+        - var img = contentType === 'person' ? (source.photo ? source.photo.fields.file.url : false) : (source.logo ? source.logo.fields.file.url : false)
+        if img
+            img.quotation-author-image(src=img+'?w=100&q=70&h=100&fit=thumb')
         blockquote.quotation-text
             != quotation.contents
         .quotation-source
@@ -14,7 +15,10 @@ if quotation && quotation.contentType === 'quotation'
             p.quotation-source-details
                 if jobTitle
                     span.quotation-source-job-title!= jobTitle
+                if jobTitle && affiliatedOrganisation
+                    | , 
                 if affiliatedOrganisation
-                    span.quotation-source-affiliated-organisation , #{affiliatedOrganisation}
+                    - var affiliatedOrganisationFile = fileIDMap[affiliatedOrganisation.sys.id]
+                    span.quotation-source-affiliated-organisation #[a(href=affiliatedOrganisationFile.website)= affiliatedOrganisationFile.title]
                 if orgDescription
                     span.quotation-source-organisation-description!= orgDescription
