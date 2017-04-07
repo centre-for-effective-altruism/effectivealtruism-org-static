@@ -16,7 +16,7 @@ nav#navbar-main.navbar.navbar-primary.navbar-fixed-top
                                             case item.type
                                                 when 'page'
                                                     li.nav(class=(breadcrumb_path && breadcrumb_path[0] && breadcrumb_path[0].path === item.file.path ? 'active' : ''))
-                                                        a(href=item.file.canonical id="navbar-link-"+slug)!= item.file.title
+                                                        a(href=item.file.canonical id="navbar-link-"+slug)!= item.file.shortTitle || item.file.title
                                                 when 'link'
                                                     li.nav
                                                         a(href=item.file.url id="navbar-link-"+slug target="_blank")!= item.file.title
