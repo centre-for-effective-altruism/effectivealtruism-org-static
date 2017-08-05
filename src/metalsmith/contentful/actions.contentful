@@ -1,0 +1,8 @@
+---
+title: Actions
+contentful:
+  content_type: action
+  entry_template: action.pug
+  entry_filename_pattern: get-involved/${fields.slug}
+  create_permalinks: true
+---

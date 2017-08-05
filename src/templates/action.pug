@@ -1,0 +1,30 @@
+
+extends ./page
+block content
+  .row
+    #content.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2
+      .action-action-attributes
+        ul
+          li
+            i.fa.fa-user
+            |  #[strong Occupation:] 
+            != occupation.join(', ')
+          li
+            i.fa.clock-o
+            |  #[strong Time commitment:] 
+            != timeCommitment.join(', ')
+          li
+            i.fa.fa-calendar
+            |  #[strong Duration:] 
+            != duration.join(', ')
+          li
+            i.fa.fa-line-chart
+            |  #[strong Familiarity with EA:] 
+            strong
+            != familiarityWithEffectiveAltruism.join(', ')
+      hr
+      != contents
+      .action-back-button
+        a.btn.btn-default(href=`/get-involved#${slugify(title)}`)
+          i.fa.fa-chevron-left
+          |  Back to all actions

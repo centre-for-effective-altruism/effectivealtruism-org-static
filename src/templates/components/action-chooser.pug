@@ -1,0 +1,95 @@
+if seriesSet['get-involved-action-categories'] && seriesSet['get-involved-action-categories'].children && seriesSet['get-involved-action-categories'].children.length
+  .action-chooser
+    .action-chooser-filters
+      p.h3 Filters:
+      form.form
+        // Occupation
+        .form-group
+          label.control-label 
+            i.fa.fa-user
+            |  Occupation
+          select.form-control.action-chooser-filter-occupation
+            option(value='') (No filter)
+            option(value='Student') Student
+            option(value='Professional') Professional
+            option(value='Retired') Retired
+            option(value='Group') Group
+        // Time commitment
+        .form-group
+          label.control-label 
+            i.fa.fa-clock-o
+            |  Time Commitment 
+          select.form-control.action-chooser-filter-timecommitment
+            option(value='') (No filter)
+            option(value='Hours') Hours
+            option(value='Part-time') Part-time
+            option(value='Full-time') Full-time
+        // Duration
+        .form-group
+          label.control-label 
+            i.fa.fa-calendar
+            |  Duration
+          select.form-control.action-chooser-filter-duration
+            option(value='') (No filter)
+            option(value='Short-term') Short-term
+            option(value='Medium-term') Medium-term
+            option(value='Long-term') Long-term
+        // Familiarity with Effective Altruism
+        .form-group
+          label.control-label 
+            i.fa.fa-line-chart
+            |  Familiarity with Effective Altruism
+          select.form-control.action-chooser-filter-familiarity
+            option(value='') (No filter)
+            option(value='New') New to Effective Altruism
+            option(value='Familiar') Familiar
+            option(value='Very Familiar') Very familiar
+        .form-group
+          a.btn.btn-default.action-chooser-clear-filters-button
+            i.fa.fa-times
+            |  Clear filters
+    each _category in seriesSet['get-involved-action-categories'].children
+      if _category.children && _category.children.length
+        - const category = _category.file
+        .action-chooser-category(data-action-chooser-category=category.slug)
+          h3!= category.title
+          each _action in _category.children
+            - const action = _action.file
+            .action-chooser-action(
+              data-action-occupation=action.occupation  
+              data-action-timecommitment=action.timeCommitment  
+              data-action-duration=action.duration
+              data-action-familiarity=action.familiarityWithEffectiveAltruism
+            )
+              h4.action-chooser-action-title
+                a(href=action.canonical)!= action.title
+              .action-chooser-action-attributes
+                ul
+                  li
+                    i.fa.fa-user
+                    |  #[strong Occupation:] 
+                    != action.occupation.join(', ')
+                  li
+                    i.fa.clock-o
+                    |  #[strong Time commitment:] 
+                    != action.timeCommitment.join(', ')
+                  li
+                    i.fa.fa-calendar
+                    |  #[strong Duration:] 
+                    != action.duration.join(', ')
+                  li
+                    i.fa.fa-line-chart
+                    |  #[strong Familiarity with EA:] 
+                    strong
+                    != action.familiarityWithEffectiveAltruism.join(', ')
+              .action-chooser-action-excerpt
+                != action.excerpt
+              .action-chooser-action-read-more
+                a(href=action.canonical) Read more &rarr;
+else
+  p
+    em There are no actions to display!
+
+script.
+  loadScript('/scripts/action-chooser.min.js')
+

@@ -305,6 +305,13 @@ function build (buildCount) {
             singular: 'article'
           }
         },
+        actions: {
+          pattern: 'get-involved/**/index.html',
+          sortBy: 'slug',
+          metadata: {
+            singular: 'action'
+          }
+        },
         series: {
           pattern: 'series/**/index.html',
           sortBy: 'title',
