@@ -1,5 +1,14 @@
 
 extends ./page
+block header
+  .row
+    .col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2
+      header#header
+        include ./components/breadcrumbs
+        h1.page-title#page-title
+          small Action:
+          br 
+          != typogr.typogrify(title)
 block content
   .row
     #content.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2
@@ -25,6 +34,6 @@ block content
       hr
       != contents
       .action-back-button
-        a.btn.btn-default(href=`/get-involved#${slugify(title)}`)
+        a.btn.btn-default(href=`/get-involved`)
           i.fa.fa-chevron-left
           |  Back to all actions
