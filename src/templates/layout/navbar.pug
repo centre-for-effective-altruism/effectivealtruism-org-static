@@ -15,6 +15,7 @@ nav#navbar-main.navbar.navbar-primary.navbar-fixed-top
                                         each item in seriesSet['main-navigation'].children
                                             case item.type
                                                 when 'page'
+                                                when 'article'
                                                     li.nav(class=(breadcrumb_path && breadcrumb_path[0] && breadcrumb_path[0].path === item.file.path ? 'active' : ''))
                                                         a(href=item.file.canonical id="navbar-link-"+slug)!= item.file.shortTitle || item.file.title
                                                 when 'link'
