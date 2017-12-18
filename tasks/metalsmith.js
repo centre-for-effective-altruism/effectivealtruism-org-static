@@ -266,10 +266,10 @@ function build (buildCount) {
           meta.updated = meta.updated || meta.data.sys.updatedAt
           meta.contents = meta.contents && meta.contents.length > 0 ? meta.contents : ''
 
-          // concat footnotes into main content field
-          if (meta.footnotes) {
-            meta.contents = meta.contents + '\n\n' + meta.footnotes
-            delete meta.footnotes
+          // concat body overflow into main content field
+          if (meta.body2) {
+            meta.contents = meta.contents + '\n\n' + meta.body2
+            delete meta.body2
           }
 
           // remap 'layout' key from text string to filename
