@@ -5,13 +5,12 @@
 	}
 	hr {
 		border: none;
-		height: 1px;
+		height: 1em;
 		position: relative;
 		text-align: center;
 		&:before {
 			content: "* * *";
 			position: absolute;
-			top: -0.65em;
 		}
 	}
 	&>a.btn {
