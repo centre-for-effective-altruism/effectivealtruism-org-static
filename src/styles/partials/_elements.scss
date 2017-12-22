@@ -17,11 +17,11 @@ pre code {
     word-wrap: normal;
     white-space: pre;
 }
-// don't use a spinner for number inputs 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+// don't use a spinner for number inputs
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 figure {
@@ -65,6 +65,9 @@ table {
 }
 ul {
 	padding-left: 0;
+}
+li>ul {
+    margin-left: 1em;
 }
 
 ::selection {
