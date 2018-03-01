@@ -5,7 +5,7 @@ if seriesSet['get-involved-action-categories'] && seriesSet['get-involved-action
       form.form
         // Occupation
         .form-group
-          label.control-label 
+          label.control-label
             i.fa.fa-user
             |  Occupation
           select.form-control.action-chooser-filter-occupation
@@ -13,37 +13,36 @@ if seriesSet['get-involved-action-categories'] && seriesSet['get-involved-action
             option(value='Student') Student
             option(value='Professional') Professional
             option(value='Retired') Retired
-            option(value='Group') Group
         // Time commitment
         .form-group
-          label.control-label 
+          label.control-label
             i.fa.fa-clock-o
-            |  Time Commitment 
+            |  Time Commitment
           select.form-control.action-chooser-filter-timecommitment
             option(value='') (No filter)
-            option(value='Hours') Hours
-            option(value='Part-time') Part-time
-            option(value='Full-time') Full-time
+            option(value='Hours') Hours (10 hours or fewer)
+            option(value='Part-time') Part-time (10-20 hours)
+            option(value='Full-time') Full-time (20 hours or more)
         // Duration
         .form-group
-          label.control-label 
+          label.control-label
             i.fa.fa-calendar
             |  Duration
           select.form-control.action-chooser-filter-duration
             option(value='') (No filter)
-            option(value='Short-term') Short-term
-            option(value='Medium-term') Medium-term
-            option(value='Long-term') Long-term
+            option(value='Short-term') Short-term (Less than a month)
+            option(value='Medium-term') Medium-term (1-6 months)
+            option(value='Long-term') Long-term (more than 6 months)
         // Familiarity with Effective Altruism
         .form-group
-          label.control-label 
+          label.control-label
             i.fa.fa-line-chart
             |  Familiarity with Effective Altruism
           select.form-control.action-chooser-filter-familiarity
             option(value='') (No filter)
             option(value='New') New to Effective Altruism
             option(value='Familiar') Familiar
-            option(value='Very Familiar') Very familiar
+            option(value='Very Familiar') Very Familiar / Expert
         .form-group
           a.btn.btn-default.action-chooser-clear-filters-button
             i.fa.fa-times
@@ -56,8 +55,8 @@ if seriesSet['get-involved-action-categories'] && seriesSet['get-involved-action
           each _action in _category.children
             - const action = _action.file
             .action-chooser-action(
-              data-action-occupation=action.occupation  
-              data-action-timecommitment=action.timeCommitment  
+              data-action-occupation=action.occupation
+              data-action-timecommitment=action.timeCommitment
               data-action-duration=action.duration
               data-action-familiarity=action.familiarityWithEffectiveAltruism
             )
@@ -67,19 +66,19 @@ if seriesSet['get-involved-action-categories'] && seriesSet['get-involved-action
                 ul
                   li
                     i.fa.fa-user
-                    |  #[strong Occupation:] 
+                    |  #[strong Occupation:]
                     != action.occupation.join(', ')
                   li
                     i.fa.clock-o
-                    |  #[strong Time commitment:] 
+                    |  #[strong Time commitment:]
                     != action.timeCommitment.join(', ')
                   li
                     i.fa.fa-calendar
-                    |  #[strong Duration:] 
+                    |  #[strong Duration:]
                     != action.duration.join(', ')
                   li
                     i.fa.fa-line-chart
-                    |  #[strong Familiarity with EA:] 
+                    |  #[strong Familiarity with EA:]
                     strong
                     != action.familiarityWithEffectiveAltruism.join(', ')
               .action-chooser-action-excerpt
@@ -92,4 +91,3 @@ else
 
 script.
   loadScript('/scripts/action-chooser.min.js')
-
