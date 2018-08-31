@@ -11,3 +11,4 @@ bower_components
 src/metalsmith/styles/*
 src/metalsmith/scripts/*
 *.un~
+.idea
