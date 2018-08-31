@@ -16,7 +16,7 @@ block content
                 .col-sm-3
                     if photo
                         img.img-responsive(src=photo.fields.file.url)
-                    if organisations && organisations.length && organisations.some(function (org) {return org.fields})
+                    if organisations && organisations.length && organisations.some(org => org.fields)
                         .person-organisations
                             h4.person-organisations-header Affiliated with:
                             each organisation in organisations
