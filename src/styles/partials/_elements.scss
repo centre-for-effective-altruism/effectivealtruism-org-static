@@ -26,6 +26,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 figure {
 	margin: $grid-gutter-width/2 0;
+	text-align: center;
 	@media(max-width:$screen-xs-max){
 		overflow-x: scroll;
 	}
@@ -34,10 +35,11 @@ figure {
 	}
 	figcaption {
 		text-align: right;
+		display: inline-block;
 		font-weight: $font-weight-normal;
 		font-style: italic;
-		border-bottom: 2px dashed $site-secondary-darker;
-		padding: 5px 0;
+		border-bottom: 2px dashed #CCC;
+		padding: 5px 15px;
 	}
 }
 table {
