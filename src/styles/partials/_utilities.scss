@@ -84,3 +84,24 @@ p,h1,h2,h3,h4,h5,.navbar a,#content-wrapper a,li,[class^="fa-"],[class*=" fa-"] 
 .affix-bottom {
 	position: absolute;
 }
+
+img.width-half-md {
+	@media(min-width: $screen-md) {
+		width: 50%;
+		margin: auto;
+	}
+}
+
+img.width-two-thirds-md {
+	@media(min-width: $screen-md) {
+		width: 66%;
+		margin: auto;
+	}
+}
+
+img.width-one-third-md {
+	@media(min-width: $screen-md) {
+		width: 33%;
+		margin: auto;
+	}
+}
