@@ -171,7 +171,9 @@ function build (buildCount) {
       'youtube.com',
       'www.youtube.com',
       'youtu.be',
-      'vimeo.com'
+      'vimeo.com',
+      'www.ted.com',
+      'embed.ted.com'
     ]
 
     // shortcodes is used twice so abstract the options object
