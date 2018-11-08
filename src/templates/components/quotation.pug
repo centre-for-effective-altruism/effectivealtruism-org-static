@@ -16,9 +16,10 @@ if quotation && quotation.contentType === 'quotation'
                 if jobTitle
                     span.quotation-source-job-title!= jobTitle
                 if jobTitle && affiliatedOrganisation
-                    | , 
+                    | ,
                 if affiliatedOrganisation
                     - var affiliatedOrganisationFile = fileIDMap[affiliatedOrganisation.sys.id]
-                    span.quotation-source-affiliated-organisation #[a(href=affiliatedOrganisationFile.website)= affiliatedOrganisationFile.title]
+                    if affiliatedOrganisationFile
+                        span.quotation-source-affiliated-organisation #[a(href=affiliatedOrganisationFile.website)= affiliatedOrganisationFile.title]
                 if orgDescription
                     span.quotation-source-organisation-description!= orgDescription

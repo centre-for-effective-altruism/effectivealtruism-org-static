@@ -3,5 +3,6 @@ mixin jobTitle(jobTitle, organisations)
 		!= jobTitle
 		if organisations && organisations.length
 			- var organisation = organisations[0]
-			| , 
-			a(href=organisation.fields.website target="_blank")!= organisation.fields.title
+			if organization
+				| ,
+				a(href=organisation.fields.website target="_blank")!= organisation.fields.title
