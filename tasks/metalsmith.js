@@ -131,40 +131,6 @@ function build (buildCount) {
       buildTime = process.hrtime()
       buildTimeDiff = buildTime
     }
-    // // hacky solution to share data between Contentful pages and the 'pagination' plugin
-    // var collectionSlugs = ['ideas']
-    // var collectionInfo = {
-    //     ideas: {
-    //         title: 'Articles',
-    //         singular: 'article',
-    //         // sortBy: 'date',
-    //         // reverse: false,
-    //         perPage: 10
-    //     },
-    // }
-    // var collectionData = {}
-    // var collectionOptions = {}
-    // var paginationOptions = {}
-    // collectionSlugs.forEach(function(slug){
-    //     collectionData[slug] = {}
-    //     collectionOptions[slug] = {
-
-    //             pattern: collectionInfo[slug].singular+'/**/*.html',
-    //             sortBy: collectionInfo[slug].sortBy || 'title',
-    //             reverse: collectionInfo[slug].reverse || false,
-    //             metadata: {
-    //                 singular: collectionInfo[slug].singular,
-    //             }
-
-    //     }
-    //     paginationOptions['collections.'+slug] = {
-    //         perPage: collectionInfo[slug].perPage || 100,
-    //         template: './partials/collection-'+slug+'.swig',
-    //         first: slug+'/index.html',
-    //         path: slug+'/page/:num/index.html',
-    //         pageMetadata: collectionData[slug]
-    //     }
-    // })
 
     // hostnames where we should trigger an embed instead of a straight link
     var embedHostnames = [
@@ -238,13 +204,11 @@ function build (buildCount) {
       })
       .use(function (files, metalsmith, done) {
         // add defaults to all our contentful source files
-        /*eslint-disable */
         var defaults = {
           space_id: process.env.CONTENTFUL_SPACE,
           limit: 1000,
           permalink_style: true
         }
-        /*eslint-enable */
         Object.keys(files).filter(minimatch.filter('**/*.contentful')).forEach(function (file) {
           if (!files[file].contentful) {
             throw new Error('File ' + file + ' should have a `contenful` meta key')
@@ -290,9 +254,10 @@ function build (buildCount) {
           // concat body overflow into main content field
           for (let n in [...Array(10).keys()]) {
             const bodyField = `body${n}`
-            if (meta[bodyField]) {
-              meta.contents = meta.contents + '\n\n' + meta.body2
-              delete meta.body2
+            const bodyData = meta[bodyField]
+            if (bodyData) {
+              meta.contents = (`${meta.contents}\n\n${bodyData}`).trim()
+              delete meta[bodyField]
             }
           }
 
