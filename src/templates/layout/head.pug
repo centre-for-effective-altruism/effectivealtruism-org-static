@@ -9,7 +9,7 @@ head
         |  - #{site.title}
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='canonical', href=canonicalURL)
-    meta(name='description', content=strip(description))
+    meta(name='description', content=helpers.strip(description))
     link(rel='stylesheet', type='text/css', href='/styles/app.min.css')
     if environment==='development'
         link(rel='stylesheet', type='text/css', href='/styles/icons.css')

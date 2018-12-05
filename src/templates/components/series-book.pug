@@ -11,6 +11,6 @@ if file
 						!= file.title
 					| &nbsp;#[i.fa.fa-external-link]
 				if file.subtitle && file.subtitle.length
-					h4.series-item-subtitle.series-book-subtitle!= typogr.typogrify(file.subtitle)
+					h4.series-item-subtitle.series-book-subtitle!= helpers.typogr.typogrify(file.subtitle)
 				p.series-book-author!= file.author
-				p.series-book-link.series-item-external-link-info!= url.parse(file.url).hostname
+				p.series-book-link.series-item-external-link-info!= helpers.url.parse(file.url).hostname

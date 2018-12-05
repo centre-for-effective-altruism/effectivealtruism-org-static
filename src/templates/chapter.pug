@@ -9,10 +9,10 @@ block content
       h2 Get involved
       if contactEmail
         p
-          a(data-email-scramble href=emailScramble.encode(`mailto:${contactEmail}`))
+          a(data-email-scramble href=helpers.emailScramble.encode(`mailto:${contactEmail}`))
             i.fa.fa-at
-            |  
-            != emailScramble.encode(contactEmail)
+            |
+            != helpers.emailScramble.encode(contactEmail)
       if website
         p
           a(href=website target='_blank')

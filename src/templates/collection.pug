@@ -13,8 +13,8 @@ block content
                 each author, index in file.authors
                   a(href=`/people/${author.fields.slug}`)!= author.fields.title
                   if (index + 1) < file.authors.length
-                    | , 
-            p.date-published!= dateFormat(Date.parse(file.date))
+                    | ,
+            p.date-published!= helpers.dateFormat(Date.parse(file.date))
             != file.excerpt
             p
               a(href=`/${file.path}`) Read more &rarr;

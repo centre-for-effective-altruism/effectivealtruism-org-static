@@ -16,7 +16,7 @@ each _chapters, regionId in chaptersMapped
             td
               a(href=`/chapters/${chapter.slug}/`)!= chapter.title
             td
-              a(data-email-scramble href=emailScramble.encode(`mailto:${chapter.contactEmail}`))!= emailScramble.encode(chapter.contactEmail)
+              a(data-email-scramble href=helpers.emailScramble.encode(`mailto:${chapter.contactEmail}`))!= helpers.emailScramble.encode(chapter.contactEmail)
             td
               ul.list-unstyled
                 if chapter.website

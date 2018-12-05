@@ -205,9 +205,28 @@ function build (buildCount) {
       ]))
 
     // Set up some metadata
-    colophonemes.use(metadata({
-      'site': 'settings/site.json'
-    }))
+    colophonemes
+      .use(metadata({
+        site: 'settings/site.json'
+      }))
+      .use(function (files, metalsmith, done) {
+        const meta = metalsmith.metadata()
+        Object.assign(meta, {
+          helpers: {
+            typogr,
+            url,
+            moment,
+            strip,
+            jsFiles,
+            slug,
+            dateFormat: Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format,
+            emailScramble,
+            embedHostnames
+          },
+          environment: process.env.NODE_ENV
+        })
+        done()
+      })
       .use(function (files, metalsmith, done) {
         // build a full domain from our settings
         var meta = metalsmith.metadata()
@@ -269,9 +288,12 @@ function build (buildCount) {
           meta.contents = meta.contents && meta.contents.length > 0 ? meta.contents : ''
 
           // concat body overflow into main content field
-          if (meta.body2) {
-            meta.contents = meta.contents + '\n\n' + meta.body2
-            delete meta.body2
+          for (let n in [...Array(10).keys()]) {
+            const bodyField = `body${n}`
+            if (meta[bodyField]) {
+              meta.contents = meta.contents + '\n\n' + meta.body2
+              delete meta.body2
+            }
           }
 
           // remap 'layout' key from text string to filename
@@ -604,22 +626,11 @@ function build (buildCount) {
         done()
       })
       .use(layouts({
-        engine: 'pug',
         directory: '../src/templates',
-        pretty: process.env.NODE_ENV === 'development',
-        cache: true,
-        typogr,
-        url,
-        moment,
-        strip,
-        jsFiles,
-        slugify: slug,
-        // collectionSlugs,
-        // collectionInfo,
-        dateFormat: Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format,
-        emailScramble,
-        embedHostnames,
-        environment: process.env.NODE_ENV
+        engineOptions: {
+          pretty: process.env.NODE_ENV === 'development',
+          cache: true
+        }
       }))
       .use(logMessage('Built HTML files from templates'))
       .use(icons({

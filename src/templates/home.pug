@@ -45,7 +45,7 @@ block contentWrapper
                                             a(href=child.file.canonical id=slug+"-reading-"+child.file.slug)
                                                 != child.file.title
                                         if child.type === 'link'
-                                            a(href=child.file.url target="_blank" id=slug+"-reading-"+slugify(child.file.url))
+                                            a(href=child.file.url target="_blank" id=slug+"-reading-"+helpers.slug(child.file.url))
                                                 != child.file.title
                                             | &nbsp;#[i.fa.fa-external-link]
 

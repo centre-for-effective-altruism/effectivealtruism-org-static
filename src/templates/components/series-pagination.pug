@@ -11,24 +11,24 @@ if Object.keys(series).length>0
 	each s,seriesSlug in series
 		if seriesSet[seriesSlug] && seriesSet[seriesSlug] && seriesSet[seriesSlug].file.paginateItems
 			.series-pagination
-				.series-pagination-series-title-wrapper Part of the series 
-					h4.series-pagination-series-title!= typogr.typogrify(seriesSet[seriesSlug].file.title)
+				.series-pagination-series-title-wrapper Part of the series
+					h4.series-pagination-series-title!= helpers.typogr.typogrify(seriesSet[seriesSlug].file.title)
 					-var seriesContentsID = "series-contents-"+seriesSlug
 					ol.collapse.series-contents(id=seriesContentsID)
 						each child,index in seriesSet[seriesSlug].children
-							li.series-contents-item #{index+1}. 
-								- var itemText = typogr.typogrify(child.file.title)
+							li.series-contents-item #{index+1}.
+								- var itemText = helpers.typogr.typogrify(child.file.title)
 								if canonical === child.file.canonical
 									strong!= itemText
-								else 
+								else
 									a(href=child.file.canonical)!= itemText
 					a.series-contents-toggle.collapsed(href='#'+seriesContentsID, role="button", data-toggle="collapse", aria-expanded="false" aria-controls=seriesContentsID)
-						span.show-contents 
+						span.show-contents
 							| show
 						span.hide-contents
 							| hide
-						|  contents 
-						span.show-contents 
+						|  contents
+						span.show-contents
 							i.fa.fa-plus-circle
 						span.hide-contents
 							i.fa.fa-times-circle
@@ -40,15 +40,15 @@ if Object.keys(series).length>0
 								i.fa.fa-long-arrow-left
 								|  Previous #{seriesType}
 								br
-								strong!= typogr.typogrify(s.previous.file.title)
-						else 
+								strong!= helpers.typogr.typogrify(s.previous.file.title)
+						else
 							+parentLink('Beginning', seriesSet[seriesSlug].file)
 					li.series-pagination-next
 						if s.next
 							a(href=s.next.file.canonical)
-								| Next #{seriesType} 
+								| Next #{seriesType}
 								i.fa.fa-long-arrow-right
 								br
-								strong!= typogr.typogrify(s.next.file.title)
-						else 
+								strong!= helpers.typogr.typogrify(s.next.file.title)
+						else
 							+parentLink('End', seriesSet[seriesSlug].file)

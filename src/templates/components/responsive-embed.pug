@@ -1,11 +1,11 @@
 mixin embed(src, aspect, title, showModalOnLoad, height)
 	- var aspectRatio = aspect || '16by9'
 	- if (height) { aspectRatio = 'fixed' }
-	- var parsedSrc = url.parse(src)
+	- var parsedSrc = helpers.url.parse(src)
 	- src = ['www.youtube.com'].indexOf(parsedSrc.hostname) > -1 && parsedSrc.pathname ==='/watch' && parsedSrc.query ? 'https://www.youtube.com/embed/'+parsedSrc.query.match(/v=([^&]*)/)[1] : src;
 	- src = ['www.ted.com'].indexOf(parsedSrc.hostname) > -1 ? src.replace('www.ted.com', 'embed.ted.com') : src;
 		if aspectRatio === 'full'
-			- var modalId = slugify(parsedSrc.hostname+'-'+parsedSrc.pathname).replace(/\./g,'').replace(/\#/g,'')
+			- var modalId = helpers.slug(parsedSrc.hostname+'-'+parsedSrc.pathname).replace(/\./g,'').replace(/\#/g,'')
 			- var embedTitle = title || ''
 			a.btn.btn-primary(id=modalId+'-launch' href="#") Launch #{embedTitle}
 			include ../helpers/modal

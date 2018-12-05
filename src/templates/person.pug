@@ -4,7 +4,7 @@ block header
     .row
         .col-md-10.col-md-offset-1
             include ./components/breadcrumbs
-            h2.page-title.person-page-title(class=(!jobTitle || !jobTitle.length ? 'no-job-title' : ''))#page-title!= typogr.typogrify(title)
+            h2.page-title.person-page-title(class=(!jobTitle || !jobTitle.length ? 'no-job-title' : ''))#page-title!= helpers.typogr.typogrify(title)
             if jobTitle && jobTitle.length
                 p.person-job-title
                     include ./helpers/job-title

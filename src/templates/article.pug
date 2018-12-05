@@ -9,19 +9,19 @@ block content
             each author, index in authors
               a(href=`/people/${author.fields.slug}`)!= author.fields.title
               if (index + 1) < authors.length
-                | , 
-        p.date-published!= dateFormat(Date.parse(date))
+                | ,
+        p.date-published!= helpers.dateFormat(Date.parse(date))
       if sourceLink
         - const link = fileIDMap[sourceLink.sys.id]
         if link && link.url
-          - const linkUrl = url.parse(link.url)
+          - const linkUrl = helpers.url.parse(link.url)
           p.article-source-link
-            | This article was originally published as 
+            | This article was originally published as
             a(href=link.url target='_blank') #{link.title}
-            |  on 
-            span.article-source-link-domain #{linkUrl.hostname}
+            |  on
+            span.article-source-link-domain #{link.url.hostname}
             | &nbsp;#[i.fa.fa-external-link]
-            
+
       != contents
 
       include ./components/series-pagination

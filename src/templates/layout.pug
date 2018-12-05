@@ -15,8 +15,8 @@ html.no-js(prefix="og: http://ogp.me/ns#")
     if environment !=='production'
         .build-info
             p
-                | Build environment: 
+                | Build environment:
                 em #{environment}
-                |  | Built at: 
-                em #{moment().utc().format('YYYY-M-D HH:mm')} (UTC)
-    include ./layout/scripts 
+                |  | Built at:
+                em #{helpers.moment().utc().format('YYYY-M-D HH:mm')} (UTC)
+    include ./layout/scripts

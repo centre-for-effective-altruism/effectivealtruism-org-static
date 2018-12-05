@@ -7,8 +7,8 @@ block header
         include ./components/breadcrumbs
         h1.page-title#page-title
           small Action:
-          br 
-          != typogr.typogrify(title)
+          br
+          != helpers.typogr.typogrify(title)
 block content
   .row
     #content.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2
@@ -16,19 +16,19 @@ block content
         ul
           li
             i.fa.fa-user
-            |  #[strong Occupation:] 
+            |  #[strong Occupation:]
             != occupation.join(', ')
           li
             i.fa.clock-o
-            |  #[strong Time commitment:] 
+            |  #[strong Time commitment:]
             != timeCommitment.join(', ')
           li
             i.fa.fa-calendar
-            |  #[strong Duration:] 
+            |  #[strong Duration:]
             != duration.join(', ')
           li
             i.fa.fa-line-chart
-            |  #[strong Familiarity with EA:] 
+            |  #[strong Familiarity with EA:]
             strong
             != familiarityWithEffectiveAltruism.join(', ')
       hr
