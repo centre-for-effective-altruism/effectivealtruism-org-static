@@ -1,4 +1,31 @@
 script#app-script(src='/scripts/app.min.js' type="application/x-no-execution" async)
 script(src='/scripts/loader.min.js' async)
 if environment === 'production'
-	script(src="https://load.sumome.com/" data-sumo-site-id="31f52ccb8798cf64f2d6317d57d5890e884972a8da8d7852c1aa7a4fe0a9e67b" async="async")
+  script(src="https://load.sumome.com/" data-sumo-site-id="31f52ccb8798cf64f2d6317d57d5890e884972a8da8d7852c1aa7a4fe0a9e67b" async="async")
+script.
+  loadScript(function () {
+    var linkRegExp = /^http:\/\//i
+
+    // register analytics.trackLink handlers
+    function registerClickHandler (a) {
+      // sanitize/normalize the URL
+      var url = a.href
+        .replace(linkRegExp, '') // remove protocol
+        .replace('/\\$/', '') // remove trailing slash
+      // send data to segment
+      analytics.trackLink(a, 'Clicked Link', {
+        category: 'Outbound Link',
+        label: url
+      })
+    }
+    // loop through all links in the document
+    var links = document.getElementsByTagName('a');
+    for (var i = 0; i < links.length; i++) {
+      var a = links[i]
+      // check we have an outbound link
+      if (a.href.indexOf(window.location.host) == -1 && a.href.match(linkRegExp)) {
+        // add the handler
+        registerClickHandler(a)
+      }
+    }
+  })
