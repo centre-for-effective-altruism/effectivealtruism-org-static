@@ -13,7 +13,7 @@ script.
         .replace(linkRegExp, '') // remove protocol
         .replace('/\\$/', '') // remove trailing slash
       // send data to segment
-      analytics.trackLink(a, 'Clicked Link', {
+      analytics.trackLink(a, 'Accessed URL', {
         category: 'Outbound Link',
         label: url
       })
