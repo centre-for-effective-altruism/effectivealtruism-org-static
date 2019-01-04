@@ -73,7 +73,7 @@ case collectionSlug
 						#{defaultOGImage}
 					]
 				},
-				"datePublished": #{date}
+				"datePublished": "#{date}"
 			}
 	when 'person'
 		script(type="application/ld+json").
@@ -81,7 +81,7 @@ case collectionSlug
 				"@context": "http://schema.org",
 				"@type": "Person",
 				"url": "#{canonicalURL}",
-				"name": #{title}
+				"name": "#{title}"
 			}
 	default
 		script(type="application/ld+json").
