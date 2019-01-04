@@ -4,7 +4,7 @@ if environment === 'production'
   script(src="https://load.sumome.com/" data-sumo-site-id="31f52ccb8798cf64f2d6317d57d5890e884972a8da8d7852c1aa7a4fe0a9e67b" async="async")
 script.
   loadScript(function () {
-    var linkRegExp = /^http:\/\//i
+    var linkRegExp = /^https?:\/\//i
 
     // register analytics.trackLink handlers
     function registerClickHandler (a) {
