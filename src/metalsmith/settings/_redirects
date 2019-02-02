@@ -1,5 +1,3 @@
-http://www.effectivealtruism.com/ www.williammacaskill.com/ 301
-https://www.effectivealtruism.com/ www.williammacaskill.com/ 301
 http://www.effectivealtruism.com/media/ www.williammacaskill.com/media-coverage/ 301
 https://www.effectivealtruism.com/media/ www.williammacaskill.com/media-coverage/ 301
 http://www.effectivealtruism.com/errata/ www.williammacaskill.com/errata/ 301
@@ -12,6 +10,11 @@ http://www.effectivealtruism.com/foreign-media-coverage/  www.williammacaskill.c
 https://www.effectivealtruism.com/foreign-media-coverage/  www.williammacaskill.com/foreign-media-coverage/ 301
 http://www.effectivealtruism.com/the-movement/ www.effectivealtruism.org/ 301
 https://www.effectivealtruism.com/the-movement/ www.effectivealtruism.org/ 301
+# redirect everything else to .org domain
+http://www.effectivealtruism.com https://www.effectivealtruism.org 301
+https://www.effectivealtruism.com https://www.effectivealtruism.org 301
+http://www.effectivealtruism.com/* https://www.effectivealtruism.org/:splat 301
+https://www.effectivealtruism.com/* https://www.effectivealtruism.org/:splat 301
 /people /community-profiles 301
 /ideas /articles 301
 /ideas/* /articles/:splat 301
