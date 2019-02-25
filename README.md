@@ -23,4 +23,4 @@ CONTENTFUL_SPACE=<contenful space>
 
 ![](https://live.browserstack.com/images/opensource/browserstack-logo.svg)
 
-Browserstack has generously granted us an open source license for this project. We're an all mac dev shop and it's useful to test out on windows.
+BrowserStack has generously granted us an open source license for this project. We're an all mac dev shop and it's useful to test out on windows.
