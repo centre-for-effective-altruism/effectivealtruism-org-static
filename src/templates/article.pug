@@ -16,10 +16,10 @@ block content
         if link && link.url
           - const linkUrl = helpers.url.parse(link.url)
           p.article-source-link
-            | This article was originally published as
-            a(href=link.url target='_blank') #{link.title}
-            |  on
-            span.article-source-link-domain #{link.url.hostname}
+            | This article was originally published as#{' '}
+            a(href=link.url target='_blank') #{link.title}#{' '}
+            |  on#{' '}
+            span.article-source-link-domain #{linkUrl.hostname}
             | &nbsp;#[i.fa.fa-external-link]
 
       != contents
