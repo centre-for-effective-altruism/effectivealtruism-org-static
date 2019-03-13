@@ -19,8 +19,8 @@ block content
             | This article was originally published as#{' '}
             a(href=link.url target='_blank') #{link.title}#{' '}
             |  on#{' '}
-            span.article-source-link-domain #{linkUrl.hostname}
-            | &nbsp;#[i.fa.fa-external-link]
+            span.article-source-link-domain
+              | #{linkUrl.hostname}&nbsp;#[i.fa.fa-external-link(style='display: inline;')]
 
       != contents
 
