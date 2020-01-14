@@ -27,7 +27,7 @@
     "async": "^2.0.0-rc.6",
     "autolinker": "^1.8.1",
     "better-console": "^1.0.1",
-    "bootstrap-sass": "^3.3.6",
+    "bootstrap-sass": "^3.4.1",
     "browser-cookies": "^1.0.8",
     "browserify": "^16.2.3",
     "browserify-shim": "^3.8.12",
