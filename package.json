@@ -42,7 +42,7 @@
     "express": "^4.14.0",
     "html-entities": "^1.2.0",
     "iframe-resizer": "^3.5.5",
-    "jquery": "^3.0.0",
+    "jquery": "^3.5.0",
     "jstransformer-pug": "^0.3.0",
     "lazysizes": "^4.1.4",
     "markdown-it-attrs": "^2.3.2",
