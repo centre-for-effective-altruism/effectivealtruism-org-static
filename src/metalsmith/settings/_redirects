@@ -1,20 +1,20 @@
-http://www.effectivealtruism.com/media/ www.williammacaskill.com/media-coverage/ 301
-https://www.effectivealtruism.com/media/ www.williammacaskill.com/media-coverage/ 301
-http://www.effectivealtruism.com/errata/ www.williammacaskill.com/errata/ 301
-https://www.effectivealtruism.com/errata/ www.williammacaskill.com/errata/ 301
-http://www.effectivealtruism.com/contact/ www.williammacaskill.com/press/ 301
-https://www.effectivealtruism.com/contact/ www.williammacaskill.com/press/ 301
-http://www.effectivealtruism.com/press/ www.williammacaskill.com/press/ 301
-https://www.effectivealtruism.com/press/ www.williammacaskill.com/press/ 301
-http://www.effectivealtruism.com/foreign-media-coverage/  www.williammacaskill.com/foreign-media-coverage/ 301
-https://www.effectivealtruism.com/foreign-media-coverage/  www.williammacaskill.com/foreign-media-coverage/ 301
-http://www.effectivealtruism.com/the-movement/ www.effectivealtruism.org/ 301
-https://www.effectivealtruism.com/the-movement/ www.effectivealtruism.org/ 301
+# http://www.effectivealtruism.com/media https://www.williammacaskill.com/media-coverage 301!
+https://www.effectivealtruism.com/media https://www.williammacaskill.com/media-coverage 301!
+# http://www.effectivealtruism.com/errata https://www.williammacaskill.com/errata 301!
+https://www.effectivealtruism.com/errata https://www.williammacaskill.com/errata 301!
+# http://www.effectivealtruism.com/contact https://www.williammacaskill.com/press 301!
+https://www.effectivealtruism.com/contact https://www.williammacaskill.com/press 301!
+# http://www.effectivealtruism.com/press https://www.williammacaskill.com/press 301!
+https://www.effectivealtruism.com/press https://www.williammacaskill.com/press 301!
+# http://www.effectivealtruism.com/foreign-media-coverage  https://www.williammacaskill.com/foreign-media-coverage 301!
+https://www.effectivealtruism.com/foreign-media-coverage  https://www.williammacaskill.com/foreign-media-coverage 301!
+# http://www.effectivealtruism.com/the-movement www.effectivealtruism.org 301!
+https://www.effectivealtruism.com/the-movement https://www.effectivealtruism.org 301!
 # redirect everything else to .org domain
-http://www.effectivealtruism.com https://www.effectivealtruism.org 301
+# http://www.effectivealtruism.com https://www.effectivealtruism.org 301
 https://www.effectivealtruism.com https://www.effectivealtruism.org 301
-http://www.effectivealtruism.com/* https://www.effectivealtruism.org/:splat 301
-https://www.effectivealtruism.com/* https://www.effectivealtruism.org/:splat 301
+# http://www.effectivealtruism.com/* https://www.effectivealtruism.org/:splat 301
+https://www.effectivealtruism.com/* https://www.effectivealtruism.org/:splat 301!
 /people /community-profiles 301
 /ideas /articles 301
 /ideas/* /articles/:splat 301
@@ -58,4 +58,4 @@ https://www.effectivealtruism.com/* https://www.effectivealtruism.org/:splat 301
 /articles/prospecting-for-gold-part-1-owen-cotton-barratt /articles/prospecting-for-gold-owen-cotton-barratt 301
 /articles/prospecting-for-gold-part-2-owen-cotton-barratt /articles/prospecting-for-gold-owen-cotton-barratt 301
 /get-involved-new /get-involved 301
-/groups-mentorship-and-funding/ /group-support-funding/ 301
+/groups-mentorship-and-funding /group-support-funding 301!
