@@ -1,8 +1,0 @@
----
-title: Organisations
-contentful:
-  content_type: organisation
-  entry_template: page.pug
-  entry_filename_pattern: organisations/${fields.slug}
-  create_permalinks: true
----
