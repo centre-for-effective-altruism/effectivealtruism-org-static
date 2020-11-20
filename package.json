@@ -55,7 +55,7 @@
     "metalsmith-branch": "0.0.5",
     "metalsmith-clean-css": "^6.0.0",
     "metalsmith-collections": "^0.9.0",
-    "metalsmith-concat": "^6.0.0",
+    "metalsmith-concat": "^5.0.0",
     "metalsmith-copy": "https://github.com/mattwidmann/metalsmith-copy/tarball/master",
     "metalsmith-excerpts": "^1.2.0",
     "metalsmith-feed": "^1.0.0",
