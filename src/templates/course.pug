@@ -1,0 +1,72 @@
+extends ./page
+
+include ./helpers/formatDates
+
+block content
+  .row
+    #content.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2
+      if featuredImage
+        div.course-featured-image(style=`background-image: url(https:${featuredImage.fields.file.url});`)
+
+      section.course-details.course-section
+        h6 Course title
+        p!= title
+        .row
+          if hostOrganisations && hostOrganisations.length
+            div(class=(hostOrganisations.length === 1 ? 'col-md-6' : 'col-md-12'))
+              h6 Host organization#{hostOrganisations.length > 1 ? 's' : ''}
+              p
+                each organisation, index in hostOrganisations
+                  if (index > 0)
+                    | ,#{' '}
+                  a(href=organisation.fields.website target='_blank' rel='noopener')
+                    != organisation.fields.title
+          .col-md-6
+            h6 Dates
+            p
+              +formatStartEndDates(startDate, endDate, fuzzyDate)
+          if timeZone
+            .col-md-6
+              h6 Time zone
+              p
+                != timeZone
+          if contactEmail
+            .col-md-6
+              h6 Contact email
+              p
+                a(data-email-scramble href=helpers.emailScramble.encode(`mailto:${contactEmail}`))
+                  != helpers.emailScramble.encode(contactEmail)
+        if applicationLink && !applicationsClosed
+          .row
+            .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.col-lg-4.col-lg-offset-4
+              a(href=applicationLink target='_blank' rel='noopener').btn.btn-primary.btn-block.btn-large
+                != applicationLinkText || 'Apply Now'
+                i.fa.fa-chevron-right
+        if !applicationLink && !applicationsClosed
+          p.center
+            em Applications opening soon
+        if applicationsClosed && moment(endDate).isAfter(moment(), 'day')
+          p.center
+            em Applications to this course have closed
+      section.course-description.course-section
+        != contents
+
+      if featuredFacilitators && featuredFacilitators.length
+        section.course-facilitators.course-section
+          h2 Featured Facilitators
+          each _person in featuredFacilitators
+            - var person = fileIDMap[_person.sys.id]
+            .course-facilitator
+              h3=person.title
+                if person.organisations && person.organisations.length
+                  - var organisation = person.organisations[0].fields
+                  | #{' '}
+                  small
+                    a(href=organisation.website target='_blank' rel='noopener')=organisation.title
+
+              .row
+                .col-md-3
+                  img.responsive-img(src=`${person.photo.fields.file.url}?w=600&fit=fill&f=face`)
+                .col-md-9
+                  != person.contents
+      block postContent

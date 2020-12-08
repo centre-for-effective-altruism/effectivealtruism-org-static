@@ -1,0 +1,8 @@
+---
+title: Courses
+contentful:
+  content_type: course
+  entry_template: course.pug
+  entry_filename_pattern: courses/${fields.slug}
+  create_permalinks: true
+---

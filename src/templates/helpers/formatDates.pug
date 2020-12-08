@@ -1,0 +1,16 @@
+mixin formatStartEndDates(start, end, fuzzy)
+  if start && end
+    span.course-dates
+      if (!fuzzy)
+        | #{moment(start).format('D')}
+      if moment(end).isAfter(start,'month')
+        |  #{moment(start).format('MMMM')}
+      if moment(end).isAfter(start,'year')
+        |  #{moment(start).format('YYYY')}
+      if fuzzy && moment(end).isAfter(start,'month')
+        |  &ndash;
+      if !fuzzy && moment(end).isAfter(start,'day')
+        |  &ndash; #{moment(end).format('D')}
+      |  #{moment(end).format('MMMM YYYY')}
+  else
+    span.course-dates.course-dates-tba Dates TBA
