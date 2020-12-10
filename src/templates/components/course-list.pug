@@ -1,0 +1,35 @@
+include ../helpers/formatDates
+
+
+mixin courseCard (course)
+  .col-md-4
+    .collection-course
+      a(href=`/${course.path}`)
+        .collection-course-featured-image(style=`background-image: url(https:${course.featuredImage.fields.file.url}?w=600&fit=fill);`)
+        h3.collection-course-title
+          a(href=`/${course.path}`)
+            != course.title
+      p.collection-course-host-organisations By#{' '}
+        each organisation, index in course.hostOrganisations
+          if index > 0
+            | ,#{' '}
+          !=organisation.fields.title
+      p.collection-course-dates
+        +formatStartEndDates(course.startDate, course.endDate, course.fuzzyDate)
+      .collection-course-short-description
+        != course.shortDescription
+
+- var courseFilter = (course => moment(course.startDate).isAfter(moment(), 'day') && !course.applicationsClosed) ||  moment(course.endDate).isAfter(moment(), 'day')
+- var openCourses = courses.filter(courseFilter).reverse()
+- var closedCourses = courses.filter(course => !courseFilter(course))
+if openCourses.length
+  h2.collection-course-heading Open courses
+  .row
+    each course in openCourses
+      +courseCard(course)
+
+if closedCourses.length
+  h2.collection-course-heading Past courses
+  .row
+    each course in closedCourses
+      +courseCard(course)
