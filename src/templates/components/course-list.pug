@@ -19,7 +19,7 @@ mixin courseCard (course)
       .collection-course-short-description
         != course.shortDescription
 
-- var courseFilter = course => moment(course.startDate).isAfter(moment(), 'day') && !course.applicationsClosed
+- var courseFilter = (course => moment(course.startDate).isAfter(moment(), 'day') && !course.applicationsClosed) ||  moment(course.endDate).isAfter(moment(), 'day')
 - var openCourses = courses.filter(courseFilter).reverse()
 - var closedCourses = courses.filter(course => !courseFilter(course))
 if openCourses.length
