@@ -20,16 +20,16 @@ mixin courseCard (course)
         != course.shortDescription
 
 - var courseFilter = (course => moment(course.startDate).isAfter(moment(), 'day') && !course.applicationsClosed) ||  moment(course.endDate).isAfter(moment(), 'day')
-- var openCourses = courses.filter(courseFilter).reverse()
-- var closedCourses = courses.filter(course => !courseFilter(course))
+- var openCourses = virtualPrograms.filter(courseFilter).reverse()
+- var closedCourses = virtualPrograms.filter(course => !courseFilter(course))
 if openCourses.length
-  h2.collection-course-heading Open courses
+  h2.collection-course-heading Open Programs
   .row
     each course in openCourses
       +courseCard(course)
 
 if closedCourses.length
-  h2.collection-course-heading Past courses
+  h2.collection-course-heading Past Programs
   .row
     each course in closedCourses
       +courseCard(course)
