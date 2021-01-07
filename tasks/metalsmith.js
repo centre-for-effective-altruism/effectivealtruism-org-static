@@ -361,10 +361,10 @@ function build(buildCount) {
               singular: "chapter",
             },
           },
-          courses: {
-            pattern: "courses/**/index.html",
+          virtualPrograms: {
+            pattern: "virtual-programs/**/index.html",
             sortBy: function (a, b) {
-              // sort courses by start date, descending
+              // sort programs by start date, descending
               if (moment(a.startDate).isBefore(moment(b.startDate), "day"))
                 return 1;
               if (moment(a.startDate).isAfter(moment(b.startDate), "day"))
@@ -372,7 +372,7 @@ function build(buildCount) {
               return 0;
             },
             metadata: {
-              singular: "course",
+              singular: "virtual-program",
             },
           },
           mediaItems: {
