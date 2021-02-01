@@ -9,11 +9,11 @@ mixin courseCard (course)
         h3.collection-course-title
           a(href=`/${course.path}`)
             != course.title
-      p.collection-course-host-organisations By#{' '}
-        each organisation, index in course.hostOrganisations
-          if index > 0
-            | ,#{' '}
-          !=organisation.fields.title
+      //- p.collection-course-host-organisations By#{' '}
+      //-   each organisation, index in course.hostOrganisations
+      //-     if index > 0
+      //-       | ,#{' '}
+      //-     !=organisation.fields.title
       p.collection-course-dates
         +formatStartEndDates(course.startDate, course.endDate, course.fuzzyDate)
       .collection-course-short-description
