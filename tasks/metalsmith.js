@@ -727,7 +727,7 @@ function build(buildCount) {
       .use(
         lazysizes({
           widths: [100, 480, 768, 992, 1200, 1800],
-          qualities: [50, 70, 70, 70, 70, 70],
+          qualities: [100, 70, 70, 70, 70, 70],
           backgrounds: [
             "#banner",
             ".content-block-wrapper",
