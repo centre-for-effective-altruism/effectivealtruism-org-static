@@ -4,7 +4,7 @@ if quotation && quotation.contentType === 'quotation'
         - var source = quotation.source.fields
         - var img = contentType === 'person' ? (source.photo ? source.photo.fields.file.url : false) : (source.logo ? source.logo.fields.file.url : false)
         if img
-            img.quotation-author-image(src=img+'?w=200&q=100&h=200&fit=thumb')
+            img.quotation-author-image(src=img+'?w=480&q=70&h=480&fit=thumb')
         blockquote.quotation-text
             != quotation.contents
         .quotation-source
