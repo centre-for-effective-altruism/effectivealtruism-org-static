@@ -89,7 +89,7 @@
     "recursive-readdir": "^2.0.0",
     "rimraf": "^2.5.2",
     "slug": "^0.9.1",
-    "striptags": "^3.1.1",
+    "striptags": "^3.2.0",
     "throttle-debounce": "^2.0.1",
     "truncate": "^2.0.0",
     "typogr": "^0.6.6",
