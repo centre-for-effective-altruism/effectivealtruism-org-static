@@ -42,6 +42,7 @@ const MarkdownItSup = require("markdown-it-sup");
 const MarkdownItSub = require("markdown-it-sub");
 const MarkdownItFootnote = require("markdown-it-footnote");
 const MarkdownItContainer = require("markdown-it-container");
+const MarkdownItInlineComments = require("markdown-it-inline-comments");
 const markdown = MarkdownIt({
   plugin: {
     pattern: "**/*.html",
@@ -53,6 +54,7 @@ const markdown = MarkdownIt({
   .use(MarkdownItSup)
   .use(MarkdownItSub)
   .use(MarkdownItFootnote)
+  .use(MarkdownItInlineComments)
   .use(MarkdownItContainer, "classname", {
     validate: (name) => {
       const classes = name.trim().split(" ");
